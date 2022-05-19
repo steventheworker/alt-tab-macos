@@ -15,7 +15,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let id = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
-    static let repository = "https://github.com/lwouis/alt-tab-macos"
+    static let repository = "https://github.com/steventheworker/alt-tab-macos"
     static var app: App!
     var thumbnailsPanel: ThumbnailsPanel!
     var preferencesWindow: PreferencesWindow!

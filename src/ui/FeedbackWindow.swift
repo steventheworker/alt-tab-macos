@@ -97,7 +97,7 @@ class FeedbackWindow: NSWindow {
     }
 
     private func prepareRequest() -> URLRequest {
-        var request = URLRequest(url: URL(string: "https://api.github.com/repos/lwouis/alt-tab-macos/issues")!)
+        var request = URLRequest(url: URL(string: "https://api.github.com/repos/steventheworker/alt-tab-macos/issues")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
