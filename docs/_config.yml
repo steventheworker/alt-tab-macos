@@ -1,4 +1,4 @@
-repository: lwouis/alt-tab-macos
+repository: steventheworker/alt-tab-macos
 theme: null # bug in github-pages generates a css file; we prevent it
 title: "AltTab"
 baseurl: "/"
