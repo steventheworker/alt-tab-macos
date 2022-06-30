@@ -4,7 +4,6 @@ import LetsMove
 import ShortcutRecorder
 import AppCenterCrashes
 
-
 let cgsMainConnectionId = CGSMainConnectionID()
 
 var activity = ProcessInfo.processInfo.beginActivity(options: .userInitiatedAllowingIdleSystemSleep,
@@ -98,7 +97,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     // we put application code here which should be executed on init() and Preferences change
     func resetPreferencesDependentComponents() {
         ThumbnailsView.recycledViews = ThumbnailsView.recycledViews.map { _ in ThumbnailView() }
-        thumbnailsPanel.thumbnailsView.layer!.cornerRadius = Preferences.windowCornerRadius
+        thumbnailsPanel.thumbnailsView.updateRoundedCorners(Preferences.windowCornerRadius)
     }
 
     func restart() {
@@ -134,11 +133,11 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func quitSelectedApp() {
-        Windows.focusedWindow()?.quitApp()
+        Windows.focusedWindow()?.application.quit()
     }
 
     func hideShowSelectedApp() {
-        Windows.focusedWindow()?.hideShowApp()
+        Windows.focusedWindow()?.application.hideOrShow()
     }
 
     func focusTarget() {
@@ -248,6 +247,8 @@ class App: AppCenterApplication, NSApplicationDelegate {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             isFirstSummon = false
             if Windows.list.count == 0 || CGWindow.isMissionControlActive() { hideUi(); return }
+            // TODO: can the CGS call inside detectTabbedWindows introduce latency when WindowServer is busy?
+            Windows.detectTabbedWindows()
             // TODO: find a way to update space info when spaces are changed, instead of on every trigger
             // replace with:
             // So far, the best signal I've found is to watch com.apple.dock for the uiElementDestroyed notification.
@@ -294,13 +295,13 @@ class App: AppCenterApplication, NSApplicationDelegate {
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: NSRunningApplication?) {
         let app = activeWindow?.application.runningApplication ?? activeApp
-        let shortcutsShouldBeDisabled = (!Preferences.disableShortcutsBlacklistOnlyFullscreen || (activeWindow?.isFullscreen ?? false)) &&
-            (Preferences.disableShortcutsBlacklist.first { blacklistedId in
-                if let id = app?.bundleIdentifier {
-                    return id.hasPrefix(blacklistedId)
-                }
-                return false
-            } != nil)
+        let shortcutsShouldBeDisabled = Preferences.blacklist.contains { blacklistedId in
+            if let id = app?.bundleIdentifier {
+                return id.hasPrefix(blacklistedId.bundleIdentifier) &&
+                    (blacklistedId.ignore == .always || (blacklistedId.ignore == .whenFullscreen && (activeWindow?.isFullscreen ?? false)))
+            }
+            return false
+        }
         KeyboardEvents.toggleGlobalShortcuts(shortcutsShouldBeDisabled)
         if shortcutsShouldBeDisabled && App.app.appIsBeingUsed {
             App.app.hideUi()

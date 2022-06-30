@@ -4,10 +4,12 @@ class GeneralTab {
     static func initTab() -> NSView {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
+        let resetPreferences = Button(NSLocalizedString("Reset preferences and restart", comment: "")) { _ in GeneralTab.resetPreferences() }
+        if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
         for i in 0...2 {
             let image = NSImage.initCopy("menubar-" + String(i + 1))
-            image.isTemplate = false
+            image.isTemplate = i < 2
             menubarIconDropdown.item(at: i)!.image = image
         }
         menubarIconDropdown.item(at: 3)!.image = NSImage(size: NSSize(width: 1, height: menubarIconDropdown.item(at: 0)!.image!.size.height))
@@ -25,7 +27,12 @@ class GeneralTab {
 
         startAtLoginCallback(startAtLogin[1] as! NSControl)
 
-        return grid
+        return StackView([grid, resetPreferences], .vertical, bottom: GridView.padding)
+    }
+
+    static func resetPreferences() {
+        Preferences.resetAll()
+        App.app.restart()
     }
 
     // add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state

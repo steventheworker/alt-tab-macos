@@ -48,10 +48,22 @@
 "AltTab needs some permissions" = "התוכנה AltTab צריכה כמה הרשאות";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "תמיד שלח דיווחי קריסה";
 
 /*No comment provided by engineer.*/
 "and press:" = "ולחץ:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "עיכוב הופעה:";
@@ -105,6 +117,9 @@
 "Crash reports policy:" = "תקנון דיווחי קריסה:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "לא לעשות כלום";
 
 /*No comment provided by engineer.*/
@@ -124,6 +139,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "התרכז על חלון נבחר";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "חלונות במסך מלא:";
@@ -146,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "הסתר עיגולים צבועים בריחוף עכבר:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "הסתר תגיות מספר של איזור:";
 
@@ -163,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "אני חושב שהתוכנה יכולה להשתפר באמצעות";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "התעלם מקיצורי דרך כאשר חלון מתכנה זו פעילה";
@@ -235,6 +259,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "תזכור את בחירתי";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "מס׳ שורות ";
@@ -339,10 +366,28 @@
 "Visible Spaces" = "איזורים גלויים";
 
 /*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
 "While open, press:" = "כאשר פתוח, לחץ:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "גודל סמל חלון:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "רוחב מקסימלי של חלון בטור:";

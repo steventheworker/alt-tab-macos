@@ -48,10 +48,22 @@
 "AltTab needs some permissions" = "AltTab potřebuje některá oprávnění";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Vždy odesílat hlášení o pádu";
 
 /*No comment provided by engineer.*/
 "and press:" = "a stiskněte:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Prodleva zobrazení:";
@@ -97,13 +109,16 @@
 "Close window" = "Zavřít okno";
 
 /*No comment provided by engineer.*/
-"Conflicting shortcut" = "Conflicting shortcut";
+"Conflicting shortcut" = "Konflikt zkratek";
 
 /*No comment provided by engineer.*/
 "Controls" = "Ovládání";
 
 /*No comment provided by engineer.*/
 "Crash reports policy:" = "Odesílání hlášení o pádu:";
+
+/*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
 
 /*No comment provided by engineer.*/
 "Do nothing" = "Nedělat nic";
@@ -128,6 +143,9 @@
 "Focus selected window" = "Přepnout do vybraného okna";
 
 /*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
+
+/*No comment provided by engineer.*/
 "Fullscreen windows:" = "Okna na celou obrazovku:";
 
 /*No comment provided by engineer.*/
@@ -148,6 +166,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Skrýt barevná kolečka při najetí myši";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Skrýt čísla Ploch";
 
@@ -165,6 +186,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Myslím, že aplikace by mohla být vylepšena tak, že...";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorovat klávesové zkratky, když jsou aktivní okna následujících programů";
@@ -195,7 +219,7 @@
 "Minimized windows:" = "Minimalizovaná okna:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "Různé:";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "Najetí myši";
@@ -240,6 +264,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Pamatovat si mou volbu";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Počet řádků náhledů:";
@@ -290,7 +317,7 @@
 "Shortcut 2" = "Zkratka 2";
 
 /*No comment provided by engineer.*/
-"Shortcut already assigned to another action: %@" = "Shortcut already assigned to another action: %@";
+"Shortcut already assigned to another action: %@" = "Zkratka je již používána jinou akcí: %@";
 
 /*No comment provided by engineer.*/
 "Show" = "Zobrazit";
@@ -329,7 +356,7 @@
 "This permission is needed to show screenshots and titles of open windows" = "Toto oprávnění je potřeba k zobrazení náhledů a titulků otevřených oken";
 
 /*No comment provided by engineer.*/
-"Unassign existing shortcut and continue" = "Unassign existing shortcut and continue";
+"Unassign existing shortcut and continue" = "Odebrat existující zkratku a pokračovat";
 
 /*No comment provided by engineer.*/
 "Updates policy:" = "Kontrola aktualizací:";
@@ -344,10 +371,28 @@
 "Visible Spaces" = "Viditelné Plochy";
 
 /*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
 "While open, press:" = "Při otevření stiskněte";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Velikost ikony okna:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Maximální šířka okna v řádku:";

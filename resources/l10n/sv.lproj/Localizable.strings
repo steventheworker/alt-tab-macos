@@ -48,10 +48,22 @@
 "AltTab needs some permissions" = "AltTab behöver behörigheter";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Skicka alltid felrapporter";
 
 /*No comment provided by engineer.*/
 "and press:" = "och tryck:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Visningsfördröjning:";
@@ -105,6 +117,9 @@
 "Crash reports policy:" = "Felrapportspolicy:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Gör ingenting";
 
 /*No comment provided by engineer.*/
@@ -124,6 +139,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Fokusera på valt fönster";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fönster i fullskärm:";
@@ -146,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Dölj fönsterradsknappar när musen hålls över:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Dölj nummeretiketter för Spaces-fönster:";
 
@@ -163,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Jag tror appen skulle kunna förbättras genom...";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignorera kortkommandon när dessa appars fönster är aktiva";
@@ -235,6 +259,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Kom ihåg mitt val";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rader av tumnaglar:";
@@ -339,10 +366,28 @@
 "Visible Spaces" = "Synliga Spaces-fönster";
 
 /*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
 "While open, press:" = "När öppet, tryck:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Storlek för appikoner:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Maxhöjd för fönster i rad:";

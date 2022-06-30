@@ -48,10 +48,22 @@
 "AltTab needs some permissions" = "AltTab tarvitsee joitakin oikeuksia";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Lähetä vikaraportit aina";
 
 /*No comment provided by engineer.*/
 "and press:" = "ja paina:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Ilmestymisviive:";
@@ -105,6 +117,9 @@
 "Crash reports policy:" = "Vikaraporttipolitiikka:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Älä tee mitään";
 
 /*No comment provided by engineer.*/
@@ -124,6 +139,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Kohdenna valittu ikkuna";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Fullscreen windows:";
@@ -146,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Piilota väriympyrät hiirellä liikuttaessa:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Piilota tilojen numerot:";
 
@@ -163,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Ohjelmaa voisi mielestäni parantaa…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Älä käsittele pikanäppäimiä näiden ohjelmien ollessa aktiivisia";
@@ -235,6 +259,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Muista valintani";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rows of thumbnails:";
@@ -339,10 +366,28 @@
 "Visible Spaces" = "Visible Spaces";
 
 /*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
 "While open, press:" = "Kun auki, paina:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Ohjelmaikonin koko:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Window max width in row:";

@@ -48,10 +48,22 @@
 "AltTab needs some permissions" = "AltTab richiede alcuni permessi";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Invia sempre rapporto crash";
 
 /*No comment provided by engineer.*/
 "and press:" = "e premi:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Ritardo apparizione:";
@@ -105,6 +117,9 @@
 "Crash reports policy:" = "Policy rapporto crash:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Non fare nulla";
 
 /*No comment provided by engineer.*/
@@ -124,6 +139,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Focus finestra selezionata";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Finestra a schermo pieno:";
@@ -146,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Nascondi cerchi colorati al passaggio del mouse:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Nascondi etichette numero spazi:";
 
@@ -163,6 +184,9 @@
 
 /*No comment provided by engineer.*/
 "I think the app could be improved with…" = "Credo che l’applicazione possa essere migliorata con…";
+
+/*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
 
 /*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Ignora combinazioni tasti mentre è attiva una finestra di queste app";
@@ -235,6 +259,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Ricorda la mia scelta";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Numero righe anteprime:";
@@ -339,10 +366,28 @@
 "Visible Spaces" = "Spazi visibili";
 
 /*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
 "While open, press:" = "Mentre apri, premi:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Dimensione icona finestra applicazione:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Righe larghezza max finestra:";

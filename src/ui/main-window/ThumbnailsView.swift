@@ -10,10 +10,29 @@ class ThumbnailsView: NSVisualEffectView {
         material = Preferences.windowMaterial
         state = .active
         wantsLayer = true
-        layer!.cornerRadius = Preferences.windowCornerRadius
+        updateRoundedCorners(Preferences.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
+    /// see https://stackoverflow.com/a/29386935/2249756
+    func updateRoundedCorners(_ cornerRadius: CGFloat) {
+        if cornerRadius == 0 {
+            maskImage = nil
+        } else {
+            let edgeLength = 2.0 * cornerRadius + 1.0
+            let mask = NSImage(size: NSSize(width: edgeLength, height: edgeLength), flipped: false) { rect in
+                let bezierPath = NSBezierPath(roundedRect: rect, xRadius: cornerRadius, yRadius: cornerRadius)
+                NSColor.black.set()
+                bezierPath.fill()
+                return true
+            }
+            mask.capInsets = NSEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
+            mask.resizingMode = .stretch
+            maskImage = mask
+        }
     }
 
     func nextRow(_ direction: Direction) -> [ThumbnailView]? {
@@ -220,19 +239,15 @@ class ScrollView: NSScrollView {
             if let target = target, target is ThumbnailView {
                 if previousTarget != target {
                     previousTarget?.showOrHideWindowControls(false)
-                    previousTarget?.mouseIsHovering = false
                     previousTarget = target as? ThumbnailView
                 }
                 let target = target as! ThumbnailView
                 target.mouseMoved()
-                target.mouseIsHovering = true
             } else {
                 previousTarget?.showOrHideWindowControls(false)
-                previousTarget?.mouseIsHovering = false
             }
         } else {
             previousTarget?.showOrHideWindowControls(false)
-            previousTarget?.mouseIsHovering = false
         }
     }
 

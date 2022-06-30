@@ -1,5 +1,138 @@
 # Release notes
 
+## [6.46.1](https://github.com/lwouis/alt-tab-macos/compare/v6.46.0...v6.46.1) (2022-06-24)
+
+
+### Bug Fixes
+
+* mouse-hover controls remained after closing a window (closes [#1730](https://github.com/lwouis/alt-tab-macos/issues/1730)) ([6bd303d](https://github.com/lwouis/alt-tab-macos/commit/6bd303d))
+
+# [6.46.0](https://github.com/lwouis/alt-tab-macos/compare/v6.45.0...v6.46.0) (2022-06-23)
+
+
+### Features
+
+* add quit-app icon on mouse hover (closes [#1260](https://github.com/lwouis/alt-tab-macos/issues/1260)) ([5c3b503](https://github.com/lwouis/alt-tab-macos/commit/5c3b503))
+* improved turkish localization ([bb4a2b9](https://github.com/lwouis/alt-tab-macos/commit/bb4a2b9))
+
+# [6.45.0](https://github.com/lwouis/alt-tab-macos/compare/v6.44.0...v6.45.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* better guess at focus order on launch (closes [#1694](https://github.com/lwouis/alt-tab-macos/issues/1694)) ([be8631e](https://github.com/lwouis/alt-tab-macos/commit/be8631e))
+* may avoid rare crashes ([e32beea](https://github.com/lwouis/alt-tab-macos/commit/e32beea))
+
+
+### Features
+
+* add bengali localization ([2d32823](https://github.com/lwouis/alt-tab-macos/commit/2d32823))
+* improve chinese and german localizations ([69bfb41](https://github.com/lwouis/alt-tab-macos/commit/69bfb41))
+* improve tooltips on mouse hover (closes [#1661](https://github.com/lwouis/alt-tab-macos/issues/1661)) ([38262f1](https://github.com/lwouis/alt-tab-macos/commit/38262f1))
+* quitting an app twice force-quits it (closes [#1529](https://github.com/lwouis/alt-tab-macos/issues/1529)) ([bfcbaac](https://github.com/lwouis/alt-tab-macos/commit/bfcbaac))
+
+# [6.44.0](https://github.com/lwouis/alt-tab-macos/compare/v6.43.0...v6.44.0) (2022-06-19)
+
+
+### Bug Fixes
+
+* blacklist table colors were wrong in dark mode ([#1702](https://github.com/lwouis/alt-tab-macos/issues/1702)) ([95cc29f](https://github.com/lwouis/alt-tab-macos/commit/95cc29f))
+* don't show space icon for apps ([#1700](https://github.com/lwouis/alt-tab-macos/issues/1700)) ([f7d070b](https://github.com/lwouis/alt-tab-macos/commit/f7d070b))
+* round corners would be aliased after changing theme ([#1698](https://github.com/lwouis/alt-tab-macos/issues/1698)) ([9ae76a9](https://github.com/lwouis/alt-tab-macos/commit/9ae76a9))
+
+
+### Features
+
+* update german and turkish localizations ([b91696b](https://github.com/lwouis/alt-tab-macos/commit/b91696b))
+
+# [6.43.0](https://github.com/lwouis/alt-tab-macos/compare/v6.42.0...v6.43.0) (2022-06-14)
+
+
+### Features
+
+* improve blacklist ux (closes [#539](https://github.com/lwouis/alt-tab-macos/issues/539)) ([892a168](https://github.com/lwouis/alt-tab-macos/commit/892a168))
+* improve german and chinese (tw) localizations ([5133641](https://github.com/lwouis/alt-tab-macos/commit/5133641))
+
+# [6.42.0](https://github.com/lwouis/alt-tab-macos/compare/v6.41.1...v6.42.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* some windows would not show ([#1655](https://github.com/lwouis/alt-tab-macos/issues/1655)) ([6a6c80d](https://github.com/lwouis/alt-tab-macos/commit/6a6c80d))
+
+
+### Features
+
+* show tooltips on mouse hover on main window ([#1661](https://github.com/lwouis/alt-tab-macos/issues/1661)) ([bb5cc23](https://github.com/lwouis/alt-tab-macos/commit/bb5cc23))
+
+## [6.41.1](https://github.com/lwouis/alt-tab-macos/compare/v6.41.0...v6.41.1) (2022-06-05)
+
+
+### Bug Fixes
+
+* tab detection got broken in v6.41.0 ([#1656](https://github.com/lwouis/alt-tab-macos/issues/1656)) ([95f97d3](https://github.com/lwouis/alt-tab-macos/commit/95f97d3))
+
+# [6.41.0](https://github.com/lwouis/alt-tab-macos/compare/v6.40.0...v6.41.0) (2022-06-01)
+
+
+### Bug Fixes
+
+* fade-out animation was broken from macos 11 ([#760](https://github.com/lwouis/alt-tab-macos/issues/760)) ([d701bc7](https://github.com/lwouis/alt-tab-macos/commit/d701bc7))
+* menubar icons in preferences handle dark mode ([1653c16](https://github.com/lwouis/alt-tab-macos/commit/1653c16))
+
+
+### Features
+
+* add a button to reset the preferences ([#1275](https://github.com/lwouis/alt-tab-macos/issues/1275)) ([82e9ca9](https://github.com/lwouis/alt-tab-macos/commit/82e9ca9))
+* add galician localization ([965b179](https://github.com/lwouis/alt-tab-macos/commit/965b179))
+* improve windows detection ([de0497a](https://github.com/lwouis/alt-tab-macos/commit/de0497a))
+* smoother rounded corners for the main window ([5d0fff2](https://github.com/lwouis/alt-tab-macos/commit/5d0fff2))
+* update czech localization ([d7b6b7c](https://github.com/lwouis/alt-tab-macos/commit/d7b6b7c))
+
+# [6.40.0](https://github.com/lwouis/alt-tab-macos/compare/v6.39.1...v6.40.0) (2022-05-27)
+
+
+### Bug Fixes
+
+* focusing alt-tab own windows could fail ([#759](https://github.com/lwouis/alt-tab-macos/issues/759)) ([08720d8](https://github.com/lwouis/alt-tab-macos/commit/08720d8))
+
+
+### Features
+
+* update spanish localization ([1ac0494](https://github.com/lwouis/alt-tab-macos/commit/1ac0494))
+
+## [6.39.1](https://github.com/lwouis/alt-tab-macos/compare/v6.39.0...v6.39.1) (2022-05-26)
+
+
+### Bug Fixes
+
+* better tabs detection + fix issues with some apps (closes [#1540](https://github.com/lwouis/alt-tab-macos/issues/1540)) ([abd54b3](https://github.com/lwouis/alt-tab-macos/commit/abd54b3)), closes [#647](https://github.com/lwouis/alt-tab-macos/issues/647) [#718](https://github.com/lwouis/alt-tab-macos/issues/718)
+
+# [6.39.0](https://github.com/lwouis/alt-tab-macos/compare/v6.38.0...v6.39.0) (2022-05-26)
+
+
+### Bug Fixes
+
+* handle being quit through activity-monitor (closes [#1622](https://github.com/lwouis/alt-tab-macos/issues/1622)) ([69a5ffd](https://github.com/lwouis/alt-tab-macos/commit/69a5ffd))
+
+
+### Features
+
+* middle-click a thumbnail to close that window (closes [#1621](https://github.com/lwouis/alt-tab-macos/issues/1621)) ([bc4c0cc](https://github.com/lwouis/alt-tab-macos/commit/bc4c0cc))
+* update contributors ([b1bf867](https://github.com/lwouis/alt-tab-macos/commit/b1bf867))
+
+# [6.38.0](https://github.com/lwouis/alt-tab-macos/compare/v6.37.1...v6.38.0) (2022-05-24)
+
+
+### Bug Fixes
+
+* better mouse hover behavior ([#1557](https://github.com/lwouis/alt-tab-macos/issues/1557)) ([d3cabc1](https://github.com/lwouis/alt-tab-macos/commit/d3cabc1))
+
+
+### Features
+
+* improve ukrainian, polish, albanian localization ([b02972b](https://github.com/lwouis/alt-tab-macos/commit/b02972b))
+
 ## [6.37.1](https://github.com/lwouis/alt-tab-macos/compare/v6.37.0...v6.37.1) (2022-05-12)
 
 

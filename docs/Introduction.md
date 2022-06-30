@@ -6,7 +6,7 @@ permalink: /
 
 [![Screenshot](public/demo/frontpage.jpg)](public/demo/frontpage.jpg)
 
-**AltTab** brings the power of Windows's "alt-tab" window switcher to macOS.
+**AltTab** brings the power of Windows’s "alt-tab" window switcher to macOS.
 
 ## Features
 
@@ -27,8 +27,9 @@ permalink: /
 
 Alternatively, you can use [homebrew](https://brew.sh/):
 
-* Homebrew 2.5 or above: `brew install alt-tab`
-* Homebrew 2.4 or below: `brew cask install alt-tab`
+| Homebrew 2.7 and above | Homebrew 2.5 and 2.6 | Homebrew 2.4 and below             |
+|------------------------|----------------------|------------------------------------|
+| `brew install --cask alt-tab` | `brew install alt-tab` | `brew cask install alt-tab`        |
 
 ## Compatibility
 
@@ -37,7 +38,7 @@ Alternatively, you can use [homebrew](https://brew.sh/):
 
 ## Localization
 
-AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, 日本語, 简体中文, 繁體中文, 한국어
+AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Galego, Italiano, Lëtzebuergesch, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, বাংলা, 日本語, 简体中文, 繁體中文, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 
@@ -63,9 +64,9 @@ Before building my own app, I looked around at similar apps. However, none was c
 | [HyperSwitch](https://bahoom.com/hyperswitch) and [HyperDock](https://bahoom.com/hyperdock) | $10. Closed-source. Thumbnails are too small. App icon is on top of the thumbnail                            |
 | [WindowSwitcher](https://www.noteifyapp.com/windowswitcher/)                                | $7. Closed-source. Thumbnails are small and blurry. App icon is on top of the thumbnail                      |
 | [Switch](https://github.com/numist/Switch)                                                  | Open Source. Thumbnails are small. Very little customization. Latest release is from 2016                    |
-| [Witch](https://manytricks.com/witch/) and [Context](https://contexts.co/)                  | $10-15. Closed-source. Focus on text. No thumbnails                                                          |
+| [Witch](https://manytricks.com/witch/) and [Contexts](https://contexts.co/)                 | $10-15. Closed-source. Focus on text. No thumbnails                                                          |
 | [MissionControl Plus](https://www.fadel.io/missioncontrolplus)                              | $10. Closed-source. No chronology and order to windows. Hard to navigate windows with keyboard               |
-| Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_(macOS))          | No keyboard support                                                                                          |
+| Built-in [MissionControl](https://en.wikipedia.org/wiki/Mission_Control_(macOS))            | No keyboard support                                                                                          |
 | Built-in `⌘ command` + `⇥ tab`                                                              | Only shows apps, not windows (note: can press down to see window of selected app)                            |
 | Built-in `⌘ command` + `` ` ``                                                              | Cycles through tabs and windows, but only of the same app. Only cycling, no direct access                    |
 

@@ -48,10 +48,22 @@
 "AltTab needs some permissions" = "AltTab ka nevojë për disa leje";
 
 /*No comment provided by engineer.*/
+"Always" = "Always";
+
+/*No comment provided by engineer.*/
 "Always send crash reports" = "Gjithmonë dërgo raportime të dështimeve";
 
 /*No comment provided by engineer.*/
 "and press:" = "dhe prekni:";
+
+/*No comment provided by engineer.*/
+"App (BundleID starting with)" = "App (BundleID starting with)";
+
+/*No comment provided by engineer.*/
+"App is hidden" = "App is hidden";
+
+/*No comment provided by engineer.*/
+"App is running but has no open window" = "App is running but has no open window";
 
 /*No comment provided by engineer.*/
 "Apparition delay:" = "Vonesa e shfaqjes";
@@ -105,6 +117,9 @@
 "Crash reports policy:" = "Politika e raportimit të dështimeve:";
 
 /*No comment provided by engineer.*/
+"Cursor follows focus" = "Cursor follows focus";
+
+/*No comment provided by engineer.*/
 "Do nothing" = "Bëj asgjë";
 
 /*No comment provided by engineer.*/
@@ -124,6 +139,9 @@
 
 /*No comment provided by engineer.*/
 "Focus selected window" = "Fokuso dritaret e zgjedhura";
+
+/*No comment provided by engineer.*/
+"Fullscreen window" = "Fullscreen window";
 
 /*No comment provided by engineer.*/
 "Fullscreen windows:" = "Dritare me ekran të plotë:";
@@ -146,6 +164,9 @@
 /*No comment provided by engineer.*/
 "Hide colored circles on mouse hover:" = "Fshih rrathët e ngjyrosur përmbi kursor:";
 
+/*%@ is AltTab*/
+"Hide in %@" = "Hide in %@";
+
 /*No comment provided by engineer.*/
 "Hide Space number labels:" = "Fshih etiketat e numrit:";
 
@@ -165,6 +186,9 @@
 "I think the app could be improved with…" = "Mendoj se aplikacioni mund të përmirësohet me…";
 
 /*No comment provided by engineer.*/
+"Ignore shortcuts when active" = "Ignore shortcuts when active";
+
+/*No comment provided by engineer.*/
 "Ignore shortcuts while a window from these apps is active" = "Injoro shkurtesat kur një dritare nga këto aplikacione është aktive";
 
 /*No comment provided by engineer.*/
@@ -180,7 +204,7 @@
 "Max width on screen:" = "Gjerësia maksimale në ekran:";
 
 /*No comment provided by engineer.*/
-"Menubar icon:" = "Menubar icon:";
+"Menubar icon:" = "Ikona e menusë:";
 
 /*No comment provided by engineer.*/
 "Middle" = "Mes";
@@ -235,6 +259,9 @@
 
 /*No comment provided by engineer.*/
 "Remember my choice" = "Mbaj mend zgjedhjen time";
+
+/*No comment provided by engineer.*/
+"Reset preferences and restart" = "Reset preferences and restart";
 
 /*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Rreshta me minaturë:";
@@ -339,10 +366,28 @@
 "Visible Spaces" = "Hapësirat e dukshme";
 
 /*No comment provided by engineer.*/
+"When fullscreen" = "When fullscreen";
+
+/*No comment provided by engineer.*/
+"When no open window" = "When no open window";
+
+/*No comment provided by engineer.*/
 "While open, press:" = "Duke qenë hapur, prekni:";
 
 /*No comment provided by engineer.*/
 "Window app icon size:" = "Madhësia e ikonës së dritarës së aplikacionit:";
+
+/*No comment provided by engineer.*/
+"Window is fullscreen" = "Window is fullscreen";
+
+/*No comment provided by engineer.*/
+"Window is minimized" = "Window is minimized";
+
+/*No comment provided by engineer.*/
+"Window is on every Space" = "Window is on every Space";
+
+/*No comment provided by engineer.*/
+"Window is on Space %d" = "Window is on Space %d";
 
 /*No comment provided by engineer.*/
 "Window max width in row:" = "Gjerësia maksimale e dritares në rresht:";

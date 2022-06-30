@@ -8,12 +8,12 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         self.init(contentRect: .zero, styleMask: .nonactivatingPanel, backing: .buffered, defer: false)
         delegate = self
         isFloatingPanel = true
-        updateFadeOutAnimation()
+        animationBehavior = .none
         hidesOnDeactivate = false
         hasShadow = false
         titleVisibility = .hidden
         backgroundColor = .clear
-        contentView!.addSubview(thumbnailsView)
+        contentView! = thumbnailsView
         // triggering AltTab before or during Space transition animation brings the window on the Space post-transition
         collectionBehavior = .canJoinAllSpaces
         // 2nd highest level possible; this allows the app to go on top of context menus
@@ -35,11 +35,19 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
         }
     }
 
-    func updateFadeOutAnimation() {
-        animationBehavior = Preferences.fadeOutAnimation ? .utilityWindow : .none
+    override func orderOut(_ sender: Any?) {
+        if Preferences.fadeOutAnimation {
+            NSAnimationContext.runAnimationGroup(
+                { _ in animator().alphaValue = 0 },
+                completionHandler: { super.orderOut(sender) }
+            )
+        } else {
+            super.orderOut(sender)
+        }
     }
 
     func show() {
+        alphaValue = 1
         makeKeyAndOrderFront(nil)
         MouseEvents.toggle(true)
         thumbnailsView.scrollView.flashScrollers()
