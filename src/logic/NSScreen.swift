@@ -48,7 +48,7 @@ extension NSScreen {
         let panelFrame = window.frame
         let x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
         let y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
-        window.setFrameOrigin(NSPoint(x: x, y: y))
+        window.setFrameOrigin(NSPoint(x: (DockAltTabMode ? CGFloat(DockAltTabFORCEDX - (DockAltTabRightDock ? Int(panelFrame.width) : 0)) : x), y: (DockAltTabMode ? CGFloat(DockAltTabFORCEDY) : y)))
     }
 
     func uuid() -> ScreenUuid? {

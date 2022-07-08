@@ -1,3 +1,8 @@
+var DockAltTabFORCEDX = 0;
+var DockAltTabFORCEDY = 0;
+var DockAltTabMode = false;
+var DockAltTabRightDock = false;
+
 // used by DockAltTab - show window previews for a specific app (1st window highlighted), ignoring blacklist
 import Foundation
 import Cocoa
@@ -14,6 +19,19 @@ class showAppScriptCommand: NSScriptCommand {
             print("tarBID '" + tarBID + "' not running")
             return self
         }
+        if (self.evaluatedArguments!["x"] != nil || self.evaluatedArguments!["y"] != nil) {
+            DockAltTabMode = true
+        } else {DockAltTabMode = false}
+        var x = 0, y = 0
+        if (self.evaluatedArguments!["x"] == nil) {
+            x = Int(NSEvent.mouseLocation.x) - 40
+        } else {x = self.evaluatedArguments!["x"] as! Int}
+        if (self.evaluatedArguments!["y"] == nil) {
+            y = Int(NSEvent.mouseLocation.y) + 40 //assume bottom dock w/ max icon size 100px
+        } else {y = self.evaluatedArguments!["y"] as! Int}
+        DockAltTabFORCEDX = x
+        DockAltTabFORCEDY = y
+        DockAltTabRightDock = self.evaluatedArguments!["isRight"] == nil ? false : self.evaluatedArguments!["isRight"] as! Bool;
         let tarApp = appInstances[0]
         App.app.appIsBeingUsed = true /* actually line 1 of showUI() */
         if App.app.isFirstSummon { // begin follow/modify showUIOrCycleSelection
@@ -53,8 +71,8 @@ class showAppScriptCommand: NSScriptCommand {
         } // stop following showUIOrCycleSelection
         
         // make sure focus is on 1st window
-        App.app.previousWindowShortcutWithRepeatingKey()
-        
+         if (!DockAltTabRightDock) {App.app.previousWindowShortcutWithRepeatingKey()}
+//        if (DockAltTabRightDock) {App.app.previousWindowShortcutWithRepeatingKey()}
         
         //follow hideUI
 //        App.app.appIsBeingUsed = false
