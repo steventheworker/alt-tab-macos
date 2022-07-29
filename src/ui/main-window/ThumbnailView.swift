@@ -253,7 +253,7 @@ class ThumbnailView: NSStackView {
 
     func mouseMoved() {
         showOrHideWindowControls(true)
-        if Preferences.mouseHoverEnabled && !isHighlighted {
+        if (Preferences.mouseHoverEnabled || DockAltTabMode) && !isHighlighted {
             mouseMovedCallback()
         }
     }
