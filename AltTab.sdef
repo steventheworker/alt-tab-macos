@@ -33,5 +33,12 @@
              </parameter>
              <result type="integer" description="integer no. of windows"/>
         </command>
+         <command name="keyState" code="atssKSta" description="Whether a certain key is being pressed.">
+             <cocoa class="AltTab.keyStateScriptCommand"/>
+             <parameter name="key" code="arg1" type="text" optional="no" description="Name of the key you want to check the state of.">
+                 <cocoa key="key"/>
+             </parameter>
+             <result type="boolean" description="is key pressed?"/>
+        </command>
      </suite>
  </dictionary>

@@ -1,6 +1,14 @@
 import Cocoa
 import ShortcutRecorder
 
+func DATSetKey(_ s: Shortcut, _ val: Bool) {
+    let k = String(s.readableStringRepresentation(isASCII: true).dropLast()) // last is "-"
+    if (DockAltTabModDict[k] == nil) {return;}
+    DockAltTabModDict[k] = val;
+}
+func DATKeyUp(_ s: Shortcut) {DATSetKey(s, false)}
+func DATKeyDown(_ s: Shortcut) {DATSetKey(s, true)}
+
 class ATShortcut {
     var shortcut: Shortcut
     var id: String
@@ -25,8 +33,10 @@ class ATShortcut {
                 state = state == .down ? .up : .down
                 if state == .up {
                     KeyRepeatTimer.timer?.invalidate()
+                    DATKeyUp(self.shortcut);
                 }
                 if (triggerPhase == .down && shortcutState == .down) || (triggerPhase == .up && shortcutState == .up) {
+                    DATKeyDown(self.shortcut);
                     return true
                 }
             }
@@ -39,9 +49,11 @@ class ATShortcut {
                 state = state == .down ? .up : .down
                 if state == .up {
                     KeyRepeatTimer.timer?.invalidate()
+                    DATKeyUp(self.shortcut)
                 }
             }
             if (flipped || isARepeat) && ((triggerPhase == .up && state == .up) || (triggerPhase == .down && state == .down)) {
+                DATKeyDown(self.shortcut);
                 return true
             }
         }
