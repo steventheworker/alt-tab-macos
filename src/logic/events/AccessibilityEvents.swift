@@ -19,7 +19,7 @@ fileprivate func handleEvent(_ type: String, _ element: AXUIElement) throws {
             case kAXWindowCreatedNotification: try windowCreated(element, pid)
             case kAXMainWindowChangedNotification,
                  kAXFocusedWindowChangedNotification: try focusedWindowChanged(element, pid)
-            case kAXUIElementDestroyedNotification: try windowDestroyed(element)
+            case kAXUIElementDestroyedNotification: try windowDestroyed(element, pid)
             case kAXWindowMiniaturizedNotification,
                  kAXWindowDeminiaturizedNotification: try windowMiniaturizedOrDeminiaturized(element, type)
             case kAXTitleChangedNotification: try windowTitleChanged(element, pid)
@@ -106,6 +106,11 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                     Windows.appendAndUpdateFocus(window)
                     App.app.refreshOpenUi([window])
                 }
+                // if the window is shown by alt-tab, we mark her as focused for this app
+                // this avoids issues with dialogs, quicklook, etc (see scenarios from #1044 and #2003)
+                if let w = (Windows.list.first { $0.isEqualRobust(element, wid) }) {
+                    Applications.find(pid)?.focusedWindow = w
+                }
             }
         }
         DispatchQueue.main.async {
@@ -118,9 +123,6 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
                 }
             }
         }
-        DispatchQueue.main.async {
-            Applications.find(pid)?.focusedWindow = Windows.list.first { $0.isEqualRobust(element, wid) }
-        }
     } else {
         DispatchQueue.main.async {
             Applications.find(pid)?.focusedWindow = nil
@@ -128,13 +130,16 @@ fileprivate func focusedWindowChanged(_ element: AXUIElement, _ pid: pid_t) thro
     }
 }
 
-fileprivate func windowDestroyed(_ element: AXUIElement) throws {
+fileprivate func windowDestroyed(_ element: AXUIElement, _ pid: pid_t) throws {
     let wid = try element.cgWindowId()
     DispatchQueue.main.async {
         if let index = (Windows.list.firstIndex { $0.isEqualRobust(element, wid) }) {
             let window = Windows.list[index]
             Windows.removeAndUpdateFocus(window)
             let windowlessApp = window.application.addWindowslessAppsIfNeeded()
+            if windowlessApp != nil {
+                Applications.find(pid)?.focusedWindow = nil
+            }
             if Windows.list.count > 0 {
                 Windows.moveFocusedWindowIndexAfterWindowDestroyedInBackground(index)
                 App.app.refreshOpenUi(windowlessApp)

@@ -4,7 +4,7 @@ class GeneralTab {
     static func initTab() -> NSView {
         let startAtLogin = LabelAndControl.makeLabelWithCheckbox(NSLocalizedString("Start at login:", comment: ""), "startAtLogin", extraAction: startAtLoginCallback)
         let menubarIcon = LabelAndControl.makeLabelWithDropdown(NSLocalizedString("Menubar icon:", comment: ""), "menubarIcon", MenubarIconPreference.allCases, extraAction: Menubar.menubarIconCallback)
-        let resetPreferences = Button(NSLocalizedString("Reset preferences and restart", comment: "")) { _ in GeneralTab.resetPreferences() }
+        let resetPreferences = Button(NSLocalizedString("Reset preferences and restart…", comment: "")) { _ in GeneralTab.resetPreferences() }
         if #available(OSX 11, *) { resetPreferences.hasDestructiveAction = true }
         let menubarIconDropdown = menubarIcon[1] as! NSPopUpButton
         for i in 0...2 {
@@ -31,11 +31,20 @@ class GeneralTab {
     }
 
     static func resetPreferences() {
-        Preferences.resetAll()
-        App.app.restart()
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = ""
+        alert.informativeText = NSLocalizedString("You can’t undo this action.", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        let resetButton = alert.addButton(withTitle: NSLocalizedString("Reset preferences and restart", comment: ""))
+        if #available(OSX 11, *) { resetButton.hasDestructiveAction = true }
+        if alert.runModal() == .alertSecondButtonReturn {
+            Preferences.resetAll()
+            App.app.restart()
+        }
     }
 
-    // add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
+    /// add/remove plist file in ~/Library/LaunchAgents/ depending on the checkbox state
     static func startAtLoginCallback(_ sender: NSControl) {
         var launchAgentsPath = (try? FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)) ?? URL.init(fileURLWithPath: "~/Library", isDirectory: true)
         launchAgentsPath.appendPathComponent("LaunchAgents", isDirectory: true)
@@ -49,11 +58,22 @@ class GeneralTab {
         launchAgentsPath.appendPathComponent("com.steventheworker.alt-tab-macos.plist", isDirectory: false)
         if (sender as! NSButton).state == .on {
             // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
+            // docs: man launchd.plist
             let plist: NSDictionary = [
-                "Label": "com.steventheworker.alt-tab-macos",
+                //"Label": "com.steventheworker.alt-tab-macos",
+                "Label": App.id,
                 "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
                 "RunAtLoad": true,
                 "LimitLoadToSessionType": "Aqua",
+                // starting from macOS 13, AssociatedBundleIdentifiers is required, otherwise the UI in
+                // System Settings > General > Login Items, will show "Louis Pontoise" instead of "AltTab.app"
+                "AssociatedBundleIdentifiers": App.id,
+                // "ProcessType: If left unspecified, the system will apply light resource limits to the job,
+                //               throttling its CPU usage and I/O bandwidth"
+                "ProcessType": "Interactive",
+                // "LegacyTimers": If this key is set to true, timers created by the job will opt into less
+                //                 efficient but more precise behavior and not be coalesced with other timers.
+                "LegacyTimers": true,
             ]
             plist.write(to: launchAgentsPath, atomically: true)
         } else {

@@ -7,6 +7,7 @@ class KeyRepeatTimer {
 
     static func toggleRepeatingKeyPreviousWindow() {
         if let shortcut = ControlsTab.shortcuts["previousWindowShortcut"],
+           // events already repeat when using a shortcut with a keycode; no need for artificial repeat
            shortcut.shortcut.keyCode == .none {
             toggleRepeatingKey(shortcut) {
                 App.app.previousWindowShortcutWithRepeatingKey()
@@ -15,16 +16,15 @@ class KeyRepeatTimer {
     }
 
     static func toggleRepeatingKeyNextWindow() {
-        let suffix = App.app.shortcutIndex == 0 ? "" : "2"
-        if let shortcut = ControlsTab.shortcuts["nextWindowShortcut" + suffix] {
+        if let shortcut = ControlsTab.shortcuts[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)] {
             toggleRepeatingKey(shortcut) {
-                ControlsTab.shortcutsActions["nextWindowShortcut" + suffix]!()
+                ControlsTab.shortcutsActions[Preferences.indexToName("nextWindowShortcut", App.app.shortcutIndex)]!()
             }
         }
     }
 
     private static func toggleRepeatingKey(_ atShortcut: ATShortcut, _ block: @escaping () -> Void) {
-        if (timer == nil || !timer!.isValid) {
+        if ((timer == nil || !timer!.isValid) && atShortcut.state != .up) {
             let repeatRate = ticksToSeconds(defaults.string(forKey: "KeyRepeat") ?? "6")
             let initialDelay = ticksToSeconds(defaults.string(forKey: "InitialKeyRepeat") ?? "25")
             timer = Timer(fire: Date(timeIntervalSinceNow: initialDelay), interval: repeatRate, repeats: true, block: { _ in
@@ -41,6 +41,6 @@ class KeyRepeatTimer {
     }
 
     private static func ticksToSeconds(_ appleNumber: String) -> Double {
-        return Double(appleNumber)! / 60
+        return Double(appleNumber)! / 60 // Apple probably hard-coupled key repeat-rate with 60hz monitors
     }
 }

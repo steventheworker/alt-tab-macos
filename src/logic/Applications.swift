@@ -6,12 +6,16 @@ class Applications {
 
     static func manuallyUpdateWindowsFor2s() {
         let group = DispatchGroup()
+        manuallyUpdateWindows(group)
+        _ = group.wait(wallTimeout: .now() + .seconds(2))
+    }
+
+    static func manuallyUpdateWindows(_ group: DispatchGroup? = nil) {
         for app in list {
             if app.runningApplication.isFinishedLaunching && app.runningApplication.activationPolicy != .prohibited {
                 app.manuallyUpdateWindows(group)
             }
         }
-        _ = group.wait(wallTimeout: .now() + .seconds(2))
     }
 
     static func initialDiscovery() {
@@ -27,8 +31,8 @@ class Applications {
     static func addInitialRunningApplicationsWindows() {
         let otherSpaces = Spaces.otherSpaces()
         if otherSpaces.count > 0 {
-            let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId], [.minimizedAndTabbed])
-            let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces, [.minimizedAndTabbed])
+            let windowsOnCurrentSpace = Spaces.windowsInSpaces([Spaces.currentSpaceId])
+            let windowsOnOtherSpaces = Spaces.windowsInSpaces(otherSpaces)
             let windowsOnlyOnOtherSpaces = Array(Set(windowsOnOtherSpaces).subtracting(windowsOnCurrentSpace))
             if windowsOnlyOnOtherSpaces.count > 0 {
                 // on initial launch, we use private APIs to bring windows from other spaces into the current space, observe them, then remove them from the current space

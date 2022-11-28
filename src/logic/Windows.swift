@@ -6,7 +6,7 @@ class Windows {
     // the first few thumbnails are the most commonly looked at; we pay special attention to them
     static let criticalFirstThumbnails = 3
 
-    // reordered list based on preferences, keeping the original index
+    /// reordered list based on preferences, keeping the original index
     static func reorderList() {
         list.sort {
             if let bool = sortByBooleanAttribute($0.isWindowlessApp, $1.isWindowlessApp) {
@@ -124,7 +124,6 @@ class Windows {
         let nextIndex = windowIndexAfterCycling(step)
         if ((step > 0 && nextIndex < focusedWindowIndex) || (step < 0 && nextIndex > focusedWindowIndex)) &&
                (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
-            KeyRepeatTimer.timer?.invalidate()
             return
         }
         updateFocusedWindowIndex(nextIndex)
@@ -165,18 +164,20 @@ class Windows {
         list.forEachAsync { $0.updatesWindowSpace() }
     }
 
+    /// tabs detection is a flaky work-around the lack of public API to observe OS tabs
+    /// see: https://github.com/lwouis/alt-tab-macos/issues/1540
     static func detectTabbedWindows() {
-        let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 }, [])
+        let cgsWindowIds = Spaces.windowsInSpaces(Spaces.idsAndIndexes.map { $0.0 })
         list.forEach {
             if let cgWindowId = $0.cgWindowId {
-                $0.isTabbed = !$0.isMinimized && !$0.isHidden && !cgsWindowIds.contains(cgWindowId)
+                $0.isTabbed = !cgsWindowIds.contains(cgWindowId)
             }
         }
     }
 
     static func sortByLevel() {
         var windowLevelMap = [CGWindowID: Int]()
-        for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId], [.minimizedAndTabbed]).enumerated() {
+        for (index, cgWindowId) in Spaces.windowsInSpaces([Spaces.currentSpaceId]).enumerated() {
             windowLevelMap[cgWindowId] = index
         }
         var sortedTuples = Windows.list
@@ -209,17 +210,10 @@ class Windows {
                     let window = list[currentIndex]
                     if window.shouldShowTheUser && !window.isWindowlessApp {
                         window.refreshThumbnail()
-                        DispatchQueue.main.async {
-                            let view = ThumbnailsView.recycledViews[currentIndex]
-                            if view.thumbnail.image != window.thumbnail {
-                                let oldSize = view.thumbnail.frame.size
-                                view.thumbnail.image = window.thumbnail
-                                view.thumbnail.image?.size = oldSize
-                                view.thumbnail.frame.size = oldSize
-                            }
-                        }
                     }
                     refreshThumbnailsAsync(screen, currentIndex + 1)
+                } else {
+                    DispatchQueue.main.async { App.app.refreshOpenUi() }
                 }
             }
         }

@@ -264,6 +264,9 @@
 "Reset preferences and restart" = "Tercihleri ​​sıfırlayın ve yeniden başlatın";
 
 /*No comment provided by engineer.*/
+"Reset preferences and restart…" = "Reset preferences and restart…";
+
+/*No comment provided by engineer.*/
 "Rows of thumbnails:" = "Önizleme satırları:";
 
 /*No comment provided by engineer.*/
@@ -312,6 +315,15 @@
 "Shortcut 2" = "Kısayol 2";
 
 /*No comment provided by engineer.*/
+"Shortcut 3" = "Kısayol 3";
+
+/*No comment provided by engineer.*/
+"Shortcut 4" = "Kısayol 4";
+
+/*No comment provided by engineer.*/
+"Shortcut 5" = "Kısayol 5";
+
+/*No comment provided by engineer.*/
 "Shortcut already assigned to another action: %@" = "Kısayol başka bir eylem için atanmış: %@";
 
 /*No comment provided by engineer.*/
@@ -321,7 +333,7 @@
 "Show at the end" = "En sonda göster";
 
 /*No comment provided by engineer.*/
-"Show on:" = "Göstermek:";
+"Show on:" = "Göster:";
 
 /*No comment provided by engineer.*/
 "Show standard tabs as windows:" = "Pencere içi tabları ayrı olarak göster:";
@@ -400,6 +412,9 @@
 
 /*No comment provided by engineer.*/
 "Window title truncation:" = "Pencere başlığını kesme:";
+
+/*No comment provided by engineer.*/
+"You can’t undo this action." = "You can’t undo this action.";
 
 /*No comment provided by engineer.*/
 "You didn’t write your email, thus can’t receive any response." = "E-posta adresinizi yazmadığınız için yanıt alamayacaksınız.";

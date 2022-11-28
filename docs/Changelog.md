@@ -1,5 +1,82 @@
 # Release notes
 
+# [6.51.0](https://github.com/lwouis/alt-tab-macos/compare/v6.50.0...v6.51.0) (2022-11-16)
+
+
+### Bug Fixes
+
+* fullscreening windows stopped working (closes [#2129](https://github.com/lwouis/alt-tab-macos/issues/2129)) ([a09dbbf](https://github.com/lwouis/alt-tab-macos/commit/a09dbbf))
+* windows assigned to all spaces were not shown (closes [#2123](https://github.com/lwouis/alt-tab-macos/issues/2123)) ([82cfb62](https://github.com/lwouis/alt-tab-macos/commit/82cfb62))
+
+
+### Features
+
+* improve localizations ([d2d5016](https://github.com/lwouis/alt-tab-macos/commit/d2d5016))
+
+# [6.50.0](https://github.com/lwouis/alt-tab-macos/compare/v6.49.0...v6.50.0) (2022-11-14)
+
+
+### Bug Fixes
+
+* don't show firefox tooltips as windows (closes [#2110](https://github.com/lwouis/alt-tab-macos/issues/2110)) ([bf905b1](https://github.com/lwouis/alt-tab-macos/commit/bf905b1))
+* tabs show as separate windows sometimes on monterey (closes [#2017](https://github.com/lwouis/alt-tab-macos/issues/2017)) ([0965a78](https://github.com/lwouis/alt-tab-macos/commit/0965a78))
+
+
+### Features
+
+* avoid accidental press of the "reset preferences" button ([#2093](https://github.com/lwouis/alt-tab-macos/issues/2093)) ([f6fcac5](https://github.com/lwouis/alt-tab-macos/commit/f6fcac5))
+* avoid confusion with native app-switcher (closes [#2080](https://github.com/lwouis/alt-tab-macos/issues/2080)) ([f906c0e](https://github.com/lwouis/alt-tab-macos/commit/f906c0e))
+* improve localizations ([2123af3](https://github.com/lwouis/alt-tab-macos/commit/2123af3))
+* show alttab on display with active menubar when needed ([#2107](https://github.com/lwouis/alt-tab-macos/issues/2107)) ([917e661](https://github.com/lwouis/alt-tab-macos/commit/917e661))
+
+# [6.49.0](https://github.com/lwouis/alt-tab-macos/compare/v6.48.0...v6.49.0) (2022-11-02)
+
+
+### Bug Fixes
+
+* command+backtick not working if stage manager is on (closes [#2053](https://github.com/lwouis/alt-tab-macos/issues/2053)) ([848ae5f](https://github.com/lwouis/alt-tab-macos/commit/848ae5f))
+* crash when setting some shortcut combinations (closes [#2061](https://github.com/lwouis/alt-tab-macos/issues/2061)) ([8b2d659](https://github.com/lwouis/alt-tab-macos/commit/8b2d659))
+* hide minimize and fullscreen thumbnail buttons for tabs ([b62c422](https://github.com/lwouis/alt-tab-macos/commit/b62c422))
+* improve key repeat-rate when held (closes [#2026](https://github.com/lwouis/alt-tab-macos/issues/2026)) ([1821dea](https://github.com/lwouis/alt-tab-macos/commit/1821dea))
+* key-above-tab on international keyboards (closes [#1190](https://github.com/lwouis/alt-tab-macos/issues/1190)) ([4c31740](https://github.com/lwouis/alt-tab-macos/commit/4c31740))
+* thumbnails would sometimes be the wrong size ([1065c0d](https://github.com/lwouis/alt-tab-macos/commit/1065c0d))
+* wrong focus after active app becomes windowless (closes [#2065](https://github.com/lwouis/alt-tab-macos/issues/2065)) ([281b3ed](https://github.com/lwouis/alt-tab-macos/commit/281b3ed))
+
+
+### Features
+
+* improve some localizations ([292e6b0](https://github.com/lwouis/alt-tab-macos/commit/292e6b0))
+* play alert sound for unavailable thumbnail shortcuts ([fd84a9a](https://github.com/lwouis/alt-tab-macos/commit/fd84a9a))
+* support adobe after effects non-standard windows (closes [#1982](https://github.com/lwouis/alt-tab-macos/issues/1982)) ([7b54873](https://github.com/lwouis/alt-tab-macos/commit/7b54873))
+
+# [6.48.0](https://github.com/lwouis/alt-tab-macos/compare/v6.47.0...v6.48.0) (2022-10-27)
+
+
+### Bug Fixes
+
+* app name in system settings in macos 13 (closes [#2044](https://github.com/lwouis/alt-tab-macos/issues/2044)) ([02451e8](https://github.com/lwouis/alt-tab-macos/commit/02451e8))
+
+
+### Features
+
+* add 3 more shortcut tabs in the preferences (closes [#1064](https://github.com/lwouis/alt-tab-macos/issues/1064)) ([31bd0a6](https://github.com/lwouis/alt-tab-macos/commit/31bd0a6))
+
+# [6.47.0](https://github.com/lwouis/alt-tab-macos/compare/v6.46.1...v6.47.0) (2022-10-14)
+
+
+### Bug Fixes
+
+* alt-tab would show on the wrong screen (closes [#2003](https://github.com/lwouis/alt-tab-macos/issues/2003)) ([b72c4db](https://github.com/lwouis/alt-tab-macos/commit/b72c4db))
+* discover windows when switching spaces ([#1324](https://github.com/lwouis/alt-tab-macos/issues/1324)) ([9c26d54](https://github.com/lwouis/alt-tab-macos/commit/9c26d54))
+* shortcut tabs right margin ([d207f86](https://github.com/lwouis/alt-tab-macos/commit/d207f86))
+* show finder file copy windows (closes [#1466](https://github.com/lwouis/alt-tab-macos/issues/1466)) ([c78481b](https://github.com/lwouis/alt-tab-macos/commit/c78481b))
+* wrap thumbnail buttons when needed ([ea05c03](https://github.com/lwouis/alt-tab-macos/commit/ea05c03))
+
+
+### Features
+
+* improve many localizations and add romanian ([71f1609](https://github.com/lwouis/alt-tab-macos/commit/71f1609))
+
 ## [6.46.1](https://github.com/lwouis/alt-tab-macos/compare/v6.46.0...v6.46.1) (2022-06-24)
 
 

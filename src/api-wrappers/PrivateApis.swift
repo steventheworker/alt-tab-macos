@@ -113,6 +113,7 @@ func CGSCopyManagedDisplaySpaces(_ cid: CGSConnectionID) -> CFArray
 struct CGSCopyWindowsOptions: OptionSet {
     let rawValue: Int
     static let minimizedAndTabbed = CGSCopyWindowsOptions(rawValue: 1 << 0)
+    // retrieves windows when their app is assigned to All Spaces, and windows at ScreenSaver level 1000
     static let screenSaverLevel1000 = CGSCopyWindowsOptions(rawValue: 1 << 1)
     static let minimized2 = CGSCopyWindowsOptions(rawValue: 1 << 2)
     static let unknown1 = CGSCopyWindowsOptions(rawValue: 1 << 3)
@@ -138,7 +139,7 @@ func CGSCopyWindowsWithOptionsAndTags(_ cid: CGSConnectionID, _ owner: Int, _ sp
 // returns the current space ID on the provided display UUID
 // * macOS 10.10+
 @_silgen_name("CGSManagedDisplayGetCurrentSpace")
-func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: CFString) -> CGSSpaceID
+func CGSManagedDisplayGetCurrentSpace(_ cid: CGSConnectionID, _ displayUuid: ScreenUuid) -> CGSSpaceID
 
 // adds the provided windows to the provided spaces
 // * macOS 10.10-12.2
@@ -159,7 +160,7 @@ func CGSMoveWindowsToManagedSpace(_ cid: CGSConnectionID, _ windows: NSArray, _ 
 // focuses the front process
 // * macOS 10.12+
 @_silgen_name("_SLPSSetFrontProcessWithOptions") @discardableResult
-func _SLPSSetFrontProcessWithOptions(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode) -> CGError
+func _SLPSSetFrontProcessWithOptions(_ psn: inout ProcessSerialNumber, _ wid: CGWindowID, _ mode: SLPSMode.RawValue) -> CGError
 
 // sends bytes to the WindowServer
 // more context: https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
@@ -203,15 +204,22 @@ func SLSRequestScreenCaptureAccess() -> UInt8
 let kAXFullscreenAttribute = "AXFullScreen"
 let kAXStatusLabelAttribute = "AXStatusLabel"
 
+enum CGSSymbolicHotKey: Int, CaseIterable {
+    case commandTab = 1
+    case commandShiftTab = 2
+    case commandKeyAboveTab = 6 // see keyAboveTabDependingOnInputSource
+}
+
 // enables/disables a symbolic hotkeys. These are system shortcuts such as command+tab or Spotlight
 // it is possible to find all the existing hotkey IDs by using CGSGetSymbolicHotKeyValue on the first few hundred numbers
 // note: the effect of enabling/disabling persists after the app is quit
 @_silgen_name("CGSSetSymbolicHotKeyEnabled") @discardableResult
-func CGSSetSymbolicHotKeyEnabled(_ hotKey: Int, _ isEnabled: Bool) -> CGError
+func CGSSetSymbolicHotKeyEnabled(_ hotKey: CGSSymbolicHotKey.RawValue, _ isEnabled: Bool) -> CGError
 
-func setNativeCommandTabEnabled(_ isEnabled: Bool) {
-    CGSSetSymbolicHotKeyEnabled(1, isEnabled) // command+tab
-    CGSSetSymbolicHotKeyEnabled(2, isEnabled) // command+shift+tab
+func setNativeCommandTabEnabled(_ isEnabled: Bool, _ hotkeys: [CGSSymbolicHotKey] = CGSSymbolicHotKey.allCases) {
+    for hotkey in hotkeys {
+        CGSSetSymbolicHotKeyEnabled(hotkey.rawValue, isEnabled)
+    }
 }
 
 // returns info about a given psn
@@ -244,6 +252,11 @@ func CGSSpaceGetType(_ cid: CGSConnectionID, _ sid: CGSSpaceID) -> CGSSpaceType
 @_silgen_name("CGSSpaceAddWindowsAndRemoveFromSpaces")
 func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpaceID, _ wid: NSArray, _ notSure: Int) -> Void
 
+// get the display UUID with the active menubar (other menubar are dimmed)
+@_silgen_name("CGSCopyActiveMenuBarDisplayIdentifier")
+func CGSCopyActiveMenuBarDisplayIdentifier(_ cid: CGSConnectionID) -> ScreenUuid
+
+
 // ------------------------------------------------------------
 // below are some notes on some private APIs I experimented with
 // ------------------------------------------------------------
@@ -256,7 +269,7 @@ func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpa
 //// returns true if the current screen is animating
 //// useful to detect Spaces transitions, windows going fullscreen, etc
 //@_silgen_name("SLSManagedDisplayIsAnimating")
-//func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: CFString) -> Bool
+//func SLSManagedDisplayIsAnimating(_ cid: CGSConnectionID, _ displayUuid: ScreenUuid) -> Bool
 
 //@_silgen_name("CGSGetSymbolicHotKeyValue")
 //func CGSGetSymbolicHotKeyValue(_ hotKey: Int, _ options: inout UInt32, _ keyCode: inout UInt32, _ modifiers: inout UInt32) -> CGError
@@ -352,7 +365,7 @@ func CGSSpaceAddWindowsAndRemoveFromSpaces(_ cid: CGSConnectionID, _ sid: CGSSpa
 //// change window order. I tried with relativeToWindow=0, and place=.orderAbove, and it does nothing
 //// * macOS 10.10+
 //@_silgen_name("CGSOrderWindow") @discardableResult
-//func CGSOrderWindow(_ cid: CGSConnectionID, _ win: CGWindowID, _ place: CGSWindowOrderingMode, relativeTo: CGWindowID /* can be NULL */) -> OSStatus
+//func CGSOrderWindow(_ cid: CGSConnectionID, _ win: CGWindowID, _ place: CGSWindowOrderingMode.RawValue, relativeTo: CGWindowID /* can be NULL */) -> OSStatus
 //
 //// Get on-screen window counts and lists. With targetCID=1 -> returns []. With targetCID=0 -> crashes, with targetCID=cid -> crashes
 //// * macOS 10.10+

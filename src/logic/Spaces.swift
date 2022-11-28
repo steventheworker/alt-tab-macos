@@ -14,6 +14,8 @@ class Spaces {
             updateCurrentSpace()
             // if UI was kept open during Space transition, the Spaces may be obsolete; we refresh them
             Windows.list.forEachAsync { $0.updatesWindowSpace() }
+            // from macos 12.2 beta onwards, we can't get other-space windows; grabbing windows when switching spaces mitigates the issue
+            Applications.manuallyUpdateWindows()
         })
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: nil, using: { _ in
             debugPrint("OS event", "didChangeScreenParametersNotification")
@@ -67,10 +69,11 @@ class Spaces {
         return idsAndIndexes.filter { $0.0 != currentSpaceId }.map { $0.0 }
     }
 
-    static func windowsInSpaces(_ spaceIds: [CGSSpaceID], _ options: CGSCopyWindowsOptions) -> [CGWindowID] {
+    static func windowsInSpaces(_ spaceIds: [CGSSpaceID]) -> [CGWindowID] {
         var set_tags = ([] as CGSCopyWindowsTags).rawValue
         var clear_tags = ([] as CGSCopyWindowsTags).rawValue
-        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, 2, &set_tags, &clear_tags) as! [CGWindowID]
+        let options = ([.minimizedAndTabbed, .screenSaverLevel1000] as CGSCopyWindowsOptions).rawValue
+        return CGSCopyWindowsWithOptionsAndTags(cgsMainConnectionId, 0, spaceIds as CFArray, options, &set_tags, &clear_tags) as! [CGWindowID]
     }
 
     static func isSingleSpace() -> Bool {
