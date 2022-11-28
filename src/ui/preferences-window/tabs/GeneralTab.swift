@@ -60,7 +60,6 @@ class GeneralTab {
             // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
             // docs: man launchd.plist
             let plist: NSDictionary = [
-                //"Label": "com.steventheworker.alt-tab-macos",
                 "Label": App.id,
                 "Program": Bundle.main.executablePath ?? "/Applications/\(App.name).app/Contents/MacOS/\(App.name)",
                 "RunAtLoad": true,

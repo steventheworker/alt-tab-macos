@@ -269,16 +269,6 @@ class Preferences {
     @available(OSX, deprecated: 10.11)
     static func migrateLoginItem() {
         do {
-//<<<<<<< HEAD
-//            let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil)!.takeRetainedValue()
-//            let loginItemsSnapshot = LSSharedFileListCopySnapshot(loginItems, nil)!.takeRetainedValue() as! [LSSharedFileListItem]
-//            let itemName = Bundle.main.bundleURL.lastPathComponent as CFString
-//            let itemUrl = URL(fileURLWithPath: Bundle.main.bundlePath) as CFURL
-//            loginItemsSnapshot.forEach {
-//                if (LSSharedFileListItemCopyDisplayName($0).takeRetainedValue() == itemName) ||
-//                       (LSSharedFileListItemCopyResolvedURL($0, 0, nil)?.takeRetainedValue() == itemUrl) {
-//                    LSSharedFileListItemRemove(loginItems, $0)
-//=======
             if let loginItemsWrapped = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil) {
                 let loginItems = loginItemsWrapped.takeRetainedValue()
                 if let loginItemsSnapshotWrapped = LSSharedFileListCopySnapshot(loginItems, nil) {
@@ -291,7 +281,6 @@ class Preferences {
                             LSSharedFileListItemRemove(loginItems, $0)
                         }
                     }
-//>>>>>>> master
                 }
             }
             throw AxError.runtimeError // remove compiler warning
