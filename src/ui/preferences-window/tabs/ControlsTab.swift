@@ -57,7 +57,7 @@ class ControlsTab {
             (NSLocalizedString("Shortcut 2", comment: ""), tab2View),
             (NSLocalizedString("Shortcut 3", comment: ""), tab3View),
             (NSLocalizedString("Shortcut 4", comment: ""), tab4View),
-            (NSLocalizedString("Shortcut 5", comment: ""), tab5View),
+            (NSLocalizedString("DockAltTab", comment: ""), tab5View),
         ])
 
         ControlsTab.arrowKeysEnabledCallback(arrowKeysCheckbox)

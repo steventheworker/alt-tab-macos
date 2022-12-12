@@ -41,7 +41,7 @@ class showAppScriptCommand: NSScriptCommand {
             Spaces.refreshAllIdsAndIndexes()
             Windows.updateSpaces()
             let screen = NSScreen.preferred()
-            (Preferences.appsToShow[0] == .active) ? (App.app.shortcutIndex = 0) : (App.app.shortcutIndex = 1)
+            (Preferences.appsToShow[0] == .active) ? (App.app.shortcutIndex = 0) : (App.app.shortcutIndex = Preferences.appsToShow.count - 1) // if shortcut 1 = active, use it, else use last shortcut
             Windows.list.forEach { (window: Window) in // follow refreshWhichWindowsToShowTheUser
                 window.shouldShowTheUser =
 //                    !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlacklist.contains { id.hasPrefix($0) } } ?? false) &&
