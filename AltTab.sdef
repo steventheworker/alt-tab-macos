@@ -40,5 +40,12 @@
              </parameter>
              <result type="boolean" description="is key pressed?"/>
         </command>
+         <command name="appSetting" code="atssApSt" description="Read settings applied on showApp previews.">
+             <cocoa class="AltTab.appSettingScriptCommand"/>
+             <parameter name="named" code="arg1" type="text" optional="no" description="Name of the setting. (appsToShow, showHiddenWindows, showFullscreenWindows, showMinimizedWindows, spacesToShow, screensToShow, showTabsAsWindows)">
+                 <cocoa key="named"/>
+             </parameter>
+             <result type="text" description="value of the setting"/>)
+        </command>
      </suite>
  </dictionary>
