@@ -29,5 +29,5 @@ deploy:
   file: "$XCODE_BUILD_PATH/*.zip"
   skip_cleanup: true
   on:
-    repo: lwouis/alt-tab-macos
+    repo: steventheworker/alt-tab-macos
 after_deploy: scripts/update_homebrew_cask.sh

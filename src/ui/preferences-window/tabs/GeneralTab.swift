@@ -55,7 +55,7 @@ class GeneralTab {
                 debugPrint("Failed to create LaunchAgent directory at '\(launchAgentsPath.path)'", error)
             }
         }
-        launchAgentsPath.appendPathComponent("com.lwouis.alt-tab-macos.plist", isDirectory: false)
+        launchAgentsPath.appendPathComponent("com.steventheworker.alt-tab-macos.plist", isDirectory: false)
         if (sender as! NSButton).state == .on {
             // docs: https://developer.apple.com/library/archive/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SECTION23
             // docs: man launchd.plist

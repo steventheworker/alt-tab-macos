@@ -22,6 +22,7 @@ class Windows {
             }
             return $0.lastFocusOrder < $1.lastFocusOrder
         }
+        if (DockAltTabRightDock) {list = list.reversed()}
     }
 
     static func setInitialFocusedWindowIndex() {
@@ -30,8 +31,13 @@ class Windows {
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedWindowIndex(lastFocusedWindowIndex)
         } else {
-            updateFocusedWindowIndex(0)
-            cycleFocusedWindowIndex(1)
+            if (DockAltTabRightDock) {
+                updateFocusedWindowIndex(0)
+                cycleFocusedWindowIndex(list.count - 1)
+            } else {
+                updateFocusedWindowIndex(0)
+                cycleFocusedWindowIndex(1)
+            }
         }
     }
 

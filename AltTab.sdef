@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+ <dictionary title="AltTab Terminology">
+     <suite name="AltTab Scripting Suite" code="atss" description="Standard suite for application communication.">
+         <command name="trigger" code="atssTrig" description="Goes to the next window, without showing Overlay/UI.">
+             <cocoa class="AltTab.TriggerScriptCommand"/>
+         </command>
+         <command name="show" code="atssShow" description="Show all app windows. (Regular AltTab shortcut)">
+             <cocoa class="AltTab.ShowScriptCommand"/>
+          </command>
+         <command name="hide" code="atssHide" description="Hide Overlay/UI.">
+             <cocoa class="AltTab.HideScriptCommand"/>
+         </command>
+         <command name="showApp" code="atssSApp" description="Show specific app windows. (ignores blacklist)">
+             <cocoa class="AltTab.showAppScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to show.">
+                 <cocoa key="appBID"/>
+             </parameter>
+             <parameter name="x" code="arg2" type="integer" optional="yes" description="Force the x-coordinate of the AltTab container. Resets after hide.">
+                 <cocoa key="x"/>
+             </parameter>
+             <parameter name="y" code="arg3" type="integer" optional="yes" description="Force the y-coordinate of the AltTab container. Resets after hide.">
+                 <cocoa key="y"/>
+             </parameter>
+             <parameter name="isRight" code="arg4" type="boolean" optional="yes" description="Lets AltTab know it has to based the position on it's size. Right sided dock only.">
+                 <cocoa key="isRight"/>
+             </parameter>
+        </command>
+         <command name="countWindows" code="atssCWin" description="The number of windows for an app (in all spaces).">
+             <cocoa class="AltTab.countWindowsScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to count.">
+                 <cocoa key="appBID"/>
+             </parameter>
+             <result type="integer" description="integer no. of windows"/>
+        </command>
+         <command name="keyState" code="atssKSta" description="Whether a certain key is being pressed.">
+             <cocoa class="AltTab.keyStateScriptCommand"/>
+             <parameter name="key" code="arg1" type="text" optional="no" description="Name of the key you want to check the state of.">
+                 <cocoa key="key"/>
+             </parameter>
+             <result type="boolean" description="is key pressed?"/>
+        </command>
+         <command name="appSetting" code="atssApSt" description="Read settings applied on showApp previews.">
+             <cocoa class="AltTab.appSettingScriptCommand"/>
+             <parameter name="named" code="arg1" type="text" optional="no" description="Name of the setting. (appsToShow, showHiddenWindows, showFullscreenWindows, showMinimizedWindows, spacesToShow, screensToShow, showTabsAsWindows)">
+                 <cocoa key="named"/>
+             </parameter>
+             <result type="text" description="value of the setting"/>)
+        </command>
+     </suite>
+ </dictionary>
