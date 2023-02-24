@@ -1,5 +1,48 @@
 # Release notes
 
+# [6.55.0](https://github.com/lwouis/alt-tab-macos/compare/v6.54.0...v6.55.0) (2023-02-23)
+
+
+### Bug Fixes
+
+* use plain number formatter for initial slider label ([7cab722](https://github.com/lwouis/alt-tab-macos/commit/7cab722))
+
+
+### Features
+
+* allow batch removal from the blacklist ([f53c070](https://github.com/lwouis/alt-tab-macos/commit/f53c070))
+* allow to switch shortcuts while the ui is already open ([b99c988](https://github.com/lwouis/alt-tab-macos/commit/b99c988))
+* improved german localization ([5d27a19](https://github.com/lwouis/alt-tab-macos/commit/5d27a19))
+* show dock badges when they don't show a number (closes [#2356](https://github.com/lwouis/alt-tab-macos/issues/2356)) ([84752e0](https://github.com/lwouis/alt-tab-macos/commit/84752e0))
+
+# [6.54.0](https://github.com/lwouis/alt-tab-macos/compare/v6.53.1...v6.54.0) (2023-02-20)
+
+
+### Features
+
+* improve selection background/border color contrast ([cea0cff](https://github.com/lwouis/alt-tab-macos/commit/cea0cff)), closes [#2352](https://github.com/lwouis/alt-tab-macos/issues/2352)
+
+## [6.53.1](https://github.com/lwouis/alt-tab-macos/compare/v6.53.0...v6.53.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* bring back mouse hover selection (closes [#2317](https://github.com/lwouis/alt-tab-macos/issues/2317)) ([abe2e0b](https://github.com/lwouis/alt-tab-macos/commit/abe2e0b))
+
+# [6.53.0](https://github.com/lwouis/alt-tab-macos/compare/v6.52.1...v6.53.0) (2023-02-09)
+
+
+### Bug Fixes
+
+* don't focus window when dropping a file on it ([c386a0c](https://github.com/lwouis/alt-tab-macos/commit/c386a0c))
+
+
+### Features
+
+* allow status item removal by dragging ([216c5d8](https://github.com/lwouis/alt-tab-macos/commit/216c5d8))
+* improve localizations ([7a30b18](https://github.com/lwouis/alt-tab-macos/commit/7a30b18))
+* separate mouse hover from keyboard selection ([3fb9a19](https://github.com/lwouis/alt-tab-macos/commit/3fb9a19)), closes [#2078](https://github.com/lwouis/alt-tab-macos/issues/2078) [#1617](https://github.com/lwouis/alt-tab-macos/issues/1617)
+
 ## [6.52.1](https://github.com/lwouis/alt-tab-macos/compare/v6.52.0...v6.52.1) (2022-12-28)
 
 # [6.52.0](https://github.com/lwouis/alt-tab-macos/compare/v6.51.0...v6.52.0) (2022-12-28)

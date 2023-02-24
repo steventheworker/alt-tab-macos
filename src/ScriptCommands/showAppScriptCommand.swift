@@ -38,6 +38,7 @@ class showAppScriptCommand: NSScriptCommand {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             App.app.isFirstSummon = false
             if Windows.list.count == 0 || CGWindow.isMissionControlActive() { App.app.hideUi(); return self }
+//            Windows.detectTabbedWindows()
             Spaces.refreshAllIdsAndIndexes()
             Windows.updateSpaces()
             let screen = NSScreen.preferred()
@@ -57,7 +58,7 @@ class showAppScriptCommand: NSScriptCommand {
             }
             Windows.reorderList()
             if (!Windows.list.contains { $0.shouldShowTheUser }) { App.app.hideUi(); return self }
-            Windows.setInitialFocusedWindowIndex()
+            Windows.setInitialFocusedAndHoveredWindowIndex()
             App.app.delayedDisplayScheduled += 1
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Preferences.windowDisplayDelay) { () -> () in
                 if App.app.delayedDisplayScheduled == 1 {

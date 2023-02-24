@@ -7,13 +7,21 @@ class ThumbnailsView: NSVisualEffectView {
 
     convenience init() {
         self.init(frame: .zero)
-        material = Preferences.windowMaterial
+        material = .dark
         state = .active
         wantsLayer = true
         updateRoundedCorners(Preferences.windowCornerRadius)
         addSubview(scrollView)
         // TODO: think about this optimization more
         (1...100).forEach { _ in ThumbnailsView.recycledViews.append(ThumbnailView()) }
+    }
+
+    static func highlight(_ indexInRecycledViews: Int) {
+        let v = recycledViews[indexInRecycledViews]
+        v.indexInRecycledViews = indexInRecycledViews
+        if v.frame != NSRect.zero {
+            v.drawHighlight(indexInRecycledViews)
+        }
     }
 
     /// using layer!.cornerRadius works but the corners are aliased; this custom approach gives smooth rounded corners
@@ -63,7 +71,7 @@ class ThumbnailsView: NSVisualEffectView {
                 return leadingSide ? NSMinX($0.frame) < originCenter : NSMaxX($0.frame) > originCenter
             } ?? iterable.last!
             let targetIndex = ThumbnailsView.recycledViews.firstIndex(of: targetView)!
-            Windows.updateFocusedWindowIndex(targetIndex)
+            Windows.updateHoveredAndFocusedWindowIndexes(targetIndex)
         }
     }
 
@@ -179,13 +187,7 @@ class ThumbnailsView: NSVisualEffectView {
     }
 
     private func highlightStartView() {
-        _ = Windows.list.enumerated().contains { (index, _) in
-            let view = ThumbnailsView.recycledViews[index]
-            if view.isHighlighted {
-                view.highlightOrNot()
-            }
-            return view.isHighlighted
-        }
+        ThumbnailsView.highlight(Windows.focusedWindowIndex)
     }
 
     private func shiftRow(_ maxX: CGFloat, _ rowWidth: CGFloat, _ rowStartIndex: Int, _ index: Int) {
@@ -227,6 +229,14 @@ class ScrollView: NSScrollView {
         }
     }
 
+    private func resetHoveredWindow() {
+        if let oldIndex = Windows.hoveredWindowIndex {
+            Windows.hoveredWindowIndex = nil
+            ThumbnailsView.highlight(oldIndex)
+            ThumbnailsView.recycledViews[oldIndex].showOrHideWindowControls(false)
+        }
+    }
+
     override func mouseMoved(with event: NSEvent) {
         // disable mouse hover during scrolling as it creates jank during elastic bounces at the start/end of the scrollview
         if isCurrentlyScrolling { return }
@@ -243,19 +253,19 @@ class ScrollView: NSScrollView {
                 let target = target as! ThumbnailView
                 target.mouseMoved()
             } else {
-                previousTarget?.showOrHideWindowControls(false)
+                resetHoveredWindow()
             }
         } else {
-            previousTarget?.showOrHideWindowControls(false)
+            resetHoveredWindow()
         }
     }
 
     override func mouseExited(with event: NSEvent) {
-        previousTarget?.showOrHideWindowControls(false)
+        resetHoveredWindow()
     }
 
-    // holding shift and using the scrolling wheel will generate a horizontal movement
-    // shift can be part of shortcuts so we force shift scrolls to be vertical
+    /// holding shift and using the scrolling wheel will generate a horizontal movement
+    /// shift can be part of shortcuts so we force shift scrolls to be vertical
     override func scrollWheel(with event: NSEvent) {
         if event.modifierFlags.contains(.shift) && event.scrollingDeltaY == 0 {
             let cgEvent = event.cgEvent!
@@ -267,7 +277,7 @@ class ScrollView: NSScrollView {
         }
     }
 
-    // force overlay style after a change in System Preference > General > Show scroll bars
+    /// force overlay style after a change in System Preference > General > Show scroll bars
     private func forceOverlayStyle() {
         NotificationCenter.default.addObserver(forName: NSScroller.preferredScrollerStyleDidChangeNotification, object: nil, queue: nil) { [weak self] _ in
             self?.scrollerStyle = .overlay

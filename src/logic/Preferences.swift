@@ -29,7 +29,7 @@ class Preferences {
         "quitAppShortcut": "Q",
         "hideShowAppShortcut": "H",
         "arrowKeysEnabled": "true",
-        "mouseHoverEnabled": "true",
+        "mouseHoverEnabled": "false",
         "cursorFollowFocusEnabled": "false",
         "showMinimizedWindows": ShowHowPreference.show.rawValue,
         "showMinimizedWindows2": ShowHowPreference.show.rawValue,
@@ -94,7 +94,6 @@ class Preferences {
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
-    static var windowMaterial: NSVisualEffectView.Material { .dark }
     static var fontColor: NSColor { .white }
     static var windowPadding: CGFloat { 18 }
     static var interCellPadding: CGFloat { 5 }
@@ -149,11 +148,8 @@ class Preferences {
     static var menubarIcon: MenubarIconPreference { defaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }
 
     // derived values
-    static var cellBorderWidth: CGFloat { theme.themeParameters.cellBorderWidth }
     static var cellCornerRadius: CGFloat { theme.themeParameters.cellCornerRadius }
     static var windowCornerRadius: CGFloat { theme.themeParameters.windowCornerRadius }
-    static var highlightBorderColor: NSColor { theme.themeParameters.highlightBorderColor }
-    static var highlightBackgroundColor: NSColor { theme.themeParameters.highlightBackgroundColor }
     static var font: NSFont { NSFont.systemFont(ofSize: fontHeight) }
 
     static func initialize() {
@@ -429,11 +425,8 @@ protocol MacroPreference {
 
 struct ThemeParameters {
     let label: String
-    let cellBorderWidth: CGFloat
     let cellCornerRadius: CGFloat
     let windowCornerRadius: CGFloat
-    let highlightBorderColor: NSColor
-    let highlightBackgroundColor: NSColor
 }
 
 typealias LocalizedString = String
@@ -570,8 +563,8 @@ enum ThemePreference: String, CaseIterable, MacroPreference {
 
     var themeParameters: ThemeParameters {
         switch self {
-            case .macOs: return ThemeParameters(label: localizedString, cellBorderWidth: 0, cellCornerRadius: 10, windowCornerRadius: 23, highlightBorderColor: .clear, highlightBackgroundColor: NSColor(red: 0, green: 0, blue: 0, alpha: 0.4))
-            case .windows10: return ThemeParameters(label: localizedString, cellBorderWidth: 2, cellCornerRadius: 0, windowCornerRadius: 0, highlightBorderColor: .white, highlightBackgroundColor: .clear)
+            case .macOs: return ThemeParameters(label: localizedString, cellCornerRadius: 10, windowCornerRadius: 23)
+            case .windows10: return ThemeParameters(label: localizedString, cellCornerRadius: 0, windowCornerRadius: 0)
         }
     }
 }

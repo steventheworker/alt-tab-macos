@@ -3,6 +3,7 @@ import Cocoa
 class Windows {
     static var list = [Window]()
     static var focusedWindowIndex = Int(0)
+    static var hoveredWindowIndex: Int?
     // the first few thumbnails are the most commonly looked at; we pay special attention to them
     static let criticalFirstThumbnails = 3
 
@@ -25,18 +26,25 @@ class Windows {
         if (DockAltTabRightDock) {list = list.reversed()}
     }
 
-    static func setInitialFocusedWindowIndex() {
+    static func setInitialFocusedAndHoveredWindowIndex() {
+        let oldIndex = focusedWindowIndex
+        focusedWindowIndex = 0
+        ThumbnailsView.highlight(oldIndex)
+        if let oldIndex = hoveredWindowIndex {
+            hoveredWindowIndex = nil
+            ThumbnailsView.highlight(oldIndex)
+        }
         if let app = Applications.find(NSWorkspace.shared.frontmostApplication?.processIdentifier),
            app.focusedWindow == nil,
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
-            updateFocusedWindowIndex(lastFocusedWindowIndex)
+            updateHoveredAndFocusedWindowIndexes(lastFocusedWindowIndex)
         } else {
             if (DockAltTabRightDock) {
-                updateFocusedWindowIndex(0)
-                cycleFocusedWindowIndex(list.count - 1)
+                updateHoveredAndFocusedWindowIndexes(list.count - 1)
             } else {
-                updateFocusedWindowIndex(0)
-                cycleFocusedWindowIndex(1)
+                if focusedWindowIndex == 0 {
+                    updateHoveredAndFocusedWindowIndexes(0)
+                }
             }
         }
     }
@@ -95,21 +103,35 @@ class Windows {
         return nil
     }
 
-    static func updateFocusedWindowIndex(_ newIndex: Int) {
-        ThumbnailsView.recycledViews[focusedWindowIndex].highlight(false)
-        focusedWindowIndex = newIndex
-        let focusedView = ThumbnailsView.recycledViews[focusedWindowIndex]
-        focusedView.highlight(true)
+    static func updateHoveredAndFocusedWindowIndexes(_ newIndex: Int, _ fromMouse: Bool = false) {
+        var index: Int?
+        if fromMouse && newIndex != hoveredWindowIndex {
+            let oldIndex = hoveredWindowIndex
+            hoveredWindowIndex = newIndex
+            if let oldIndex = oldIndex {
+                ThumbnailsView.highlight(oldIndex)
+            }
+            index = hoveredWindowIndex
+        }
+        if (!fromMouse || Preferences.mouseHoverEnabled) && newIndex != focusedWindowIndex {
+            let oldIndex = focusedWindowIndex
+            focusedWindowIndex = newIndex
+            ThumbnailsView.highlight(oldIndex)
+            index = focusedWindowIndex
+        }
+        guard let index = index else { return }
+        ThumbnailsView.highlight(index)
+        let focusedView = ThumbnailsView.recycledViews[index]
         App.app.thumbnailsPanel.thumbnailsView.scrollView.contentView.scrollToVisible(focusedView.frame)
-        voiceOverFocusedWindow()
+        voiceOverWindow(index)
     }
 
-    static func voiceOverFocusedWindow() {
+    static func voiceOverWindow(_ windowIndex: Int = focusedWindowIndex) {
         guard App.app.appIsBeingUsed && App.app.thumbnailsPanel.isKeyWindow else { return }
         // it seems that sometimes makeFirstResponder is called before the view is visible
         // and it creates a delay in showing the main window; calling it with some delay seems to work around this
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            let window = ThumbnailsView.recycledViews[focusedWindowIndex]
+            let window = ThumbnailsView.recycledViews[windowIndex]
             if window.window_ != nil && window.window != nil {
                 App.app.thumbnailsPanel.makeFirstResponder(window)
             }
@@ -126,7 +148,7 @@ class Windows {
                (KeyRepeatTimer.isARepeat || KeyRepeatTimer.timer?.isValid ?? false) {
             return
         }
-        updateFocusedWindowIndex(nextIndex)
+        updateHoveredAndFocusedWindowIndexes(nextIndex)
     }
 
     static func windowIndexAfterCycling(_ step: Int) -> Int {
