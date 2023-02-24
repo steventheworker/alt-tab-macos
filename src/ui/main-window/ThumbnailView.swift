@@ -103,8 +103,10 @@ class ThumbnailView: NSStackView {
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
             ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
-        layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
+//        if (DockAltTabMode || Preferences.mouseHoverEnabled) {
+            layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
             ? ThumbnailView.highlightBorderColor.cgColor : .clear
+//        }
         let newFrameInset = (isFocused) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
         if newFrameInset != frameInset {
             frameInset = newFrameInset
