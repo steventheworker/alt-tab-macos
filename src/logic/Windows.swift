@@ -40,8 +40,10 @@ class Windows {
             updateHoveredAndFocusedWindowIndexes(lastFocusedWindowIndex)
         } else {
             if (DockAltTabRightDock) {
+                cycleFocusedWindowIndex(list.count - 1)
                 updateHoveredAndFocusedWindowIndexes(list.count - 1)
             } else {
+                cycleFocusedWindowIndex(1)
                 if focusedWindowIndex == 0 {
                     updateHoveredAndFocusedWindowIndexes(0)
                 }
