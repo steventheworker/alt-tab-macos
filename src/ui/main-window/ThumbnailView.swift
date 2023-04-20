@@ -26,7 +26,7 @@ class ThumbnailView: NSStackView {
     var shouldShowWindowControls = false
     var isShowingWindowControls = false
     var windowlessIcon = FontIcon(.newWindow, NSLocalizedString("App is running but has no open window", comment: ""))
-    var frameInset = Preferences.intraCellPadding
+    var frameInset = (DockAltTabMode ? 0 : Preferences.intraCellPadding)
 
     // for VoiceOver cursor
     override var canBecomeKeyView: Bool { true }
@@ -46,7 +46,7 @@ class ThumbnailView: NSStackView {
         layer!.borderColor = .clear
         layer!.cornerRadius = Preferences.cellCornerRadius
         layer!.borderWidth = CGFloat(2)
-        edgeInsets = NSEdgeInsets(top: Preferences.intraCellPadding, left: Preferences.intraCellPadding, bottom: Preferences.intraCellPadding, right: Preferences.intraCellPadding)
+        edgeInsets = NSEdgeInsets(top: (DockAltTabMode ? 0 : Preferences.intraCellPadding), left: (DockAltTabMode ? 0 : Preferences.intraCellPadding), bottom: (DockAltTabMode ? 0 : Preferences.intraCellPadding), right: (DockAltTabMode ? 0 : Preferences.intraCellPadding))
         orientation = .vertical
         let shadow = ThumbnailView.makeShadow(.gray)
         thumbnail.shadow = shadow
@@ -113,12 +113,12 @@ class ThumbnailView: NSStackView {
             layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
             ? ThumbnailView.highlightBorderColor.cgColor : .clear
         }
-        let newFrameInset = (isFocused) ? -Preferences.intraCellPadding : Preferences.intraCellPadding
+        let newFrameInset = (isFocused) ? -(DockAltTabMode ? 0 : Preferences.intraCellPadding) : (DockAltTabMode ? 0 : Preferences.intraCellPadding)
         if newFrameInset != frameInset {
             frameInset = newFrameInset
             frame = frame.insetBy(dx: frameInset, dy: frameInset)
         }
-        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused ? 2 : 1)
+        let edgeInsets_: CGFloat = (DockAltTabMode ? 0 : Preferences.intraCellPadding) * (isFocused ? 2 : 1)
         edgeInsets.top = edgeInsets_
         edgeInsets.right = edgeInsets_
         edgeInsets.bottom = edgeInsets_
@@ -127,7 +127,7 @@ class ThumbnailView: NSStackView {
 
     func updateRecycledCellWithNewContent(_ element: Window, _ index: Int, _ newHeight: CGFloat, _ screen: NSScreen) {
         window_ = element
-        frameInset = Preferences.intraCellPadding
+        frameInset = (DockAltTabMode ? 0 : Preferences.intraCellPadding)
         assignIfDifferent(&thumbnail.isHidden, Preferences.hideThumbnails || element.isWindowlessApp)
         if !thumbnail.isHidden {
             thumbnail.image = element.thumbnail
@@ -141,8 +141,8 @@ class ThumbnailView: NSStackView {
             // for Accessibility > "speak items under the pointer"
             thumbnail.setAccessibilityLabel(element.title)
         }
-        assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : Preferences.intraCellPadding)
-        assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : Preferences.intraCellPadding)
+        assignIfDifferent(&spacing, Preferences.hideThumbnails ? 0 : (DockAltTabMode ? 0 : Preferences.intraCellPadding))
+        assignIfDifferent(&hStackView.spacing, Preferences.fontHeight == 0 ? 0 : (DockAltTabMode ? 0 : Preferences.intraCellPadding))
         let appIconChanged = appIcon.image != element.icon
         if appIconChanged {
             appIcon.image = element.icon
@@ -177,20 +177,20 @@ class ThumbnailView: NSStackView {
             setAccessibilityHelp(getAccessibilityHelp(element.application.runningApplication.localizedName, element.dockLabel))
         }
         let widthMin = ThumbnailView.widthMin(screen)
-        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
+        assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2, widthMin).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
-        let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
-        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
+        let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + (DockAltTabMode ? 0 : Preferences.intraCellPadding))
+        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 3 - fontIconWidth)
         label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {
-            let maxWidth = (frame.size.width - Preferences.intraCellPadding * 2).rounded()
-            let maxHeight = (frame.size.height - hStackView.fittingSize.height - Preferences.intraCellPadding * 2).rounded()
+            let maxWidth = (frame.size.width - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2).rounded()
+            let maxHeight = (frame.size.height - hStackView.fittingSize.height - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2).rounded()
             // heuristic to determine font size based on bounding box
-            let fontSize = (min(maxWidth - Preferences.intraCellPadding * 2, maxHeight - Preferences.intraCellPadding * 2) * 0.6).rounded()
+            let fontSize = (min(maxWidth - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2, maxHeight - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2) * 0.6).rounded()
             // heuristic to fit the SF Symbol into the bounding box
             let labelViewHeight = (fontSize * 1.4).rounded()
-            windowlessIcon.labelView.frame = NSRect(x: Preferences.intraCellPadding, y: ((maxHeight - labelViewHeight) / 2).rounded(), width: maxWidth - Preferences.intraCellPadding * 2, height: labelViewHeight - Preferences.intraCellPadding * 2)
+            windowlessIcon.labelView.frame = NSRect(x: (DockAltTabMode ? 0 : Preferences.intraCellPadding), y: ((maxHeight - labelViewHeight) / 2).rounded(), width: maxWidth - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2, height: labelViewHeight - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2)
             windowlessIcon.labelView.font = NSFont(name: windowlessIcon.labelView.font!.fontName, size: fontSize)
             windowlessIcon.needsDisplay = true
         }
@@ -318,8 +318,8 @@ class ThumbnailView: NSStackView {
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {
         guard let image = image else { return (0, 0) }
-        let thumbnailHeightMax = ThumbnailView.height(screen) - Preferences.intraCellPadding * 3 - Preferences.iconSize
-        let thumbnailWidthMax = ThumbnailView.widthMax(screen) - Preferences.intraCellPadding * 2
+        let thumbnailHeightMax = ThumbnailView.height(screen) - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 3 - Preferences.iconSize
+        let thumbnailWidthMax = ThumbnailView.widthMax(screen) - (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2
         let thumbnailHeight = min(image.size.height, thumbnailHeightMax)
         let thumbnailWidth = min(image.size.width, thumbnailWidthMax)
         let imageRatio = image.size.width / image.size.height

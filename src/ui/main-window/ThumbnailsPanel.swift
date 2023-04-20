@@ -54,10 +54,10 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.width * Preferences.maxWidthOnScreen - Preferences.windowPadding * 2
+        return screen.frame.width * Preferences.maxWidthOnScreen - (DockAltTabMode ? 0 : Preferences.windowPadding) * 2
     }
 
     static func heightMax(_ screen: NSScreen) -> CGFloat {
-        return screen.frame.height * Preferences.maxHeightOnScreen - Preferences.windowPadding * 2
+        return screen.frame.height * Preferences.maxHeightOnScreen - (DockAltTabMode ? 0 : Preferences.windowPadding) * 2
     }
 }

@@ -88,7 +88,7 @@ class ThumbnailsView: NSVisualEffectView {
 
     func rowHeight(_ screen: NSScreen) -> CGFloat {
         if Preferences.hideThumbnails {
-            return max(Preferences.iconSize, Preferences.fontHeight + 3) + Preferences.intraCellPadding * 2
+            return max(Preferences.iconSize, Preferences.fontHeight + 3) + (DockAltTabMode ? 0 : Preferences.intraCellPadding) * 2
         }
         return ThumbnailView.height(screen).rounded(.down)
     }
@@ -151,9 +151,9 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
-        frame.size = NSSize(width: min(maxX, widthMax) + Preferences.windowPadding * 2, height: min(maxY, heightMax) + Preferences.windowPadding * 2)
+        frame.size = NSSize(width: min(maxX, widthMax) + (DockAltTabMode ? 0 : Preferences.windowPadding) * 2, height: min(maxY, heightMax) + (DockAltTabMode ? 0 : Preferences.windowPadding) * 2)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
-        scrollView.frame.origin = CGPoint(x: Preferences.windowPadding, y: Preferences.windowPadding)
+        scrollView.frame.origin = CGPoint(x: (DockAltTabMode ? 0 : Preferences.windowPadding), y: (DockAltTabMode ? 0 : Preferences.windowPadding))
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
