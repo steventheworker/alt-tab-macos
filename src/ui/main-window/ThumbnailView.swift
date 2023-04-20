@@ -305,15 +305,15 @@ class ThumbnailView: NSStackView {
     }
 
     static func widthMax(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMaxWidthInRow - Preferences.interCellPadding * 2
+        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMaxWidthInRow - (DockAltTabMode ? 0 : Preferences.interCellPadding) * 2
     }
 
     static func widthMin(_ screen: NSScreen) -> CGFloat {
-        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMinWidthInRow - Preferences.interCellPadding * 2
+        return ThumbnailsPanel.widthMax(screen) * Preferences.windowMinWidthInRow - (DockAltTabMode ? 0 : Preferences.interCellPadding) * 2
     }
 
     static func height(_ screen: NSScreen) -> CGFloat {
-        return (ThumbnailsPanel.heightMax(screen) - Preferences.interCellPadding) / Preferences.rowsCount - Preferences.interCellPadding
+        return (ThumbnailsPanel.heightMax(screen) - (DockAltTabMode ? 0 : Preferences.interCellPadding)) / Preferences.rowsCount - (DockAltTabMode ? 0 : Preferences.interCellPadding)
     }
 
     static func thumbnailSize(_ image: NSImage?, _ screen: NSScreen) -> (CGFloat, CGFloat) {

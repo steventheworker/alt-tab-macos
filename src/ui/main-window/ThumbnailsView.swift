@@ -96,11 +96,11 @@ class ThumbnailsView: NSVisualEffectView {
     private func layoutThumbnailViews(_ screen: NSScreen, _ widthMax: CGFloat) -> (CGFloat, CGFloat)? {
         let height = rowHeight(screen)
         let isLeftToRight = App.shared.userInterfaceLayoutDirection == .leftToRight
-        let startingX = isLeftToRight ? Preferences.interCellPadding : widthMax - Preferences.interCellPadding
+        let startingX = isLeftToRight ? (DockAltTabMode ? 0 : Preferences.interCellPadding) : widthMax - (DockAltTabMode ? 0 : Preferences.interCellPadding)
         var currentX = startingX
-        var currentY = Preferences.interCellPadding
+        var currentY = (DockAltTabMode ? 0 : Preferences.interCellPadding)
         var maxX = CGFloat(0)
-        var maxY = currentY + height + Preferences.interCellPadding
+        var maxY = currentY + height + (DockAltTabMode ? 0 : Preferences.interCellPadding)
         var newViews = [ThumbnailView]()
         rows.removeAll()
         rows.append([ThumbnailView]())
@@ -113,10 +113,10 @@ class ThumbnailsView: NSVisualEffectView {
             let projectedX = projectedWidth(currentX, width).rounded(.down)
             if needNewLine(projectedX, widthMax) {
                 currentX = startingX
-                currentY = (currentY + height + Preferences.interCellPadding).rounded(.down)
+                currentY = (currentY + height + (DockAltTabMode ? 0 : Preferences.interCellPadding)).rounded(.down)
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
                 currentX = projectedWidth(currentX, width).rounded(.down)
-                maxY = max(currentY + height + Preferences.interCellPadding, maxY)
+                maxY = max(currentY + height + (DockAltTabMode ? 0 : Preferences.interCellPadding), maxY)
                 rows.append([ThumbnailView]())
             } else {
                 view.frame.origin = CGPoint(x: localizedCurrentX(currentX, width), y: currentY)
@@ -140,9 +140,9 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func projectedWidth(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
         if App.shared.userInterfaceLayoutDirection == .leftToRight {
-            return currentX + width + Preferences.interCellPadding
+            return currentX + width + (DockAltTabMode ? 0 : Preferences.interCellPadding)
         }
-        return currentX - width - Preferences.interCellPadding
+        return currentX - width - (DockAltTabMode ? 0 : Preferences.interCellPadding)
     }
 
     private func localizedCurrentX(_ currentX: CGFloat, _ width: CGFloat) -> CGFloat {
@@ -151,9 +151,9 @@ class ThumbnailsView: NSVisualEffectView {
 
     private func layoutParentViews(_ screen: NSScreen, _ maxX: CGFloat, _ widthMax: CGFloat, _ maxY: CGFloat) {
         let heightMax = ThumbnailsPanel.heightMax(screen).rounded()
-        frame.size = NSSize(width: min(maxX, widthMax) + (DockAltTabMode ? 0 : Preferences.windowPadding) * 2, height: min(maxY, heightMax) + (DockAltTabMode ? 0 : Preferences.windowPadding) * 2)
+        frame.size = NSSize(width: min(maxX, widthMax) + (DockAltTabMode ? 1 : Preferences.windowPadding) * 2, height: min(maxY, heightMax) + (DockAltTabMode ? 1 : Preferences.windowPadding) * 2)
         scrollView.frame.size = NSSize(width: min(maxX, widthMax), height: min(maxY, heightMax))
-        scrollView.frame.origin = CGPoint(x: (DockAltTabMode ? 0 : Preferences.windowPadding), y: (DockAltTabMode ? 0 : Preferences.windowPadding))
+        scrollView.frame.origin = CGPoint(x: (DockAltTabMode ? 1 : Preferences.windowPadding), y: (DockAltTabMode ? 1 : Preferences.windowPadding))
         scrollView.contentView.frame.size = scrollView.frame.size
         if App.shared.userInterfaceLayoutDirection == .rightToLeft {
             let croppedWidth = widthMax - maxX
@@ -168,18 +168,18 @@ class ThumbnailsView: NSVisualEffectView {
 
     func centerRows(_ maxX: CGFloat) {
         var rowStartIndex = 0
-        var rowWidth = Preferences.interCellPadding
-        var rowY = Preferences.interCellPadding
+        var rowWidth = (DockAltTabMode ? 0 : Preferences.interCellPadding)
+        var rowY = (DockAltTabMode ? 0 : Preferences.interCellPadding)
         for (index, window) in Windows.list.enumerated() {
             guard App.app.appIsBeingUsed else { return }
             guard window.shouldShowTheUser else { continue }
             let view = ThumbnailsView.recycledViews[index]
             if view.frame.origin.y == rowY {
-                rowWidth += view.frame.size.width + Preferences.interCellPadding
+                rowWidth += view.frame.size.width + (DockAltTabMode ? 0 : Preferences.interCellPadding)
             } else {
                 shiftRow(maxX, rowWidth, rowStartIndex, index)
                 rowStartIndex = index
-                rowWidth = Preferences.interCellPadding + view.frame.size.width + Preferences.interCellPadding
+                rowWidth = (DockAltTabMode ? 0 : Preferences.interCellPadding) + view.frame.size.width + (DockAltTabMode ? 0 : Preferences.interCellPadding)
                 rowY = view.frame.origin.y
             }
         }
