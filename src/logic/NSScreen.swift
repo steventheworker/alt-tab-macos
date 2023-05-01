@@ -61,10 +61,6 @@ extension NSScreen {
             let thumbnailsize = ThumbnailView.thumbnailSize(Windows.focusedWindow()?.thumbnail, NSScreen.withMouse()!)
             x = CGFloat(DockAltTabFORCEDX)
             y = CGFloat(DockAltTabFORCEDY)
-            print(DockAltTabDockPos)
-            print(DockAltTabDockPos)
-            print(DockAltTabDockPos)
-            print(DockAltTabDockPos)
             if (DockAltTabDockPos == "right") {x = x - panelFrame.width}
             if (DockAltTabDockPos == "bottom") {x = x - thumbnailsize.0 / 2}
             if (DockAltTabDockPos == "left" || DockAltTabDockPos == "right") {y = y - thumbnailsize.1 / 2 - Preferences.iconSize * 2}
