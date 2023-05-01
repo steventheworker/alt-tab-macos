@@ -38,7 +38,10 @@ class ThumbnailsPanel: NSPanel, NSWindowDelegate {
     override func orderOut(_ sender: Any?) {
         if Preferences.fadeOutAnimation {
             NSAnimationContext.runAnimationGroup(
-                { _ in animator().alphaValue = 0 },
+                { _ in
+                    if (DockAltTabMode) {NSAnimationContext.current.duration = 0.111} else {NSAnimationContext.current.duration = 0.333}
+                    animator().alphaValue = 0
+                },
                 completionHandler: { super.orderOut(sender) }
             )
         } else {
