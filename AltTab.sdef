@@ -16,14 +16,14 @@
              <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to show.">
                  <cocoa key="appBID"/>
              </parameter>
-             <parameter name="x" code="arg2" type="integer" optional="yes" description="Force the x-coordinate of the AltTab container. Resets after hide.">
+             <parameter name="x" code="arg2" type="integer" optional="yes" description="The x-coordinate of the dock icon. Resets on hide. (0,0)">
                  <cocoa key="x"/>
              </parameter>
-             <parameter name="y" code="arg3" type="integer" optional="yes" description="Force the y-coordinate of the AltTab container. Resets after hide.">
+             <parameter name="y" code="arg3" type="integer" optional="yes" description="The y-coordinate of the dock icon. Resets on hide. (0,0)">
                  <cocoa key="y"/>
              </parameter>
-             <parameter name="isRight" code="arg4" type="boolean" optional="yes" description="Lets AltTab know it has to based the position on it's size. Right sided dock only.">
-                 <cocoa key="isRight"/>
+             <parameter name="dockPos" code="arg4" type="text" optional="yes" description="Helps AltTab know where previews will be positioned / clip, (especially for docks on the right (preview 'panel' width is relevant))">
+                 <cocoa key="dockPos"/>
              </parameter>
         </command>
          <command name="countWindows" code="atssCWin" description="The number of windows for an app (in all spaces).">

@@ -5,8 +5,9 @@ import Cocoa
 class HideScriptCommand: NSScriptCommand {
 	override func performDefaultImplementation() -> Any? {
         App.app.hideUi()
-        DockAltTabMode = false;
-        DockAltTabRightDock = false;
+        DockAltTabMode = false
+        DockAltTabFORCEDX = 0
+        DockAltTabFORCEDY = 0
         return self
 	}
 }

@@ -54,9 +54,23 @@ extension NSScreen {
     func repositionPanel(_ window: NSWindow, _ alignment: VerticalAlignment) {
         let screenFrame = visibleFrame
         let panelFrame = window.frame
-        let x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
-        let y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
-        window.setFrameOrigin(NSPoint(x: (DockAltTabMode ? CGFloat(DockAltTabFORCEDX - (DockAltTabRightDock ? Int(panelFrame.width) : 0)) : x), y: (DockAltTabMode ? CGFloat(DockAltTabFORCEDY) : y)))
+        var x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
+        var y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
+        
+        if (DockAltTabMode) {
+            let thumbnailsize = ThumbnailView.thumbnailSize(Windows.focusedWindow()?.thumbnail, NSScreen.withMouse()!)
+            x = CGFloat(DockAltTabFORCEDX)
+            y = CGFloat(DockAltTabFORCEDY)
+            print(DockAltTabDockPos)
+            print(DockAltTabDockPos)
+            print(DockAltTabDockPos)
+            print(DockAltTabDockPos)
+            if (DockAltTabDockPos == "right") {x = x - panelFrame.width}
+            if (DockAltTabDockPos == "bottom") {x = x - thumbnailsize.0 / 2}
+            if (DockAltTabDockPos == "left" || DockAltTabDockPos == "right") {y = y - thumbnailsize.1 / 2 - Preferences.iconSize * 2}
+        }
+        
+        window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
     func uuid() -> ScreenUuid? {

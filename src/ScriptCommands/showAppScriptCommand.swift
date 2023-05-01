@@ -1,7 +1,7 @@
 var DockAltTabFORCEDX = 0;
 var DockAltTabFORCEDY = 0;
 var DockAltTabMode = false;
-var DockAltTabRightDock = false;
+var DockAltTabDockPos = "";
 
 // used by DockAltTab - show window previews for a specific app (1st window highlighted), ignoring blacklist
 import Foundation
@@ -31,7 +31,7 @@ class showAppScriptCommand: NSScriptCommand {
         } else {y = self.evaluatedArguments!["y"] as! Int}
         DockAltTabFORCEDX = x
         DockAltTabFORCEDY = y
-        DockAltTabRightDock = self.evaluatedArguments!["isRight"] == nil ? false : self.evaluatedArguments!["isRight"] as! Bool;
+        DockAltTabDockPos = self.evaluatedArguments!["dockPos"] == nil ? "bottom" : self.evaluatedArguments!["dockPos"] as! String;
         let tarApp = appInstances[0]
         App.app.appIsBeingUsed = true /* actually line 1 of showUI() */
         if App.app.isFirstSummon { // begin follow/modify showUIOrCycleSelection
@@ -72,8 +72,8 @@ class showAppScriptCommand: NSScriptCommand {
         } // stop following showUIOrCycleSelection
         
         // make sure focus is on 1st window
-         if (!DockAltTabRightDock) {App.app.previousWindowShortcutWithRepeatingKey()}
-//        if (DockAltTabRightDock) {App.app.previousWindowShortcutWithRepeatingKey()}
+         if (DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
+//        if (DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
         
         //follow hideUI
 //        App.app.appIsBeingUsed = false
