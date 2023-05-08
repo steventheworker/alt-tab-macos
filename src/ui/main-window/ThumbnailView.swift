@@ -103,8 +103,7 @@ class ThumbnailView: NSStackView {
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
             ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
-        if (DockAltTabMode) {
-            //flip style for DockAltTab previews
+        if (DockAltTabMode && Preferences.theme == .windows10) { // only flip style for DockAltTab previews (w/ Windows 10 theme)
             layer!.borderColor = (Preferences.theme == .windows10 && isHovered) || (Preferences.theme == .macOs && isFocused)
             ? ThumbnailView.highlightBorderColor.cgColor : .clear
             layer!.backgroundColor = (Preferences.theme == .windows10 && isFocused) || (Preferences.theme == .macOs && isHovered)
