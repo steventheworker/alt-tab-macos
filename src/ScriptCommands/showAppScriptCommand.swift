@@ -3,6 +3,12 @@ var DockAltTabFORCEDY = 0;
 var DockAltTabMode = false;
 var DockAltTabDockPos = "";
 
+func DockAltTabReset() {
+    DockAltTabMode = false
+    DockAltTabFORCEDX = 0
+    DockAltTabFORCEDY = 0
+}
+
 // used by DockAltTab - show window previews for a specific app (1st window highlighted), ignoring blacklist
 import Foundation
 import Cocoa

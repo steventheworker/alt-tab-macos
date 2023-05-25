@@ -254,6 +254,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
+        DockAltTabReset() // guarantee AltTab window not repositioned
         debugPrint("showUiOrCycleSelection")
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
             debugPrint("showUiOrCycleSelection: isFirstSummon")
