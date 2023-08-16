@@ -38,14 +38,14 @@ Alternatively, you can use [homebrew](https://brew.sh/):
 
 ## Localization
 
-AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Galego, Italiano, Kurdî, Lëtzebuergesch, Limba română, Magyar, Nederlands, Norsk, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, বাংলা, 日本語, 简体中文, 繁體中文, 한국어
+AltTab is available in: Bahasa Indonesia, Català, Dansk, Deutsch, Eesti keel, English, Español, Français, Galego, Italiano, Kurdî, Lëtzebuergesch, Limba română, Magyar, Nederlands, Norsk, Oʻzbekcha, Polski, Português, Português (Brasil), Shqip, Slovenčina, Slovenščina, Suomi, Svenska, Tiếng Việt, Türkçe, Čeština, Ελληνικά, Български, Русский язык, Српски / Srpski, українська мова, עִבְרִית ,العربية ,فارسی, हिन्दी, বাংলা, 日本語, 简体中文, 繁體中文, 한국어
 
 [Contribute your own language easily!](https://poeditor.com/join/project/8AOEZ0eAZE)
 
 ## Privacy and respecting the user
 
-* AltTab doesn’t send or receive any data without explicit user consent. It may ask the user to send a crash report after a crash for example, but it will never spy on the user.
-* AltTab tries to use as few resources as it can: CPU, memory, disk, etc. All images are compressed, AltTab is optimized to be as light as possible on the user resources.
+* AltTab doesn’t upload or download any data without the user explicitly asking for it (e.g. asking to update the app, sending a crash report, etc)
+* AltTab uses as few resources as possible: CPU, memory, disk, etc. The app footprint is small (e.g. small disk size, minimal CPU use in the background, etc)
 
 ## Configuration
 

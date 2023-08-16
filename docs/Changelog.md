@@ -1,5 +1,68 @@
 # Release notes
 
+# [6.61.0](https://github.com/lwouis/alt-tab-macos/compare/v6.60.0...v6.61.0) (2023-07-12)
+
+
+### Bug Fixes
+
+* better identify tabs on macos versions older than 13 ([3147a69](https://github.com/lwouis/alt-tab-macos/commit/3147a69)), closes [#2017](https://github.com/lwouis/alt-tab-macos/issues/2017)
+* don't show empty color-slurp windows ([01b3a42](https://github.com/lwouis/alt-tab-macos/commit/01b3a42))
+
+
+### Features
+
+* improve german localization ([1084d87](https://github.com/lwouis/alt-tab-macos/commit/1084d87))
+* improve support for crossover windows ([f9f1c19](https://github.com/lwouis/alt-tab-macos/commit/f9f1c19))
+* improve support for scrcpy always-on-top windows ([0673381](https://github.com/lwouis/alt-tab-macos/commit/0673381))
+* show the ui by right-clicking the menubar icon (closes [#2647](https://github.com/lwouis/alt-tab-macos/issues/2647)) ([63502d5](https://github.com/lwouis/alt-tab-macos/commit/63502d5))
+
+# [6.60.0](https://github.com/lwouis/alt-tab-macos/compare/v6.59.0...v6.60.0) (2023-06-23)
+
+
+### Bug Fixes
+
+* prevent flickering when switching to a previewed window ([b69f5f4](https://github.com/lwouis/alt-tab-macos/commit/b69f5f4)), closes [#2432](https://github.com/lwouis/alt-tab-macos/issues/2432)
+
+
+### Features
+
+* improve support for color-slurp windows ([8605b23](https://github.com/lwouis/alt-tab-macos/commit/8605b23))
+* user can change window order in preferences (closes [#515](https://github.com/lwouis/alt-tab-macos/issues/515)) ([a67d123](https://github.com/lwouis/alt-tab-macos/commit/a67d123))
+
+# [6.59.0](https://github.com/lwouis/alt-tab-macos/compare/v6.58.0...v6.59.0) (2023-06-04)
+
+
+### Features
+
+* show app icon for app with no open window (closes [#2561](https://github.com/lwouis/alt-tab-macos/issues/2561)) ([44a5630](https://github.com/lwouis/alt-tab-macos/commit/44a5630))
+* update vietnamese localization ([7229b8a](https://github.com/lwouis/alt-tab-macos/commit/7229b8a))
+
+# [6.58.0](https://github.com/lwouis/alt-tab-macos/compare/v6.57.0...v6.58.0) (2023-05-15)
+
+
+### Bug Fixes
+
+* editing the blacklist could sometimes bug (closes [#2528](https://github.com/lwouis/alt-tab-macos/issues/2528)) ([f7f4430](https://github.com/lwouis/alt-tab-macos/commit/f7f4430))
+
+
+### Features
+
+* update dutch localization ([04948a2](https://github.com/lwouis/alt-tab-macos/commit/04948a2))
+
+# [6.57.0](https://github.com/lwouis/alt-tab-macos/compare/v6.56.0...v6.57.0) (2023-05-09)
+
+
+### Bug Fixes
+
+* drag-and-drop from a folder on the dock (closes [#706](https://github.com/lwouis/alt-tab-macos/issues/706)) ([ee6785f](https://github.com/lwouis/alt-tab-macos/commit/ee6785f))
+* preview window wouldn't update in some cases ([537ba26](https://github.com/lwouis/alt-tab-macos/commit/537ba26))
+
+
+### Features
+
+* add shortcut to toggle fullscreen selected window (closes [#2521](https://github.com/lwouis/alt-tab-macos/issues/2521)) ([7327917](https://github.com/lwouis/alt-tab-macos/commit/7327917))
+* add uzbek localization ([0e106e2](https://github.com/lwouis/alt-tab-macos/commit/0e106e2))
+
 # [6.56.0](https://github.com/lwouis/alt-tab-macos/compare/v6.55.0...v6.56.0) (2023-03-16)
 
 

@@ -1,8 +1,10 @@
 import Cocoa
 
 class Window {
+    static var globalCreationCounter = Int.zero
     var cgWindowId: CGWindowID?
     var lastFocusOrder = Int.zero
+    var creationOrder = Int.zero
     var title: String!
     var thumbnail: NSImage?
     var thumbnailFullSize: NSSize?
@@ -45,6 +47,8 @@ class Window {
         self.position = position
         self.size = size
         self.title = bestEffortTitle(axTitle)
+        Window.globalCreationCounter += 1
+        self.creationOrder = Window.globalCreationCounter
         if !Preferences.hideThumbnails {
             refreshThumbnail()
         }
@@ -58,6 +62,8 @@ class Window {
         isWindowlessApp = true
         self.application = application
         self.title = application.runningApplication.localizedName
+        Window.globalCreationCounter += 1
+        self.creationOrder = Window.globalCreationCounter
         debugPrint("Adding app-window", title ?? "nil", application.runningApplication.bundleIdentifier ?? "nil")
     }
 
@@ -93,7 +99,7 @@ class Window {
         }
         CFRunLoopAddSource(BackgroundWork.accessibilityEventsThread.runLoop, AXObserverGetRunLoopSource(axObserver), .defaultMode)
     }
-    
+
     private func screenshot(_ bestResolution: Bool = false) -> NSImage? {
         guard !isWindowlessApp, let cgWindowId = cgWindowId, cgWindowId != -1, let cgImage = cgWindowId.screenshot(bestResolution) else {
             return nil
@@ -108,7 +114,7 @@ class Window {
         thumbnail = screenshot
         thumbnailFullSize = thumbnail!.size
     }
-    
+
     func getPreview() -> NSImage? {
         return screenshot(true)
     }
@@ -178,6 +184,7 @@ class Window {
         } else if let bundleID = application.runningApplication.bundleIdentifier, bundleID == App.id {
             App.shared.activate(ignoringOtherApps: true)
             App.app.window(withWindowNumber: Int(cgWindowId!))?.makeKeyAndOrderFront(nil)
+            Windows.previewFocusedWindowIfNeeded()
         } else {
             // macOS bug: when switching to a System Preferences window in another space, it switches to that space,
             // but quickly switches back to another window in that space
@@ -189,6 +196,9 @@ class Window {
                 _SLPSSetFrontProcessWithOptions(&psn, self.cgWindowId!, SLPSMode.userGenerated.rawValue)
                 self.makeKeyWindow(psn)
                 self.axUiElement.focusWindow()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) {
+                    Windows.previewFocusedWindowIfNeeded()
+                }
             }
         }
     }

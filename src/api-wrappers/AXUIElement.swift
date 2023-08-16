@@ -83,11 +83,18 @@ extension AXUIElement {
 //        debugPrint(runningApp.bundleIdentifier, title, level, CGWindow.normalLevel, subrole, role, size)
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
-        return wid != 0 && size != nil &&
-            (books(runningApp) || keynote(runningApp) || iina(runningApp) || openFlStudio(runningApp, title) || (
+        return wid != 0 && size != nil && (
+            (
+                books(runningApp) ||
+                    keynote(runningApp) ||
+                    iina(runningApp) ||
+                    openFlStudio(runningApp, title) ||
+                    crossoverWindow(runningApp, role, subrole, level) ||
+                    isAlwaysOnTopScrcpy(runningApp, level, role, subrole)
+            ) || (
                 // CGWindowLevel == .normalWindow helps filter out iStats Pro and other top-level pop-overs, and floating windows
-                level == CGWindow.normalLevel &&
-                    ([kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
+                level == CGWindow.normalLevel && (
+                    [kAXStandardWindowSubrole, kAXDialogSubrole].contains(subrole) ||
                         openBoard(runningApp) ||
                         adobeAudition(runningApp, subrole) ||
                         adobeAfterEffects(runningApp, subrole) ||
@@ -100,10 +107,13 @@ extension AXUIElement {
                         dvdFab(runningApp) ||
                         drBetotte(runningApp) ||
                         androidEmulator(runningApp, title)
-                    ) &&
+                ) && (
                     mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
-                    mustHaveIfSteam(runningApp, title, role)
-            ))
+                        mustHaveIfSteam(runningApp, title, role) &&
+                        mustHaveIfColorSlurp(runningApp, title, subrole)
+                )
+            )
+        )
     }
 
     private static func mustHaveIfJetbrainApp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?, _ size: NSSize) -> Bool {
@@ -114,6 +124,10 @@ extension AXUIElement {
             (subrole == kAXStandardWindowSubrole || (title != nil && title != "")) &&
                 size.width > 100 && size.height > 100
         )
+    }
+
+    private static func mustHaveIfColorSlurp(_ runningApp: NSRunningApplication, _ title: String?, _ subrole: String?) -> Bool {
+        return runningApp.bundleIdentifier != "com.IdeaPunch.ColorSlurp" || subrole == kAXStandardWindowSubrole
     }
 
     private static func iina(_ runningApp: NSRunningApplication) -> Bool {
@@ -198,6 +212,17 @@ extension AXUIElement {
     private static func androidEmulator(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
         // android emulator small vertical menu is a "window" with empty title; we exclude it
         return title != "" && Applications.isAndroidEmulator(runningApp)
+    }
+
+    private static func crossoverWindow(_ runningApp: NSRunningApplication, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
+        return runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.baseLevel
+            && (runningApp.localizedName == "wine64-preloader" || runningApp.executableURL?.absoluteString.contains("/winetemp-") ?? false)
+    }
+
+    private static func isAlwaysOnTopScrcpy(_ runningApp: NSRunningApplication, _ level: CGWindowLevel, _ role: String?, _ subrole: String?) -> Bool {
+        // scrcpy presents as a floating window when "Always on top" is enabled, so it doesn't get picked up normally.
+        // It also doesn't have a bundle ID, so we need to match using the localized name, which should always be the same.
+        return runningApp.localizedName == "scrcpy" && level == CGWindow.floatingWindow && role == kAXWindowRole && subrole == kAXStandardWindowSubrole
     }
 
     func position() throws -> CGPoint? {
