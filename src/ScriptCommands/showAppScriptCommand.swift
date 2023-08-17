@@ -43,7 +43,7 @@ class showAppScriptCommand: NSScriptCommand {
         if App.app.isFirstSummon { // begin follow/modify showUIOrCycleSelection
             debugPrint("showUiOrCycleSelection: isFirstSummon")
             App.app.isFirstSummon = false
-            if Windows.list.count == 0 || CGWindow.isMissionControlActive() { App.app.hideUi(); return self }
+            if Windows.list.count == 0 || MissionControl.isActive() { App.app.hideUi(); return self }
 //            Windows.detectTabbedWindows()
             Spaces.refreshAllIdsAndIndexes()
             Windows.updateSpaces()
