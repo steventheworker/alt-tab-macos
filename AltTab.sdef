@@ -26,6 +26,13 @@
                  <cocoa key="dockPos"/>
              </parameter>
         </command>
+         <command name="countWindowsCurrentSpace" code="atssCWCS" description="The number of windows for an app (in the current space, especially useful for counting hidden windows (otherwise especially hard to do for the current space)).">
+             <cocoa class="AltTab.countWindowsCurrentSpaceScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to count.">
+                 <cocoa key="appBID"/>
+             </parameter>
+             <result type="integer" description="integer no. of windows"/>
+        </command>
          <command name="countWindows" code="atssCWin" description="The number of windows for an app (in all spaces).">
              <cocoa class="AltTab.countWindowsScriptCommand"/>
              <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to count.">

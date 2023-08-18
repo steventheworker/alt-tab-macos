@@ -77,6 +77,7 @@
 		BF42BC85283552B400F5D5E7 /* TriggerScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */; };
 		BF49DF3228355340004517BD /* countWindowsScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */; };
 		BF49DF3428355372004517BD /* AltTab.sdef in Resources */ = {isa = PBXBuildFile; fileRef = BF49DF3328355372004517BD /* AltTab.sdef */; };
+		BF73FE492A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */; };
 		BFB2A4DC28FDB5CB008170CC /* keyStateScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB2A4DB28FDB5CB008170CC /* keyStateScriptCommand.swift */; };
 		BFEEDD9C2952E4790004F56C /* appSettingScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEEDD9B2952E4790004F56C /* appSettingScriptCommand.swift */; };
 		D04BA004884A273D4D2D3EF1 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04BAD91161791D42FEC4A60 /* HelperExtensions.swift */; };
@@ -265,6 +266,7 @@
 		BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerScriptCommand.swift; sourceTree = "<group>"; };
 		BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = countWindowsScriptCommand.swift; sourceTree = "<group>"; };
 		BF49DF3328355372004517BD /* AltTab.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AltTab.sdef; sourceTree = "<group>"; };
+		BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countWindowsCurrentSpaceScriptCommand.swift; sourceTree = "<group>"; };
 		BFB2A4DB28FDB5CB008170CC /* keyStateScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyStateScriptCommand.swift; sourceTree = "<group>"; };
 		BFEEDD9B2952E4790004F56C /* appSettingScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = appSettingScriptCommand.swift; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -746,6 +748,7 @@
 		BF42BC7B2835527800F5D5E7 /* ScriptCommands */ = {
 			isa = PBXGroup;
 			children = (
+				BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */,
 				BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */,
 				BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */,
 				BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */,
@@ -1684,6 +1687,7 @@
 				D04BA737008AA2CD4E230A21 /* Application.swift in Sources */,
 				D04BA2A6FF9DDDC5A1A68E36 /* Applications.swift in Sources */,
 				AA974BA929B7D84C0099A29E /* PreviewPanel.swift in Sources */,
+				BF73FE492A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift in Sources */,
 				D04BA3CF766857381519B892 /* BackgroundWork.swift in Sources */,
 				D04BA48B00B4211A465C7337 /* DebugProfile.swift in Sources */,
 				D04BAB68B7B8D1B548BC3AD5 /* App.swift in Sources */,
