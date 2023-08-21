@@ -80,12 +80,11 @@ class ThumbnailView: NSStackView {
             target.addSubview(quitIcon, positioned: .above, relativeTo: nil)
             var xOffset = CGFloat(3)
             var yOffset = CGFloat(2 + ThumbnailView.windowsControlSize)
-            [quitIcon, closeIcon, minimizeIcon, maximizeIcon].forEach { icon in
+            [closeIcon, minimizeIcon, maximizeIcon, quitIcon].forEach { icon in
                 icon.isHidden = !shouldShow ||
                     (icon.type == .quit && !(window_?.application.canBeQuit() ?? true)) ||
                     (icon.type == .close && !(window_?.canBeClosed() ?? true)) ||
                     ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
-                if (icon.type == .quit && DockAltTabMode) {icon.isHidden = true} //DockAltTab  --remove quit (only for DockAltTab previews)
                 if !icon.isHidden {
                     icon.setFrameOrigin(NSPoint(
                         x: xOffset,
