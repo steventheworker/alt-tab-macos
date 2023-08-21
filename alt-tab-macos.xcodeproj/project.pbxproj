@@ -1402,7 +1402,7 @@
 				TargetAttributes = {
 					D04BA5E73DAF232ADE11C97A = {
 						DevelopmentTeam = L33QBJT48B;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2435,10 +2435,9 @@
 			baseConfigurationReference = D04BA1232AFEEFE90D5CC827 /* debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = L33QBJT48B;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L33QBJT48B;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
