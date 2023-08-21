@@ -126,6 +126,7 @@ class Application: NSObject {
     }
 
     func canBeQuit() -> Bool {
+        if (!DockAltTabMode) {return true;} //DockAltTab  --enable quit control on finder (for non dockalttabmode thumbnails)
         return runningApplication.bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
     }
 

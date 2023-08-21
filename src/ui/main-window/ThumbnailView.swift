@@ -85,6 +85,7 @@ class ThumbnailView: NSStackView {
                     (icon.type == .quit && !(window_?.application.canBeQuit() ?? true)) ||
                     (icon.type == .close && !(window_?.canBeClosed() ?? true)) ||
                     ((icon.type == .miniaturize || icon.type == .fullscreen) && !(window_?.canBeMinDeminOrFullscreened() ?? true))
+                if (icon.type == .quit && DockAltTabMode) {icon.isHidden = true} //DockAltTab  --remove quit (only for DockAltTab previews)
                 if !icon.isHidden {
                     icon.setFrameOrigin(NSPoint(
                         x: xOffset,

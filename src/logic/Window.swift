@@ -137,6 +137,13 @@ class Window {
                 closeButton_.performAction(kAXPressAction)
             }
         }
+        //DockAltTab block below (auto reopen traffic controls)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 160/1000) {
+            if let hoveredWindowIndex = Windows.hoveredWindowIndex,
+               let recycledView = ThumbnailsView.recycledViews[safe: hoveredWindowIndex] {
+                recycledView.mouseMoved()
+            }
+        }
     }
 
     func canBeMinDeminOrFullscreened() -> Bool {
@@ -159,6 +166,13 @@ class Window {
                 }
             } else {
                 self.axUiElement.setAttribute(kAXMinimizedAttribute, !self.isMinimized)
+            }
+        }
+        //DockAltTab block below (auto reopen traffic controls)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 666/1000) {
+            if let hoveredWindowIndex = Windows.hoveredWindowIndex,
+               let recycledView = ThumbnailsView.recycledViews[safe: hoveredWindowIndex] {
+                recycledView.mouseMoved()
             }
         }
     }
