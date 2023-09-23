@@ -26,6 +26,19 @@
                  <cocoa key="dockPos"/>
              </parameter>
         </command>
+         <command name="countMinimizedWindowsCurrentSpace" code="atssCMWS" description="The number of (minimized) windows for an app (FROM the current space, especially useful for keeping minimized windows contained in the space they were originally minimized in).">
+             <cocoa class="AltTab.countMinimizedWindowsCurrentSpaceScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to count.">
+                 <cocoa key="appBID"/>
+             </parameter>
+             <result type="integer" description="integer no. of windows"/>
+        </command>
+         <command name="deminimizeFirstMinimizedWindowFromCurrentSpace" code="atssDMFW" description="Deminimize app's first minimized window originally minimized on the current space.">
+             <cocoa class="AltTab.deminimizeFirstMinimizedWindowFromCurrentSpaceScriptCommand"/>
+             <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to deminimize.">
+                 <cocoa key="appBID"/>
+             </parameter>
+         </command>
          <command name="countWindowsCurrentSpace" code="atssCWCS" description="The number of windows for an app (in the current space, especially useful for counting hidden windows (otherwise especially hard to do for the current space)).">
              <cocoa class="AltTab.countWindowsCurrentSpaceScriptCommand"/>
              <parameter name="appBID" code="arg1" type="text" optional="no" description="The bundle identifier of the app whose windows you want to count.">
