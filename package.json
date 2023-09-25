@@ -1,4 +1,8 @@
 {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steventheworker/alt-tab-macos.git"
+  },
   "private": true,
   "name": "alt-tab-macos",
   "version": "1.0.0",
