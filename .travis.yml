@@ -14,7 +14,7 @@ addons:
     update: true
 env:
   global:
-  - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false"
+  - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "scriptable" -a "$TRAVIS_PULL_REQUEST" = "false"
     ]; then echo true; fi)
   - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
   - VERSION_FILE="VERSION.txt"

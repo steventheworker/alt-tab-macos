@@ -1,5 +1,6 @@
 module.exports = {
     plugins: [
+        branches: ['scriptable'], // Specify the branch you want to use for releases
         ['@semantic-release/commit-analyzer', {
             'preset': 'angular',
             // having version increments and builds for these commit types is valuable
