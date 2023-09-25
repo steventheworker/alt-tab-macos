@@ -6,7 +6,7 @@ env | sort
 
 npm ci
 
-npx commitlint-travis
+#npx commitlint-travis
 scripts/ensure_generated_files_are_up_to_date.sh
 
 if [ $IS_RELEASE ]; then

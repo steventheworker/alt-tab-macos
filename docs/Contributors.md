@@ -1,35 +1,7 @@
 # Contributors
 
-They helped [develop the app](https://github.com/lwouis/alt-tab-macos/graphs/contributors):
+They helped [develop the app](https://github.com/steventheworker/alt-tab-macos/graphs/contributors):
 
-* [adamnemecek](https://github.com/adamnemecek)
-* [AfzalivE](https://github.com/AfzalivE)
-* [akx](https://github.com/akx)
-* [ayroblu](https://github.com/ayroblu)
-* [Calinou](https://github.com/Calinou)
-* [damonpam](https://github.com/damonpam)
-* [decodism](https://github.com/decodism)
-* [gcbw](https://github.com/gcbw)
-* [gingerr](https://github.com/gingerr)
-* [GrzegorzKazana](https://github.com/GrzegorzKazana)
-* [hughlilly](https://github.com/hughlilly)
-* [i0ntempest](https://github.com/i0ntempest)
-* [karbassi](https://github.com/karbassi)
-* [L1cardo](https://github.com/L1cardo)
-* [lwouis](https://github.com/lwouis)
-* [metacodes](https://github.com/metacodes)
-* [mnin](https://github.com/mnin)
-* [nella17](https://github.com/nella17)
-* [notlmn](https://github.com/notlmn)
-* [phungtuanhoang1996](https://github.com/phungtuanhoang1996)
-* [rbnis](https://github.com/rbnis)
-* [Rjevski](https://github.com/Rjevski)
-* [ryenus](https://github.com/ryenus)
-* [s4na](https://github.com/s4na)
-* [samdenty](https://github.com/samdenty)
-* [shaqed](https://github.com/shaqed)
-* [xanathar](https://github.com/xanathar)
-* [zacharee](https://github.com/zacharee)
 
 They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 
@@ -44,6 +16,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Ali. tas103
 * Allen Guan
 * Ameng
+* Andrew Vader
 * Anurag Roy
 * anushree b
 * Arman
@@ -85,6 +58,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Hokuto Kato
 * Huandngoc
 * Ialiendeg
+* Igor Aradski
 * Indexerrowaty
 * isametry
 * Ismatulla
@@ -152,6 +126,7 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * Razvan
 * rbnis
 * Roccobot
+* Ron Nuss
 * sawtooth
 * Selcuk Dursun
 * Seyedparsa Mirtaheri
@@ -163,14 +138,13 @@ They helped [localize the app](https://poeditor.com/join/project/8AOEZ0eAZE):
 * stas
 * Stefan
 * Svetoslav Stefanov
-* test
 * Thomas Wölk
-* Thomas Zander
 * Thorsten
 * Tomoa Nozawa
 * Umutakkaya1996
 * Vadym
 * Vegard
+* Vijayant Saini
 * Vincent Orback
 * Vlad
 * Webmaster
