@@ -4,6 +4,8 @@ set -exu
 
 certificateFile="codesign"
 
+echo "DEBUG: APPLE_P12_CERTIFICATE: $APPLE_P12_CERTIFICATE"
+
 # Recreate the certificate from the secure environment variable
 echo "$APPLE_P12_CERTIFICATE" | base64 --decode > $certificateFile.p12
 
