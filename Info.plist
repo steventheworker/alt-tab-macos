@@ -51,7 +51,7 @@
 	<key>SUEnableJavaScript</key>
 	<string>true</string>
 	<key>SUFeedURL</key>
-	<string>https://dockalttab.netlify.app/appcast-alt-tab-macos-scriptable.xml</string>
+	<string>https://raw.githubusercontent.com/steventheworker/alt-tab-macos/master/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>T0wESSsYLzTXlEoMASqu3mYVMrqyFur1ao3gfkebqAw=</string>
 	<key>SUScheduledCheckInterval</key>

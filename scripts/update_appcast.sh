@@ -23,4 +23,4 @@ echo "
     </item>
 " > ITEM.txt
 
-sed -i '' -e "/<\/language>/r ITEM.txt" /Users/super/proj/js/DockAltTab-home/appcast-alt-tab-macos-scriptable.xml
+sed -i '' -e "/<\/language>/r ITEM.txt" appcast.xml

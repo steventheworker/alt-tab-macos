@@ -22,7 +22,7 @@ module.exports = {
         ['@semantic-release/git', {
             'assets': [
                 'docs/Changelog.md',
-                '/Users/super/proj/js/DockAltTab-home/appcast-alt-tab-macos-scriptable.xml'
+                'appcast.xml'
             ],
         }],
     ],
