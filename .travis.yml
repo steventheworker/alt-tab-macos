@@ -2,10 +2,10 @@ branches:
   only:
   - scriptable
 os: osx
-osx_image: xcode15.0
+osx_image: xcode13.4
 language: node_js
 node_js:
-- "18.8.0"
+- 10
 addons:
   ssh_known_hosts: github.com
   homebrew:
