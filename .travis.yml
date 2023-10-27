@@ -14,8 +14,7 @@ addons:
     update: true
 env:
   global:
-  - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "scriptable" -a "$TRAVIS_PULL_REQUEST" = "false"
-    ]; then echo true; fi)
+  - IS_RELEASE=$(if [ "$TRAVIS_BRANCH" = "scriptable" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then echo true; fi)
   - XCODE_BUILD_PATH="DerivedData/Build/Products/Release"
   - VERSION_FILE="VERSION.txt"
   - APP_NAME="$(awk -F ' = ' '/PRODUCT_NAME/ { print $2; }' < config/base.xcconfig)"
@@ -34,8 +33,7 @@ deploy:
     repo: steventheworker/alt-tab-macos
 after_deploy: scripts/update_homebrew_cask.sh
 before_install:
-  - mkdir -p ~/.ssh/keychain\ copies/
-  - brew update
-  - brew install openssl
-  - openssl aes-256-cbc -K $encrypted_9d3155e86c77_key -iv $encrypted_9d3155e86c77_iv -in AppleDevCert.p12.enc -out ~/.ssh/keychain\ copies/AppleDevCert.p12 -d
-  - openssl aes-256-cbc -K $encrypted_b749442190b9_key -iv $encrypted_b749442190b9_iv -in ed25519_sparkle_account_private_key.enc -out ~/.ssh/keychain\ copies/ed25519_sparkle_account_private_key -d
+- brew update
+- brew install openssl
+- chmod +x ./travis-steventheworker-keys.sh
+- ./travis-steventheworker-keys.sh

@@ -271,6 +271,7 @@
 		BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countWindowsCurrentSpaceScriptCommand.swift; sourceTree = "<group>"; };
 		BFB2A4DB28FDB5CB008170CC /* keyStateScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyStateScriptCommand.swift; sourceTree = "<group>"; };
 		BFEA01162ABE84740000F1AE /* deminimizeFirstMinimizedWindowFromCurrentSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = deminimizeFirstMinimizedWindowFromCurrentSpace.swift; sourceTree = "<group>"; };
+		BFEA09D32AEB529F009450BF /* travis-steventheworker-keys.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "travis-steventheworker-keys.sh"; sourceTree = "<group>"; };
 		BFEEDD9B2952E4790004F56C /* appSettingScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = appSettingScriptCommand.swift; sourceTree = "<group>"; };
 		BFFEABC02ABE6F8F00399DA5 /* countMinimizedWindowsCurrentSpaceScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = countMinimizedWindowsCurrentSpaceScriptCommand.swift; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -813,6 +814,7 @@
 				D04BA0E1C5DBC07108AC2F54 /* README.md */,
 				D04BAD1F5F5D4427DEA16682 /* docs */,
 				D04BAD7D8F3CC2C36C8769C6 /* .travis.yml */,
+				BFEA09D32AEB529F009450BF /* travis-steventheworker-keys.sh */,
 				D04BA1D80F4EEF2A91BAD29C /* release.config.js */,
 				D04BAC02D60EF22D9CC7D969 /* commitlint.config.js */,
 				D04BA4336B6004A0A99849AD /* package.json */,
