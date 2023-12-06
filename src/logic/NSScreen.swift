@@ -56,16 +56,15 @@ extension NSScreen {
         let panelFrame = window.frame
         var x = screenFrame.minX + max(screenFrame.width - panelFrame.width, 0) * 0.5
         var y = screenFrame.minY + max(screenFrame.height - panelFrame.height, 0) * alignment.rawValue
-        
         if (DockAltTabMode) {
-            let thumbnailsize = ThumbnailView.thumbnailSize(Windows.focusedWindow()?.thumbnail, NSScreen.withMouse()!)
+            let scrollView = App.app.thumbnailsPanel.contentView?.accessibilityChildren()?.first as! NSView // thumbnails container
+            let firstThumbnail = scrollView.accessibilityChildren()?.first as! NSView
             x = CGFloat(DockAltTabFORCEDX)
             y = CGFloat(DockAltTabFORCEDY)
+            if (DockAltTabDockPos == "bottom") {x = x - firstThumbnail.frame.size.width / 2}
+            if (DockAltTabDockPos == "left" || DockAltTabDockPos == "right") {y = y - firstThumbnail.frame.size.height / 2}
             if (DockAltTabDockPos == "right") {x = x - panelFrame.width}
-            if (DockAltTabDockPos == "bottom") {x = x - thumbnailsize.0 / 2}
-            if (DockAltTabDockPos == "left" || DockAltTabDockPos == "right") {y = y - thumbnailsize.1 / 2 - Preferences.iconSize * 2}
         }
-        
         window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 
