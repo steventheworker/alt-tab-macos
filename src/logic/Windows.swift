@@ -44,7 +44,7 @@ class Windows {
             }
             return order == .orderedAscending
         }
-        if (DockAltTabDockPos == "right") {list = list.reversed()}
+        if (DockAltTabMode && DockAltTabDockPos == "right") {list = list.reversed()}
     }
 
     static func setInitialFocusedAndHoveredWindowIndex() {
@@ -60,7 +60,7 @@ class Windows {
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
         } else {
-            if (DockAltTabDockPos == "right") {
+            if (DockAltTabMode && DockAltTabDockPos == "right") {
                 cycleFocusedWindowIndex(list.count - 1)
                 updateFocusedAndHoveredWindowIndex(list.count - 1)
             } else {

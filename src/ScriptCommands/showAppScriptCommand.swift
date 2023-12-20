@@ -78,8 +78,8 @@ class showAppScriptCommand: NSScriptCommand {
         } // stop following showUIOrCycleSelection
         
         // make sure focus is on 1st window
-         if (DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
-//        if (DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
+         if (DockAltTabMode && DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
+//        if (DockAltTabMode && DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
         
         //follow hideUI
 //        App.app.appIsBeingUsed = false
