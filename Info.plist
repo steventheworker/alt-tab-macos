@@ -53,7 +53,7 @@
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/steventheworker/alt-tab-macos/scriptable/appcast.xml</string>
 	<key>SUPublicEDKey</key>
-	<string>T0wESSsYLzTXlEoMASqu3mYVMrqyFur1ao3gfkebqAw=</string>
+	<string>3LY7vHMUnCLZM+y9fvFSPe/RDU3kawtqlHEh45JTW54=</string>
 	<key>SUScheduledCheckInterval</key>
 	<string>604800</string>
 </dict>
