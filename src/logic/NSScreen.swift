@@ -59,10 +59,20 @@ extension NSScreen {
         if (DockAltTabMode) {
             let scrollView = App.app.thumbnailsPanel.contentView?.accessibilityChildren()?.first as! NSView // thumbnails container
             let firstThumbnail = scrollView.accessibilityChildren()?.first as! NSView
-            x = CGFloat(DockAltTabFORCEDX)
-            y = CGFloat(DockAltTabFORCEDY)
-            if (DockAltTabDockPos == "bottom") {x = x - firstThumbnail.frame.size.width / 2}
-            if (DockAltTabDockPos == "left" || DockAltTabDockPos == "right") {y = y - firstThumbnail.frame.size.height / 2}
+            x = CGFloat(DockAltTabFORCEDX) //the center of the dock icon (that caused the preview)
+            y = CGFloat(DockAltTabFORCEDY) //the center of the dock icon (that caused the preview)
+            if (DockAltTabDockPos == "bottom") {
+                x = x - firstThumbnail.frame.size.width / 2 //center the preview
+                //fix clipping
+                if x + panelFrame.width > (screenFrame.width + screenFrame.origin.x) {x = (screenFrame.width + screenFrame.origin.x) - panelFrame.width}
+                if x < screenFrame.origin.x {x = screenFrame.origin.x}
+            }
+            if (DockAltTabDockPos == "left" || DockAltTabDockPos == "right") {
+                y = y - firstThumbnail.frame.size.height / 2 //center the preview
+                //fix clipping
+                if y + panelFrame.height > (screenFrame.height + screenFrame.origin.y) {y = (screenFrame.height + screenFrame.origin.y) - panelFrame.height}
+                if y < screenFrame.origin.y {y = screenFrame.origin.y}
+            }
             if (DockAltTabDockPos == "right") {x = x - panelFrame.width}
         }
         window.setFrameOrigin(NSPoint(x: x, y: y))
