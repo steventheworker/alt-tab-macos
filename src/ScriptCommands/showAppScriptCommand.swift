@@ -3,8 +3,14 @@ var DockAltTabFORCEDY = 0;
 var DockAltTabMode = false;
 var DockAltTabDockPos = "";
 
-func DockAltTabReset() {
+func DockAltTabRadiusFix() {App.app.thumbnailsPanel.thumbnailsView.updateRoundedCorners(DockAltTabMode ? 15 : Preferences.windowCornerRadius)} //line found in App.resetPreferencesDependentComponents
+func startDockAltTabMode() {
+    DockAltTabMode = true
+    DockAltTabRadiusFix()
+}
+func DockAltTabReset() { //called on HideScriptCommand.swift, App.showUiOrCycleSelection (key shortcut)
     DockAltTabMode = false
+    DockAltTabRadiusFix()
     DockAltTabFORCEDX = 0
     DockAltTabFORCEDY = 0
 }
@@ -26,8 +32,8 @@ class showAppScriptCommand: NSScriptCommand {
             return self
         }
         if (self.evaluatedArguments!["x"] != nil || self.evaluatedArguments!["y"] != nil) {
-            DockAltTabMode = true
-        } else {DockAltTabMode = false}
+            startDockAltTabMode()
+        } else {DockAltTabReset()/*DockAltTabMode = false*/}
         var x = 0, y = 0
         if (self.evaluatedArguments!["x"] == nil) {
             x = Int(NSEvent.mouseLocation.x) - 40
