@@ -83,6 +83,12 @@ extension AXUIElement {
 //        debugPrint(runningApp.bundleIdentifier, title, level, CGWindow.normalLevel, subrole, role, size)
 
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
+       
+        //window == BTTFloatWindow (titled "Window", 52x20, AXWindow, bid = not BTT's...!??)
+        if (title == "Window" && size?.width == 52 && size?.height == 20) { // print("level \(level) role \(role) size \(size)")
+            return false
+        }
+        
         return wid != 0 && size != nil && (
             (
                 books(runningApp) ||
