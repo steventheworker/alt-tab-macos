@@ -88,6 +88,7 @@ extension AXUIElement {
         if (title == "Window" && size?.width == 52 && size?.height == 20) { // print("level \(level) role \(role) size \(size)")
             return false
         }
+        if (runningApp.bundleIdentifier == "io.salem.ScreenHint") {return false}
         
         return wid != 0 && size != nil && (
             (
