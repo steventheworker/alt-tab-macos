@@ -1,5 +1,87 @@
 # Release notes
 
+# [6.68.0](https://github.com/lwouis/alt-tab-macos/compare/v6.67.0...v6.68.0) (2024-04-03)
+
+
+### Bug Fixes
+
+* preview.app window may not show when opening many docs ([31b5a3d](https://github.com/lwouis/alt-tab-macos/commit/31b5a3d)), closes [#3276](https://github.com/lwouis/alt-tab-macos/issues/3276)
+* preview.app windows would sometimes not show (closes [#3275](https://github.com/lwouis/alt-tab-macos/issues/3275)) ([785cf9c](https://github.com/lwouis/alt-tab-macos/commit/785cf9c))
+
+
+### Features
+
+* improve ar/nb/nn/pl/tr/uk localizations ([67a6d81](https://github.com/lwouis/alt-tab-macos/commit/67a6d81))
+* new thai and norwegian localizations (closes [#3260](https://github.com/lwouis/alt-tab-macos/issues/3260)) ([d9aa319](https://github.com/lwouis/alt-tab-macos/commit/d9aa319))
+
+# [6.67.0](https://github.com/lwouis/alt-tab-macos/compare/v6.66.0...v6.67.0) (2024-03-15)
+
+
+### Features
+
+* add icelandic localization ([7df1432](https://github.com/lwouis/alt-tab-macos/commit/7df1432))
+* improve ru/cn localizations ([c9fe54e](https://github.com/lwouis/alt-tab-macos/commit/c9fe54e))
+* support autocad non-native windows ([#3219](https://github.com/lwouis/alt-tab-macos/issues/3219)) ([bbaef6c](https://github.com/lwouis/alt-tab-macos/commit/bbaef6c))
+
+# [6.66.0](https://github.com/lwouis/alt-tab-macos/compare/v6.65.0...v6.66.0) (2024-03-03)
+
+
+### Bug Fixes
+
+* alttab would crash after menubar icon was actioned with voiceover ([f7fdf3f](https://github.com/lwouis/alt-tab-macos/commit/f7fdf3f)), closes [#3211](https://github.com/lwouis/alt-tab-macos/issues/3211)
+
+
+### Features
+
+* improved ca/de/es/ko/nl/sv/vi/zh localizations ([f4ad2ea](https://github.com/lwouis/alt-tab-macos/commit/f4ad2ea))
+
+# [6.65.0](https://github.com/lwouis/alt-tab-macos/compare/v6.64.0...v6.65.0) (2024-01-29)
+
+
+### Features
+
+* update da/de/es/sv localizations ([c88426e](https://github.com/lwouis/alt-tab-macos/commit/c88426e))
+* users can check status of required system permissions ([70ee681](https://github.com/lwouis/alt-tab-macos/commit/70ee681))
+
+# [6.64.0](https://github.com/lwouis/alt-tab-macos/compare/v6.63.0...v6.64.0) (2023-10-24)
+
+
+### Bug Fixes
+
+* don't absorb key up events after summon (closes [#2914](https://github.com/lwouis/alt-tab-macos/issues/2914)) ([3b0194d](https://github.com/lwouis/alt-tab-macos/commit/3b0194d))
+* stop vim keys preference disabling on launch (closes [#2919](https://github.com/lwouis/alt-tab-macos/issues/2919)) ([53692ff](https://github.com/lwouis/alt-tab-macos/commit/53692ff))
+
+
+### Features
+
+* improve fr,de localizations ([c4ae549](https://github.com/lwouis/alt-tab-macos/commit/c4ae549))
+
+# [6.63.0](https://github.com/lwouis/alt-tab-macos/compare/v6.62.0...v6.63.0) (2023-10-20)
+
+
+### Bug Fixes
+
+* never screenshot windows if thumbnails are hidden ([5e7f44b](https://github.com/lwouis/alt-tab-macos/commit/5e7f44b))
+
+
+### Features
+
+* improve ca/ko/ku localizations ([865570f](https://github.com/lwouis/alt-tab-macos/commit/865570f))
+
+# [6.62.0](https://github.com/lwouis/alt-tab-macos/compare/v6.61.0...v6.62.0) (2023-10-10)
+
+
+### Bug Fixes
+
+* better crossover windows detection ([3f64463](https://github.com/lwouis/alt-tab-macos/commit/3f64463))
+
+
+### Features
+
+* add tamil and croatian localizations ([e542da8](https://github.com/lwouis/alt-tab-macos/commit/e542da8))
+* add vim key window navigation (closes [#1229](https://github.com/lwouis/alt-tab-macos/issues/1229)) ([5cf7f99](https://github.com/lwouis/alt-tab-macos/commit/5cf7f99))
+* improve bg,es,he,hi,ko,uk,cn localizations ([31fb795](https://github.com/lwouis/alt-tab-macos/commit/31fb795))
+
 # [6.61.0](https://github.com/lwouis/alt-tab-macos/compare/v6.60.0...v6.61.0) (2023-07-12)
 
 

@@ -15,12 +15,14 @@ class App: AppCenterApplication, NSApplicationDelegate {
     static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     static let licence = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as! String
     static let repository = "https://github.com/steventheworker/alt-tab-macos"
+    static let website = "https://dockalttab.netlify.app"
     static var app: App!
     var menubar: Menubar!
     var thumbnailsPanel: ThumbnailsPanel!
     var previewPanel: PreviewPanel!
     var preferencesWindow: PreferencesWindow!
     var feedbackWindow: FeedbackWindow!
+    var permissionsWindow: PermissionsWindow!
     var isFirstSummon = true
     var appIsBeingUsed = false
     var globalShortcutsAreDisabled = false
@@ -50,6 +52,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
         #endif
         AXUIElement.setGlobalTimeout()
         BackgroundWork.startSystemPermissionThread()
+        permissionsWindow = PermissionsWindow()
         SystemPermissions.ensurePermissionsAreGranted { [weak self] in
             guard let self = self else { return }
             BackgroundWork.start()
@@ -168,8 +171,16 @@ class App: AppCenterApplication, NSApplicationDelegate {
         PoliciesTab.checkForUpdatesNow(sender)
     }
 
+    @objc func checkPermissions(_ sender: NSMenuItem) {
+        permissionsWindow.show()
+    }
+
     @objc func showFeedbackPanel() {
         showSecondaryWindow(feedbackWindow)
+    }
+
+    @objc func supportProject() {
+        NSWorkspace.shared.open(URL(string: App.website + "/support")!)
     }
 
     @objc func showPreferencesWindow() {
@@ -257,7 +268,7 @@ class App: AppCenterApplication, NSApplicationDelegate {
     private func refreshSpecificWindows(_ windowsToUpdate: [Window]?, _ currentScreen: NSScreen) -> ()? {
         windowsToUpdate?.forEach { (window: Window) in
             guard appIsBeingUsed else { return }
-            window.refreshThumbnail()
+            if !Preferences.hideThumbnails { window.refreshThumbnail() }
             Windows.refreshIfWindowShouldBeShownToTheUser(window, currentScreen)
             window.updatesWindowSpace()
         }

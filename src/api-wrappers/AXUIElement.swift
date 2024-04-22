@@ -93,6 +93,7 @@ extension AXUIElement {
             (
                 books(runningApp) ||
                     keynote(runningApp) ||
+                    preview(runningApp) ||
                     iina(runningApp) ||
                     openFlStudio(runningApp, title) ||
                     crossoverWindow(runningApp, role, subrole, level) ||
@@ -112,7 +113,8 @@ extension AXUIElement {
                         sanGuoShaAirWD(runningApp) ||
                         dvdFab(runningApp) ||
                         drBetotte(runningApp) ||
-                        androidEmulator(runningApp, title)
+                        androidEmulator(runningApp, title) ||
+                        autocad(runningApp, subrole)
                 ) && (
                     mustHaveIfJetbrainApp(runningApp, title, subrole, size!) &&
                         mustHaveIfSteam(runningApp, title, role) &&
@@ -146,6 +148,12 @@ extension AXUIElement {
         // apple Keynote has a fake fullscreen window when in presentation mode
         // it covers the screen with a AXUnknown window instead of using standard fullscreen mode
         return runningApp.bundleIdentifier == "com.apple.iWork.Keynote"
+    }
+
+    private static func preview(_ runningApp: NSRunningApplication) -> Bool {
+        // when opening multiple documents at once with apple Preview,
+        // one of the window will have level == 1 for some reason
+        return runningApp.bundleIdentifier == "com.apple.Preview"
     }
 
     private static func openFlStudio(_ runningApp: NSRunningApplication, _ title: String?) -> Bool {
@@ -221,7 +229,7 @@ extension AXUIElement {
     }
 
     private static func crossoverWindow(_ runningApp: NSRunningApplication, _ role: String?, _ subrole: String?, _ level: CGWindowLevel) -> Bool {
-        return runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.baseLevel
+        return runningApp.bundleIdentifier == nil && role == kAXWindowRole && subrole == kAXUnknownSubrole && level == CGWindow.normalLevel
             && (runningApp.localizedName == "wine64-preloader" || runningApp.executableURL?.absoluteString.contains("/winetemp-") ?? false)
     }
 
@@ -229,6 +237,11 @@ extension AXUIElement {
         // scrcpy presents as a floating window when "Always on top" is enabled, so it doesn't get picked up normally.
         // It also doesn't have a bundle ID, so we need to match using the localized name, which should always be the same.
         return runningApp.localizedName == "scrcpy" && level == CGWindow.floatingWindow && role == kAXWindowRole && subrole == kAXStandardWindowSubrole
+    }
+
+    private static func autocad(_ runningApp: NSRunningApplication, _ subrole: String?) -> Bool {
+        // AutoCAD uses the undocumented "AXDocumentWindow" subrole
+        return (runningApp.bundleIdentifier?.hasPrefix("com.autodesk.AutoCAD") ?? false) && subrole == kAXDocumentWindowSubrole
     }
 
     func position() throws -> CGPoint? {

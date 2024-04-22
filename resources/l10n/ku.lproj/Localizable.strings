@@ -84,7 +84,7 @@
 "Ask whether to send crash reports" = "Ask whether to send crash reports";
 
 /*No comment provided by engineer.*/
-"Auto-install updates periodically" = "Nûjenan periyodîk bixweber saz bike";
+"Auto-install updates periodically" = "Nûjenan otomatîk saz bike";
 
 /*No comment provided by engineer.*/
 "Blacklists" = "Blacklists";
@@ -106,6 +106,9 @@
 
 /*No comment provided by engineer.*/
 "Check for updates…" = "Li nêjeniyan venêre...";
+
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
 
 /*No comment provided by engineer.*/
 "Close window" = "Pacê bigire";
@@ -291,7 +294,7 @@
 "Screen including mouse" = "Ekrana mişk nîşandî";
 
 /*No comment provided by engineer.*/
-"Screen Recording" = "Screen Recording";
+"Screen Recording" = "Qeyda Ekranê";
 
 /*No comment provided by engineer.*/
 "Screen showing AltTab" = "Ekrana AltTab nîşandî";
@@ -368,6 +371,9 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Di Têketinê de destpêbike";
 
+/*Menubar option*/
+"Support this project ❤️" = "Support this project ❤️";
+
 /*No comment provided by engineer.*/
 "Theme:" = "Têma:";
 
@@ -375,7 +381,7 @@
 "Then release:" = "Pişre berde:";
 
 /*No comment provided by engineer.*/
-"This permission is needed to focus windows after you release the shortcut" = "This permission is needed to focus windows after you release the shortcut";
+"This permission is needed to focus windows after you release the shortcut" = "Ev destûr ji bo gerûbûna paceyê pêwiste.";
 
 /*No comment provided by engineer.*/
 "This permission is needed to show screenshots and titles of open windows" = "This permission is needed to show screenshots and titles of open windows";
@@ -391,6 +397,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Niqaşên heyî bibînin";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Visible Spaces";

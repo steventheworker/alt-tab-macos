@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "ابحث عن تحديثات…";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "إغلاق النافذة";
 
@@ -222,7 +225,7 @@
 "Minimized windows:" = "النوافذ المصغرة:";
 
 /*No comment provided by engineer.*/
-"Miscellaneous:" = "Miscellaneous:";
+"Miscellaneous:" = "xx";
 
 /*No comment provided by engineer.*/
 "Mouse hover" = "تمرير المؤشر";
@@ -371,6 +374,9 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "شغّل البرنامج عند الدخول:";
 
+/*Menubar option*/
+"Support this project ❤️" = "Support this project ❤️";
+
 /*No comment provided by engineer.*/
 "Theme:" = "المظهر:";
 
@@ -394,6 +400,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "أنظر للنقاشات الحالية";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "المسافات الظاهرة";

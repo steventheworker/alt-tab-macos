@@ -25,8 +25,16 @@ class Menubar {
             action: #selector(App.app.checkForUpdatesNow),
             keyEquivalent: "")
         menu.addItem(
+            withTitle: NSLocalizedString("Check permissions…", comment: "Menubar option"),
+            action: #selector(App.app.checkPermissions),
+            keyEquivalent: "")
+        menu.addItem(
             withTitle: NSLocalizedString("Send feedback…", comment: "Menubar option"),
             action: #selector(App.app.showFeedbackPanel),
+            keyEquivalent: "")
+        menu.addItem(
+            withTitle: NSLocalizedString("Support this project ❤️", comment: "Menubar option"),
+            action: #selector(App.app.supportProject),
             keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(
@@ -41,10 +49,11 @@ class Menubar {
     }
 
     @objc func statusItemOnClick() {
-        if NSApp.currentEvent!.type == .leftMouseDown {
-            statusItem.popUpMenu(App.app.menubar.menu)
-        } else {
+        // NSApp.currentEvent == nil if the icon is "clicked" through VoiceOver
+        if let type = NSApp.currentEvent?.type, type != .leftMouseDown {
             App.app.showUi()
+        } else {
+            statusItem.popUpMenu(App.app.menubar.menu)
         }
     }
 

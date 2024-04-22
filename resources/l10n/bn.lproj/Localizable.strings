@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "হালনাগাদ অনুসন্ধান করুন…";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "উইন্ডো বন্ধ করুন";
 
@@ -368,6 +371,9 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "লগইন থেকে শুরু করুন:";
 
+/*Menubar option*/
+"Support this project ❤️" = "Support this project ❤️";
+
 /*No comment provided by engineer.*/
 "Theme:" = "থিম:";
 
@@ -391,6 +397,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "বিদ্যমান আলোচনা দেখুন";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "দৃশ্যমান স্থান";

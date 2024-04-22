@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "업데이트 확인…";
 
+/*Menubar option*/
+"Check permissions…" = "권한 확인하기…";
+
 /*No comment provided by engineer.*/
 "Close window" = "윈도우 닫기";
 
@@ -368,6 +371,9 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "로그인 시 자동 실행:";
 
+/*Menubar option*/
+"Support this project ❤️" = "이 프로젝트 후원하기❤️";
+
 /*No comment provided by engineer.*/
 "Theme:" = "테마:";
 
@@ -391,6 +397,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "진행중인 논의 보기";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim 키";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim 키들은 다음과 같이 배정되어 있습니다:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "보이는 Space";

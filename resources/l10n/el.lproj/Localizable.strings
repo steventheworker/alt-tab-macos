@@ -107,6 +107,9 @@
 /*No comment provided by engineer.*/
 "Check for updates…" = "Έλεγχος ενημερώσεων...";
 
+/*Menubar option*/
+"Check permissions…" = "Check permissions…";
+
 /*No comment provided by engineer.*/
 "Close window" = "Κλείσιμο παραθύρου";
 
@@ -368,6 +371,9 @@
 /*No comment provided by engineer.*/
 "Start at login:" = "Start at login:";
 
+/*Menubar option*/
+"Support this project ❤️" = "Support this project ❤️";
+
 /*No comment provided by engineer.*/
 "Theme:" = "Θέμα:";
 
@@ -391,6 +397,12 @@
 
 /*No comment provided by engineer.*/
 "View existing discussions" = "Εμφάνιση υπαρχουσών συζητήσεων";
+
+/*No comment provided by engineer.*/
+"Vim keys" = "Vim keys";
+
+/*No comment provided by engineer.*/
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /*No comment provided by engineer.*/
 "Visible Spaces" = "Ορατοί Χώροι";

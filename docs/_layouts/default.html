@@ -37,8 +37,7 @@
 
 <header>
     <div>
-        <a href="{{ site.baseurl }}"><img src="{{ site.baseurl }}public/android-chrome-256x256.png" width="100"
-                                          height="100"/></a>
+        <a href="{{ site.baseurl }}"><img src="{{ site.baseurl }}public/android-chrome-256x256.png" width="100" height="100"/></a>
         <div>
             <h1><a href="{{ site.baseurl }}">{{ site.title }}</a></h1>
             <p>{{ site.github.project_tagline }}</p>
@@ -48,15 +47,12 @@
 <nav>
     <ul>
         <li><a class="rainbow" href="{{ site.github.latest_release.assets[0].browser_download_url }}">Download</a></li>
-        <li><a class="{% if page.name == 'Introduction.md' %}active{% endif %}" href="{{ site.baseurl }}"><span>Introduction</span></a>
-        </li>
-        <li><a class="{% if page.name == 'Changelog.md' %}active{% endif %}" href="{{ site.baseurl }}changelog"><span>Release notes</span></a>
-        </li>
-        <li><a class="{% if page.name == 'Contributing.md' %}active{% endif %}"
-               href="{{ site.baseurl }}contributing"><span>Contributing</span></a></li>
-        <li><a class="{% if page.name == 'Thanks.md' %}active{% endif %}"
-               href="{{ site.baseurl }}thanks"><span>Thanks</span></a></li>
-        <li><a href="{{ site.github.repository_url }}"><span>GitHub project</span></a></li>
+        <li><a class="{% if page.name == 'Introduction.md' %}active{% endif %}" href="{{ site.baseurl }}"><span>Introduction</span></a></li>
+        <li><a class="{% if page.name == 'Changelog.md' %}active{% endif %}" href="{{ site.baseurl }}changelog"><span>Release notes</span></a></li>
+        <li><a class="{% if page.name == 'Contributing.md' %}active{% endif %}" href="{{ site.baseurl }}contributing"><span>Contributing</span></a></li>
+        <li><a class="{% if page.name == 'Thanks.md' %}active{% endif %}" href="{{ site.baseurl }}thanks"><span>Thanks</span></a></li>
+        <li><a href="{{ site.github.repository_url }}"><span>GitHub</span></a></li>
+        <li><a class="{% if page.name == 'Support.md' %}active{% endif %}" href="{{ site.baseurl }}support"><span>Support this project ❤️</span></a></li>
     </ul>
 </nav>
 

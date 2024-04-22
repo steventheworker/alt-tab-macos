@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "About" = "About";
 
 /* Menubar option. %@ is AltTab */
@@ -102,6 +102,9 @@
 
 /* Menubar option */
 "Check for updates…" = "Check for updates…";
+
+/* Menubar option */
+"Check permissions…" = "Check permissions…";
 
 /* No comment provided by engineer. */
 "Close window" = "Close window";
@@ -352,6 +355,9 @@
 /* No comment provided by engineer. */
 "Start at login:" = "Start at login:";
 
+/* Menubar option */
+"Support this project ❤️" = "Support this project ❤️";
+
 /* No comment provided by engineer. */
 "Theme:" = "Theme:";
 
@@ -375,6 +381,12 @@
 
 /* No comment provided by engineer. */
 "View existing discussions" = "View existing discussions";
+
+/* No comment provided by engineer. */
+"Vim keys" = "Vim keys";
+
+/* No comment provided by engineer. */
+"Vim keys already assigned to other actions:\n%@" = "Vim keys already assigned to other actions:\n%@";
 
 /* No comment provided by engineer. */
 "Visible Spaces" = "Visible Spaces";
