@@ -3,7 +3,10 @@ var DockAltTabFORCEDY = 0;
 var DockAltTabMode = false;
 var DockAltTabDockPos = "";
 
-func DockAltTabRadiusFix() {App.app.thumbnailsPanel.thumbnailsView.updateRoundedCorners(DockAltTabMode ? 15 : Preferences.windowCornerRadius)} //line found in App.resetPreferencesDependentComponents
+func DockAltTabRadiusFix() {
+    if (Preferences.theme != .macOs) {return}
+    App.app.thumbnailsPanel.thumbnailsView.updateRoundedCorners(DockAltTabMode ? 15 : Preferences.windowCornerRadius) //line found in App.resetPreferencesDependentComponents
+}
 func startDockAltTabMode() {
     DockAltTabMode = true
     DockAltTabRadiusFix()

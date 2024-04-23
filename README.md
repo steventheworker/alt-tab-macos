@@ -1,7 +1,25 @@
-# AltTab
+## "scriptable" branch of [lwouis/alt-tab-macos](https://alt-tab-macos.netlify.app/)
 
-[![Screenshot](docs/public/demo/frontpage.jpg)](docs/public/demo/frontpage.jpg)
+Made for use with [DockAltTab](https://dockalttab.netlify.app) (adds window previews to the MacOS dock)... which does so by controlling AltTab via applescript:
 
-**AltTab** brings the power of Windows alt-tab to macOS
 
-[Find out more on the official website](https://alt-tab-macos.netlify.app/)
+# [AppleScript Dictionary](https://github.com/steventheworker/alt-tab-macos/blob/scriptable/AltTab.sdef)
+- coming soon...
+
+### example usages:
+```tell application "AltTab" to showApp appBID "com.apple.Safari"```
+
+```tell application "AltTab" to showApp appBID "com.apple.Safari" x 0 y 0```
+
+```tell application "AltTab" to hide```
+
+# Other Differences
+Some other changes I made out of personal preference / hesitation to submit a pull request:
+- ignore some app's windows
+    - [BetterTouchTool]() "pinned"/floating windows
+    - [Screenhint]() floating windows
+- Preview button order: Exit is 1st, Quit is last (opposed to vice-versa)
+- faster fading (if fading enabled): 111ms for DockAltTab previews, 333ms for regular previews
+
+# Contributing
+[How to build AltTab on Xcode](https://www.youtube.com/watch?v=iitm_r0BBck) --this youtube video shows how to build the official AltTab from lwouis
