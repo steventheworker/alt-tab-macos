@@ -2,22 +2,25 @@ import Cocoa
 import Foundation
 
 class TrafficLightButton: NSButton {
+    static let size = CGFloat(16)
+    static let spacing = CGFloat(8)
     var isMouseOver = false
     var type: TrafficLightButtonType!
     var window_: Window?
 
-    init(_ type: TrafficLightButtonType, _ tooltip: String, _ size: CGFloat) {
-        super.init(frame: .init(origin: .zero, size: .init(width: size, height: size)))
+    init(_ type: TrafficLightButtonType, _ tooltip: String) {
+        super.init(frame: NSRect(origin: .zero, size: NSSize(width: TrafficLightButton.size, height: TrafficLightButton.size)))
         self.type = type
         target = self
         action = #selector(onClick)
-        fit(size, size)
+        fit(TrafficLightButton.size, TrafficLightButton.size)
         addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil))
         toolTip = tooltip
+        appearance = NSAppearance(named: .aqua)
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("Class only supports programmatic initialization")
     }
 
     @objc func onClick() {
@@ -117,32 +120,44 @@ class TrafficLightButton: NSButton {
     }
 
     private func drawSymbol(_ lineColor: NSColor) {
+        let symbol = NSBezierPath()
         if (type == .fullscreen) {
-            let symbol = NSBezierPath()
-            symbol.move(to: NSMakePoint(bounds.width * 0.25, bounds.height * 0.75))
-            symbol.line(to: NSMakePoint(bounds.width * 0.25, bounds.height * 1 / 3))
-            symbol.line(to: NSMakePoint(bounds.width * 2 / 3, bounds.height * 0.75))
+            var firstPointA, firstPointB, firstPointC, secondPointA, secondPointB, secondPointC: NSPoint!
+            if window_?.isFullscreen ?? false {
+                // Defullscreen symbol that the angles of the two triangles are face-to-face
+                firstPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                firstPointB = NSMakePoint(bounds.width * 0.12, bounds.height * 0.5)
+                firstPointC = NSMakePoint(bounds.width * 0.5, bounds.height * 0.12)
+                secondPointA = NSMakePoint(bounds.width * 0.5, bounds.height * 0.5)
+                secondPointB = NSMakePoint(bounds.width * 0.5, bounds.height * 0.88)
+                secondPointC = NSMakePoint(bounds.width * 0.88, bounds.height * 0.5)
+            } else {
+                // Fullscreen symbol that the angles of the two triangles are back-to-back
+                firstPointA = NSMakePoint(bounds.width * 0.25, bounds.height * 0.25)
+                firstPointB = NSMakePoint(bounds.width * 0.25, bounds.height * 0.65)
+                firstPointC = NSMakePoint(bounds.width * 0.65, bounds.height * 0.25)
+                secondPointA = NSMakePoint(bounds.width * 0.75, bounds.height * 0.75)
+                secondPointB = NSMakePoint(bounds.width * 0.35, bounds.height * 0.75)
+                secondPointC = NSMakePoint(bounds.width * 0.75, bounds.height * 0.35)
+            }
+            // Draw first triangle
+            symbol.move(to: firstPointA)
+            symbol.line(to: firstPointB)
+            symbol.line(to: firstPointC)
             symbol.close()
             lineColor.setFill()
             symbol.fill()
-            symbol.move(to: NSMakePoint(bounds.width * 0.75, bounds.height * 0.25))
-            symbol.line(to: NSMakePoint(bounds.width * 0.75, bounds.height * 2 / 3))
-            symbol.line(to: NSMakePoint(bounds.width * 1 / 3, bounds.height * 0.25))
+            // Clear path for the next triangle
+            symbol.removeAllPoints()
+            // Draw second triangle
+            symbol.move(to: secondPointA)
+            symbol.line(to: secondPointB)
+            symbol.line(to: secondPointC)
             symbol.close()
             lineColor.setFill()
             symbol.fill()
-            // maximize cross
-            // NSGraphicsContext.current?.shouldAntialias = false
-            // var symbol = NSBezierPath()
-            // symbol.move(to: NSMakePoint(bounds.width / 2, bounds.height * 0.20))
-            // symbol.line(to: NSMakePoint(bounds.width / 2, bounds.height * 0.80))
-            // symbol.move(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
-            // symbol.line(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
-            // symbol.lineWidth = 0.75
-            // NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == .miniaturize) {
             NSGraphicsContext.current?.shouldAntialias = false
-            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.20, bounds.height / 2))
             symbol.line(to: NSMakePoint(bounds.width * 0.80, bounds.height / 2))
             symbol.lineWidth = 0.75
@@ -150,7 +165,6 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
             NSGraphicsContext.current?.shouldAntialias = true
         } else if (type == .close) {
-            let symbol = NSBezierPath()
             symbol.move(to: NSMakePoint(bounds.width * 0.30, bounds.height * 0.30))
             symbol.line(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.70))
             symbol.move(to: NSMakePoint(bounds.width * 0.70, bounds.height * 0.30))
@@ -160,7 +174,6 @@ class TrafficLightButton: NSButton {
             symbol.stroke()
         } else if (type == .quit) {
             let mouthAngle = CGFloat(80) / 2
-            let symbol = NSBezierPath()
             symbol.appendArc(
                 withCenter: NSMakePoint(bounds.width / 2, bounds.height / 2),
                 radius: bounds.width * 0.27,
@@ -185,35 +198,34 @@ enum TrafficLightButtonType {
     case fullscreen
 }
 
-
 // experiment: use actual buttons from OS through standardWindowButton
 // issues:
 //   * zoom button has a popover that can't be removed
 //   * overall they look/act depending on the parent window
 //     e.g. need to set `window.collectionBehavior = .fullScreenPrimary` to get fullscreen button
-
-//class TrafficLightButton: NSView {
-//    convenience init(_ nameTest: NSWindow.ButtonType) {
-//        self.init(frame: .zero)
-//        let button = NSWindow.standardWindowButton(nameTest, for: [.miniaturizable, .closable, .nonactivatingPanel])!
-//        button.action = nil
-//        addSubview(button)
-//        fit(button.frame.size.width, button.frame.size.height)
-//    }
 //
-//    /// force the hovered state as if the mouse was on the traffic lights area
-//    /// see https://stackoverflow.com/a/30417372/2249756
-//    @objc func _mouseInGroup(_: Any) -> Bool {
-//        return true
-//    }
+//  class TrafficLightButton: NSView {
+//      convenience init(_ nameTest: NSWindow.ButtonType) {
+//          self.init(frame: .zero)
+//          let button = NSWindow.standardWindowButton(nameTest, for: [.miniaturizable, .closable, .nonactivatingPanel])!
+//          button.action = nil
+//          addSubview(button)
+//          fit(button.frame.size.width, button.frame.size.height)
+//      }
 //
-//    override func updateTrackingAreas() {
-//        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
-//    }
+//      /// force the hovered state as if the mouse was on the traffic lights area
+//      /// see https://stackoverflow.com/a/30417372/2249756
+//      @objc func _mouseInGroup(_: Any) -> Bool {
+//          return true
+//      }
 //
-//    override func mouseEntered(with event: NSEvent) {
-//    }
+//      override func updateTrackingAreas() {
+//          addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil))
+//      }
 //
-//    override func mouseExited(with event: NSEvent) {
-//    }
-//}
+//      override func mouseEntered(with event: NSEvent) {
+//      }
+//
+//      override func mouseExited(with event: NSEvent) {
+//      }
+//  }

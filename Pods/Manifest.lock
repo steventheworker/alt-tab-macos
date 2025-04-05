@@ -5,19 +5,19 @@ PODS:
   - LetsMove (1.24)
   - ShortcutRecorder (3.1)
   - Sparkle (1.24.0)
-  - SwiftyMarkdown (1.1.0)
+  - SwiftyBeaver (1.9.0)
 
 DEPENDENCIES:
   - AppCenter/Crashes (= 4.3.0)
   - LetsMove (from `https://github.com/lwouis/LetsMove.git`, commit `7abf4daed1a25218f2b52f2dfd190aee5a50071c`)
   - ShortcutRecorder (from `https://github.com/lwouis/ShortcutRecorder.git`, branch `alt-tab-current`)
   - Sparkle (from `https://raw.githubusercontent.com/lwouis/Sparkle/fix-iframe-popup-1.24/Sparkle.podspec`)
-  - SwiftyMarkdown (= 1.1.0)
+  - SwiftyBeaver (= 1.9.0)
 
 SPEC REPOS:
   trunk:
     - AppCenter
-    - SwiftyMarkdown
+    - SwiftyBeaver
 
 EXTERNAL SOURCES:
   LetsMove:
@@ -42,8 +42,8 @@ SPEC CHECKSUMS:
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
   ShortcutRecorder: fdf620aca34101b0cba3b10fca815e0459254189
   Sparkle: 1fa490bb4ab2a9b37cfb9ea4feec19dd33b81cd2
-  SwiftyMarkdown: 033abc9dad9a37903f81aec5188cade436f40520
+  SwiftyBeaver: d39e7c376bf15e9fffca8263b8fd1f42ea56aa2d
 
-PODFILE CHECKSUM: db137cd4263235b552493949169a44f7e874a90f
+PODFILE CHECKSUM: aa75d205f0ad11974024e111d7fff313b55e6f93
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.16.2

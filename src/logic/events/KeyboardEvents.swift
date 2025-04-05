@@ -7,22 +7,10 @@ class KeyboardEvents {
     static let signature = "altt".utf16.reduce(0) { ($0 << 8) + OSType($1) }
     // GetEventMonitorTarget/GetApplicationEventTarget also work, but require Accessibility Permission
     static let shortcutEventTarget = GetEventDispatcherTarget()
-    static let globalShortcutsIds = [
-        "nextWindowShortcut": 0,
-        "nextWindowShortcut2": 1,
-        "nextWindowShortcut3": 2,
-        "nextWindowShortcut4": 3,
-        "nextWindowShortcut5": 4,
-        "holdShortcut": 5,
-        "holdShortcut2": 6,
-        "holdShortcut3": 7,
-        "holdShortcut4": 8,
-        "holdShortcut5": 9,
-    ]
     static var eventHotKeyRefs = [String: EventHotKeyRef?]()
     static var hotKeyPressedEventHandler: EventHandlerRef?
     static var hotKeyReleasedEventHandler: EventHandlerRef?
-    static var localMonitor: Any!
+    static var globalShortcutsAreDisabled = false
 
     static func addGlobalShortcut(_ controlId: String, _ shortcut: Shortcut) {
         addGlobalHandlerIfNeeded(shortcut)
@@ -43,7 +31,7 @@ class KeyboardEvents {
 
     static func registerHotKeyIfNeeded(_ controlId: String, _ shortcut: Shortcut) {
         if shortcut.keyCode != .none {
-            let id = globalShortcutsIds[controlId]!
+            let id = KeyboardEventsTestable.globalShortcutsIds[controlId]!
             let hotkeyId = EventHotKeyID(signature: signature, id: UInt32(id))
             let key = shortcut.carbonKeyCode
             let mods = shortcut.carbonModifierFlags
@@ -55,15 +43,15 @@ class KeyboardEvents {
     }
 
     static func toggleGlobalShortcuts(_ shouldDisable: Bool) {
-        if shouldDisable != App.app.globalShortcutsAreDisabled {
+        if shouldDisable != globalShortcutsAreDisabled {
             let fn = shouldDisable ? unregisterHotKeyIfNeeded : registerHotKeyIfNeeded
-            for shortcutId in globalShortcutsIds.keys {
+            for shortcutId in KeyboardEventsTestable.globalShortcutsIds.keys {
                 if let shortcut = ControlsTab.shortcuts[shortcutId]?.shortcut {
                     fn(shortcutId, shortcut)
                 }
             }
-            debugPrint("toggleGlobalShortcuts", shouldDisable)
-            App.app.globalShortcutsAreDisabled = shouldDisable
+            Logger.info("toggleGlobalShortcuts", shouldDisable)
+            globalShortcutsAreDisabled = shouldDisable
         }
     }
 
@@ -72,9 +60,10 @@ class KeyboardEvents {
         addCgEventTapForModifierFlags()
     }
 
+    // TODO: handle this on a background thread?
     private static func addLocalMonitorForKeyDownAndKeyUp() {
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
-            let someShortcutTriggered = handleEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, cocoaToCarbonFlags(event.modifierFlags), event.type == .keyDown ? event.isARepeat : false)
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp]) { (event: NSEvent) in
+            let someShortcutTriggered = handleKeyboardEvent(nil, nil, event.type == .keyDown ? UInt32(event.keyCode) : nil, event.modifierFlags, event.type == .keyDown ? event.isARepeat : false)
             return someShortcutTriggered ? nil : event
         }
     }
@@ -90,9 +79,9 @@ class KeyboardEvents {
             eventsOfInterest: eventMask,
             callback: cgEventFlagsChangedHandler,
             userInfo: nil)
-        if let eventTap = eventTap {
+        if let eventTap {
             let runLoopSource = CFMachPortCreateRunLoopSource(nil, eventTap, 0)
-            CFRunLoopAddSource(CFRunLoopGetMain(), runLoopSource, .commonModes)
+            CFRunLoopAddSource(BackgroundWork.keyboardEventsThread.runLoop, runLoopSource, .commonModes)
         } else {
             App.app.restart()
         }
@@ -104,7 +93,7 @@ class KeyboardEvents {
             InstallEventHandler(shortcutEventTarget, { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
                 var id = EventHotKeyID()
                 GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &id)
-                handleEvent(id, .down, nil, nil, false)
+                handleKeyboardEvent(Int(id.id), .down, nil, nil, false)
                 return noErr
             }, eventTypes.count, &eventTypes, nil, &hotKeyPressedEventHandler)
         }
@@ -113,7 +102,7 @@ class KeyboardEvents {
             InstallEventHandler(shortcutEventTarget, { (_: EventHandlerCallRef?, event: EventRef?, _: UnsafeMutableRawPointer?) -> OSStatus in
                 var id = EventHotKeyID()
                 GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &id)
-                handleEvent(id, .up, nil, nil, false)
+                handleKeyboardEvent(Int(id.id), .up, nil, nil, false)
                 return noErr
             }, eventTypes.count, &eventTypes, nil, &hotKeyReleasedEventHandler)
         }
@@ -131,24 +120,19 @@ class KeyboardEvents {
     }
 }
 
-@discardableResult
-fileprivate func handleEvent(_ id: EventHotKeyID?, _ shortcutState: ShortcutState?, _ keyCode: UInt32?, _ modifiers: UInt32?, _ isARepeat: Bool) -> Bool {
-    var someShortcutTriggered = false
-    for shortcut in ControlsTab.shortcuts.values {
-        if shortcut.matches(id, shortcutState, keyCode, modifiers, isARepeat) && shortcut.shouldTrigger() {
-            shortcut.executeAction(isARepeat)
-            someShortcutTriggered = true
-        }
-    }
-    return someShortcutTriggered
-}
-
-fileprivate func cgEventFlagsChangedHandler(proxy: CGEventTapProxy, type: CGEventType, cgEvent: CGEvent, userInfo: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+fileprivate let cgEventFlagsChangedHandler: CGEventTapCallBack = { _, type, cgEvent, _ in
     if type == .flagsChanged {
-        let modifiers = cocoaToCarbonFlags(NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue)))
-        handleEvent(nil, nil, nil, modifiers, false)
+        // TODO: it would be great to shortcut matching and trigger on the background thread
+        // it would enable us to set App.app.isBeingUsed here, and could stop tasks on main when they check the flag
+        DispatchQueue.main.async {
+            let modifiers = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+            // TODO: ideally, we want to absorb all modifier keys except holdShortcut
+            // it was pressed down before AltTab was triggered, so we should let the up event through
+            handleKeyboardEvent(nil, nil, nil, modifiers, false)
+        }
     } else if (type == .tapDisabledByUserInput || type == .tapDisabledByTimeout) {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
     }
-    return Unmanaged.passUnretained(cgEvent) // focused app will receive the event
+    // we always return this because we want to let these event pass through to the currently focused app
+    return Unmanaged.passUnretained(cgEvent)
 }

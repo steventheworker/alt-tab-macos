@@ -1,43 +1,135 @@
 import Cocoa
 import Darwin
 
-extension Collection {
-    // recursive flatMap
-    func joined() -> [Any] {
-        return flatMap { ($0 as? [Any])?.joined() ?? [$0] }
+extension NSAppearance {
+    func getThemeName() -> AppearanceThemePreference {
+        if #available(macOS 10.14, *) {
+            let appearance = NSApp.effectiveAppearance.name
+            if appearance == .darkAqua || appearance == .vibrantDark {
+                return .dark
+            }
+        }
+        return .light
+    }
+}
+
+extension NSColor {
+    // periphery:ignore
+    func toHex() -> String? {
+        guard let rgbColor = usingColorSpace(.deviceRGB) else {
+            return nil
+        }
+        let red = Int(rgbColor.redComponent * 255.0)
+        let green = Int(rgbColor.greenComponent * 255.0)
+        let blue = Int(rgbColor.blueComponent * 255.0)
+        return String(format: "#%02X%02X%02X", red, green, blue)
+    }
+
+    class var systemAccentColor: NSColor {
+        if #available(macOS 10.14, *) {
+            // dynamically adapts to changes in System Default; no need to listen to notifications
+            return NSColor.controlAccentColor
+        }
+        return NSColor.blue
+    }
+
+    class var tableBorderColor: NSColor {
+        // #4b4b4b
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 0.8)
+        }
+        // #e5e5e5
+        return NSColor(srgbRed: 229 / 255, green: 229 / 255, blue: 229 / 255, alpha: 0.8)
+    }
+
+    class var tableBackgroundColor: NSColor {
+        // #2b2b2b
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 43 / 255, green: 43 / 255, blue: 43 / 255, alpha: 0.8)
+        }
+        // #f2f2f2
+        return NSColor(srgbRed: 242 / 255, green: 242 / 255, blue: 242 / 255, alpha: 0.8)
+    }
+
+    class var tableSeparatorColor: NSColor {
+        // #353535
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 53 / 255, green: 53 / 255, blue: 53 / 255, alpha: 0.8)
+        }
+        // #e7e7e7
+        return NSColor(srgbRed: 231 / 255, green: 231 / 255, blue: 231 / 255, alpha: 0.8)
+    }
+
+    class var tableHoverColor: NSColor {
+        // #363636
+        if NSAppearance.current.getThemeName() == .dark {
+            return NSColor(srgbRed: 54 / 255, green: 54 / 255, blue: 54 / 255, alpha: 0.8)
+        }
+        // #ebebeb
+        return NSColor(srgbRed: 235 / 255, green: 235 / 255, blue: 235 / 255, alpha: 0.8)
     }
 }
 
 extension NSView {
     // constrain size to fittingSize
     func fit() {
-        widthAnchor.constraint(equalToConstant: fittingSize.width).isActive = true
-        heightAnchor.constraint(equalToConstant: fittingSize.height).isActive = true
+        addOrUpdateConstraint(widthAnchor, fittingSize.width)
+        addOrUpdateConstraint(heightAnchor, fittingSize.height)
     }
 
     // constrain size to provided width and height
     func fit(_ width: CGFloat, _ height: CGFloat) {
-        widthAnchor.constraint(equalToConstant: width).isActive = true
-        heightAnchor.constraint(equalToConstant: height).isActive = true
+        addOrUpdateConstraint(widthAnchor, width)
+        addOrUpdateConstraint(heightAnchor, height)
+    }
+
+    func addOrUpdateConstraint(_ anchor: NSLayoutDimension, _ constant: CGFloat) {
+        if let constraint = (constraints.first { $0.firstAnchor == anchor && $0.secondAnchor == nil }) {
+            constraint.constant = constant
+        } else {
+            anchor.constraint(equalToConstant: constant).isActive = true
+        }
+    }
+
+    func centerFrameInParent(x: Bool = false, y: Bool = false) {
+        let selfSize = (self is NSTextField) ? (self as! NSTextField).cell!.cellSize : frame.size
+        let superviewSize = (superview! is NSTextField) ? (superview! as! NSTextField).cell!.cellSize : superview!.frame.size
+        if (x) {
+            frame.origin.x = ((superviewSize.width - selfSize.width) / 2).rounded()
+        }
+        if (y) {
+            let diff = superviewSize.height - selfSize.height
+            // if there is no perfect centering, we biais top, as it's more aesthetic for ThumbnailView.label
+            let diffWithBiasTop = diff.truncatingRemainder(dividingBy: 2) == 0 ? diff : diff - 1
+            frame.origin.y = (diffWithBiasTop / 2).rounded()
+        }
+    }
+
+    func setSubviews(_ views: [NSView]) {
+        for view in views {
+            normalizeSubview(view)
+        }
+        subviews = views
+    }
+
+    func addSubviews(_ views: [NSView]) {
+        for view in views {
+            normalizeSubview(view)
+        }
+        subviews = subviews + views
+    }
+
+    func setSubviewAbove(_ view: NSView) {
+        normalizeSubview(view)
+        addSubview(view, positioned: .above, relativeTo: nil)
+    }
+
+    private func normalizeSubview(_ view: NSView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
 extension Collection {
-    // forEach with each iteration run concurrently on the global queue
-    func forEachAsync(fn: @escaping (Element) -> Void) {
-        let group = DispatchGroup()
-        for element in self {
-            BackgroundWork.globalSemaphore.wait()
-            BackgroundWork.mainQueueConcurrentWorkQueue.async(group: group) {
-                group.enter()
-                fn(element)
-                BackgroundWork.globalSemaphore.signal()
-                group.leave()
-            }
-        }
-        group.wait()
-    }
-
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
@@ -49,7 +141,7 @@ class SelectorWrapper<T> {
     let closure: (T) -> Void
 
     init(withClosure closure: @escaping (T) -> Void) {
-        self.selector = #selector(callClosure)
+        selector = #selector(callClosure)
         self.closure = closure
     }
 
@@ -69,7 +161,7 @@ extension NSControl {
             return nil
         }
         set {
-            if let newValue = newValue {
+            if let newValue {
                 let selectorWrapper = SelectorWrapper<NSControl>(withClosure: newValue)
                 objc_setAssociatedObject(self, &handle, selectorWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 action = selectorWrapper.selector
@@ -101,60 +193,38 @@ extension DispatchQoS {
     }
 }
 
-extension NSGridColumn {
-    func width(_ skipCell: Int? = nil) -> CGFloat {
-        var maxWidth = CGFloat(0)
-        for i in (0..<numberOfCells) {
-            if let skipCell = skipCell, i == skipCell { continue }
-            maxWidth = max(maxWidth, cell(at: i).contentView!.fittingSize.width)
-        }
-        return maxWidth
-    }
-}
-
-extension NSViewController {
-    func setView(_ subview: NSView) {
-        view = NSView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.subviews = [subview]
-        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+extension NSTextField {
+    func setWidth(_ width: CGFloat) {
+        frame.size.width = width
+        // TODO: NSTextField does some internal magic, and ends up with constraints. We need to add our own to force its size
+        // I wish there was a better way to only set the frame.size
+        addOrUpdateConstraint(widthAnchor, width)
     }
 }
 
 extension NSImage {
+    func cgImage(maxSize: NSSize) -> CGImage {
+        // some images like NSRunningApp.icon are from icns. They hosts multiple representations and it's hard to know the highest resolution
+        // by setting a maxSize, the returned CGImage will be the biggest it can under that maxSize
+        var rect = NSRect(origin: .zero, size: maxSize)
+        return cgImage(forProposedRect: &rect, context: nil, hints: nil)!
+    }
+
     // NSImage(named) caches/reuses NSImage objects; we force separate instances of images by using copy()
     static func initCopy(_ name: String) -> NSImage {
         return NSImage(named: name)!.copy() as! NSImage
     }
+}
 
-    static func initTemplateCopy(_ name: String) -> NSImage {
-        let image = initCopy(name)
-        image.isTemplate = true
-        return image
+extension CGImage {
+    func nsImage() -> NSImage {
+        return NSImage(cgImage: self, size: NSSize(width: width, height: height))
     }
 
-    // copy and resize an image using high quality interpolation
-    static func initResizedCopy(_ name: String, _ width: CGFloat, _ height: CGFloat) -> NSImage {
-        let original = initCopy(name)
-        let img = NSImage(size: CGSize(width: width, height: height))
-        img.lockFocus()
-        NSGraphicsContext.current?.imageInterpolation = .high
-        original.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, original.size.width, original.size.height), operation: .copy, fraction: 1)
-        img.unlockFocus()
-        return img
-    }
-
-    func tinted(_ tint: NSColor) -> NSImage {
-        let dimmed = copy() as! NSImage
-        let scaling = NSScreen.withMouse()?.backingScaleFactor ?? 1
-        let scaledSize = NSSize(width: (size.width * scaling).rounded(), height: (size.height * scaling).rounded())
-        dimmed.size = scaledSize
-        dimmed.lockFocus()
-        tint.set()
-        let imageRect = NSRect(origin: .zero, size: scaledSize)
-        imageRect.fill(using: .sourceAtop)
-        dimmed.unlockFocus()
-        return dimmed
+    static func named(_ imageName: String) -> CGImage {
+        let imageURL = Bundle.main.url(forResource: imageName, withExtension: nil)!
+        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, nil)!
+        return CGImageSourceCreateImageAtIndex(imageSource, 0, nil)!
     }
 }
 
@@ -187,5 +257,58 @@ extension Int {
 extension Optional where Wrapped == String {
     func localizedStandardCompare(_ string: String?) -> ComparisonResult {
         return (self ?? "").localizedStandardCompare(string ?? "")
+    }
+}
+
+extension NSWindow {
+    func hideAppIfLastWindowIsClosed() {
+        if (!NSApp.windows.contains { $0.isVisible && $0.className != "NSStatusBarWindow" && $0.windowNumber != windowNumber }) {
+            App.shared.hide(nil)
+        }
+    }
+}
+
+extension CaseIterable where Self: Equatable {
+    var index: Int {
+        return Self.allCases.distance(from: Self.allCases.startIndex, to: Self.allCases.firstIndex(of: self)!)
+    }
+    var indexAsString: String {
+        return String(describing: self.index)
+    }
+}
+
+class ModifierFlags {
+    static var current: NSEvent.ModifierFlags {
+        return NSEvent.modifierFlags
+    }
+}
+
+extension NSPoint {
+    static func +=(lhs: inout NSPoint, rhs: NSPoint) {
+        lhs.x += rhs.x
+        lhs.y += rhs.y
+    }
+
+    static func +(lhs: NSPoint, rhs: NSPoint) -> NSPoint {
+        return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
+    }
+
+    static func -(lhs: NSPoint, rhs: NSPoint) -> NSPoint {
+        return NSPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+    }
+
+    static func /(lhs: NSPoint, rhs: Int) -> NSPoint {
+        return NSPoint(x: lhs.x / Double(rhs), y: lhs.y / Double(rhs))
+    }
+}
+
+extension Optional {
+    enum Error: Swift.Error {
+        case unexpectedNil
+    }
+
+    // useful call multiple statements that could fail, and have a unique do-catch block to handle failures
+    func unwrapOrThrow() throws -> Wrapped {
+        if let self { return self } else { throw Error.unexpectedNil }
     }
 }

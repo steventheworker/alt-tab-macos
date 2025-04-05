@@ -2,7 +2,7 @@ import Cocoa
 import AppCenter
 import AppCenterCrashes
 
-class AppCenterCrash: NSObject, CrashesDelegate {
+class AppCenterCrash: NSObject {
     static let secret = Bundle.main.object(forInfoDictionaryKey: "AppCenterSecret") as! String
 
     override init() {
@@ -14,22 +14,21 @@ class AppCenterCrash: NSObject, CrashesDelegate {
         AppCenter.networkRequestsAllowed = false
         AppCenter.start(withAppSecret: AppCenterCrash.secret, services: [Crashes.self])
         Crashes.delegate = self
-        Crashes.userConfirmationHandler = self.confirmationHandler
+        Crashes.userConfirmationHandler = confirmationHandler
     }
 
     // at launch, the crash report handler can be called before some things are not yet ready; we ensure they are
     func initNecessaryFacilities() {
-        if defaults.string(forKey: "crashPolicy") == nil {
-            defaults.register(defaults: ["crashPolicy": "1"])
-        }
-        if BackgroundWork.crashReportsQueue == nil {
-            BackgroundWork.crashReportsQueue = DispatchQueue.globalConcurrent("crashReportsQueue", .utility)
+        if UserDefaults.standard.string(forKey: "crashPolicy") == nil {
+            UserDefaults.standard.register(defaults: ["crashPolicy": "1"])
         }
     }
 
+    // periphery:ignore
     func confirmationHandler(_ errorReports: [ErrorReport]) -> Bool {
-        self.initNecessaryFacilities()
+        initNecessaryFacilities()
         let shouldSend = checkIfShouldSend()
+        BackgroundWork.startCrashReportsQueue()
         BackgroundWork.crashReportsQueue.async {
             AppCenter.networkRequestsAllowed = shouldSend
             Crashes.notify(with: shouldSend ? .send : .dontSend)
@@ -51,9 +50,9 @@ class AppCenterCrash: NSObject, CrashesDelegate {
             let checkbox = NSButton(checkboxWithTitle: NSLocalizedString("Remember my choice", comment: ""), target: nil, action: nil)
             alert.accessoryView = checkbox
             let userChoice = alert.runModal()
-            let id = self.crashButtonIdToUpdate(userChoice, checkbox)
-            if let buttons = PoliciesTab.crashButtons, buttons.count > id {
-                buttons[id].state = .on
+            let id = crashButtonIdToUpdate(userChoice, checkbox)
+            if let buttons = PoliciesTab.crashPolicyDropdown, buttons.numberOfItems > id {
+                buttons.selectItem(at: id)
             }
             Preferences.set("crashPolicy", String(id))
             return userChoice == .alertFirstButtonReturn
@@ -73,7 +72,9 @@ class AppCenterCrash: NSObject, CrashesDelegate {
         }
         return 1
     }
+}
 
+extension AppCenterCrash: CrashesDelegate {
     func attachments(with crashes: Crashes, for errorReport: ErrorReport) -> [ErrorAttachmentLog]? {
         return [ErrorAttachmentLog.attachment(withText: DebugProfile.make(), filename: "debug-profile.md")!]
     }

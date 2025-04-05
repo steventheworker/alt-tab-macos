@@ -1,4 +1,4 @@
-set -exu
+set -ex
 
 brew install jq
 #scripts/update_contributors.sh

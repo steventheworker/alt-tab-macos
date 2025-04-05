@@ -5,25 +5,24 @@ extension CGWindowID {
         cgProperty("kCGSWindowTitle", String.self)
     }
 
-    func level() throws -> CGWindowLevel {
+    func level() -> CGWindowLevel {
         var level = CGWindowLevel(0)
-        CGSGetWindowLevel(cgsMainConnectionId, self, &level)
+        CGSGetWindowLevel(CGS_CONNECTION, self, &level)
         return level
     }
 
     func spaces() -> [CGSSpaceID] {
-        return CGSCopySpacesForWindows(cgsMainConnectionId, CGSSpaceMask.all.rawValue, [self] as CFArray) as! [CGSSpaceID]
+        return CGSCopySpacesForWindows(CGS_CONNECTION, CGSSpaceMask.all.rawValue, [self] as CFArray) as! [CGSSpaceID]
     }
 
-    func screenshot(_ bestResolution: Bool = false) -> CGImage? {
-        // CGSHWCaptureWindowList
+    func screenshot() -> CGImage? {
+        // we use CGSHWCaptureWindowList because it can screenshot minimized windows, which CGWindowListCreateImage can't
         var windowId_ = self
-        let list = CGSHWCaptureWindowList(cgsMainConnectionId, &windowId_, 1, [.ignoreGlobalClipShape, bestResolution ? .bestResolution : .nominalResolution]).takeRetainedValue() as! [CGImage]
+        let list = CGSHWCaptureWindowList(CGS_CONNECTION, &windowId_, 1, [.ignoreGlobalClipShape, .bestResolution, .fullSize]).takeRetainedValue() as! [CGImage]
         return list.first
-
 //        // CGWindowListCreateImage
 //        return CGWindowListCreateImage(.null, .optionIncludingWindow, self, [.boundsIgnoreFraming, .bestResolution])
-
+//
 //        // CGSCaptureWindowsContentsToRectWithOptions
 //        var windowId_ = self
 //        if Testt.sampleCgImage == nil {
@@ -36,11 +35,7 @@ extension CGWindowID {
 
     private func cgProperty<T>(_ key: String, _ type: T.Type) -> T? {
         var value: AnyObject?
-        CGSCopyWindowProperty(cgsMainConnectionId, self, key as CFString, &value)
+        CGSCopyWindowProperty(CGS_CONNECTION, self, key as CFString, &value)
         return value as? T
     }
 }
-
-//class Testt {
-//    static var sampleCgImage: CGImage? = nil
-//}

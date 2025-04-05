@@ -8,14 +8,14 @@ class BlacklistView: NSScrollView {
         hasHorizontalScroller = false
         hasVerticalScroller = true
         documentView = TableView(nil)
-        fit(520, 360)
+        fit(500, 378)
     }
 }
 
-class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
+class TableView: NSTableView {
     var items = Preferences.blacklist
 
-    convenience init(_ dummy: Int?) {
+    convenience init(_: Int?) {
         self.init()
         translatesAutoresizingMaskIntoConstraints = false
         delegate = self
@@ -34,7 +34,25 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         reloadData()
     }
 
-    func addHeaders(_ columnHeaders: [String]) {
+    func insertRow(_ bundleId: String) {
+        if !(items.contains { $0.bundleIdentifier == bundleId }) {
+            items.append(BlacklistEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none))
+            insertRows(at: [numberOfRows])
+            savePreferences()
+        }
+    }
+
+    func removeSelectedRows() {
+        if numberOfSelectedRows > 0 {
+            for selectedRowIndex in selectedRowIndexes.reversed() {
+                items.remove(at: selectedRowIndex)
+            }
+            removeRows(at: selectedRowIndexes)
+            savePreferences()
+        }
+    }
+
+    private func addHeaders(_ columnHeaders: [String]) {
         columnHeaders.enumerated().forEach { (i, header: String) in
             let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("col\(i + 1)"))
             column.headerToolTip = header
@@ -46,16 +64,23 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         }
     }
 
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return items.count
+    private func wasUpdated(_ colId: String, _ control: NSControl) {
+        let row = row(for: control)
+        if colId == "col1" {
+            items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
+        } else if colId == "col2" {
+            items[row].hide = BlacklistHidePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
+        } else {
+            items[row].ignore = BlacklistIgnorePreference.allCases[Int(LabelAndControl.getControlValue(control, nil)!)!]
+        }
+        savePreferences()
     }
 
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let item = items[row]
-        return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
+    private func savePreferences() {
+        Preferences.set("blacklist", items)
     }
 
-    func text(_ item: BlacklistEntry) -> NSView {
+    private func text(_ item: BlacklistEntry) -> NSView {
         let text = TextField(item.bundleIdentifier)
         text.isEditable = true
         text.allowsExpansionToolTips = true
@@ -72,7 +97,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         return parent
     }
 
-    func dropdown(_ item: BlacklistEntry, _ colId: String) -> NSView {
+    private func dropdown(_ item: BlacklistEntry, _ colId: String) -> NSView {
         let isHidePref = colId == "col2"
         let button = NSPopUpButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +105,7 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         button.lineBreakMode = .byTruncatingTail
         let cases: [MacroPreference] = isHidePref ? BlacklistHidePreference.allCases : BlacklistIgnorePreference.allCases
         button.addItems(withTitles: cases.map { $0.localizedString })
-        button.selectItem(at: Int(isHidePref ? item.hide.rawValue : item.ignore.rawValue)!)
+        button.selectItem(at: isHidePref ? item.hide.index : item.ignore.index)
         button.onAction = { self.wasUpdated(colId, $0) }
         let parent = NSView()
         parent.addSubview(button)
@@ -88,39 +113,18 @@ class TableView: NSTableView, NSTableViewDelegate, NSTableViewDataSource {
         button.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
         return parent
     }
+}
 
-    func wasUpdated(_ colId: String, _ control: NSControl) {
-        let row = row(for: control)
-        if colId == "col1" {
-            items[row].bundleIdentifier = LabelAndControl.getControlValue(control, nil)!
-        } else if colId == "col2" {
-            items[row].hide = BlacklistHidePreference(rawValue: LabelAndControl.getControlValue(control, nil)!)!
-        } else {
-            items[row].ignore = BlacklistIgnorePreference(rawValue: LabelAndControl.getControlValue(control, nil)!)!
-        }
-        savePreferences()
+extension TableView: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return items.count
     }
+}
 
-    func removeSelectedRows() {
-        if numberOfSelectedRows > 0 {
-            for selectedRowIndex in selectedRowIndexes.reversed() {
-                items.remove(at: selectedRowIndex)
-            }
-            removeRows(at: selectedRowIndexes)
-            savePreferences()
-        }
-    }
-
-    func insertRow(_ bundleId: String) {
-        if !(items.contains { $0.bundleIdentifier == bundleId }) {
-            items.append(BlacklistEntry(bundleIdentifier: bundleId, hide: .always, ignore: .none))
-            insertRows(at: [numberOfRows])
-            savePreferences()
-        }
-    }
-
-    func savePreferences() {
-        Preferences.set("blacklist", items)
+extension TableView: NSTableViewDelegate {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let item = items[row]
+        return tableColumn!.identifier.rawValue == "col1" ? text(item) : dropdown(item, tableColumn!.identifier.rawValue)
     }
 }
 
