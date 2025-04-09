@@ -1,4 +1,4 @@
-platform :osx, '10.12'
+platform :osx, '10.13'
 
 target 'alt-tab-macos' do
   use_frameworks!

@@ -236,6 +236,15 @@ extension AXUIElement {
         // Minimized windows or windows of a hidden app have subrole "AXDialog"
         // Activity Monitor main window subrole is "AXDialog" for a brief moment at launch; it then becomes "AXStandardWindow"
         // Some non-windows have cgWindowId == 0 (e.g. windows of apps starting at login with the checkbox "Hidden" checked)
+        
+        //start DAT
+        if (app.bundleIdentifier == "io.salem.ScreenHint") {return false}
+        //window == BTTFloatWindow (titled "Window", 52x20, AXWindow, bid = not BTT's...!??)
+        if (title == "Window" && size?.width == 52 && size?.height == 20) { // print("level \(level) role \(role) size \(size)")
+            return false
+        }
+        //end DAT
+        
         return wid != 0
             // Finder's file copy dialogs are wide but < 100 height (see https://github.com/lwouis/alt-tab-macos/issues/1466)
             // Sonoma introduced a bug: a caps-lock & language indicators shows as a small window.

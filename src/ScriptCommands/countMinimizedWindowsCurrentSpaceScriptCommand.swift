@@ -17,13 +17,17 @@ class countMinimizedWindowsCurrentSpaceScriptCommand: NSScriptCommand {
         let tarApp = appInstances[0]
         var winCount = 0
         Windows.list.forEach { (window: Window) in // follow refreshWhichWindowsToShowTheUser
+            var inVisibleSpace = false
+            window.spaceIds.forEach { spaceId in
+                if Spaces.visibleSpaces.contains(spaceId) {inVisibleSpace = true}
+            }
             if (
 //                !(window.application.runningApplication.bundleIdentifier.flatMap { id in Preferences.dontShowBlacklist.contains { id.hasPrefix($0) } } ?? false) &&
                 !(/* Preferences.appsToShow[App.app.shortcutIndex] == .active && */ window.application.runningApplication.processIdentifier != tarApp.processIdentifier) && // -and change line: (active app) pid ==> (target app) pid
 //                    && ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
                     
 //                    !window.isWindowlessApp &&
-                    /*!(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !*/Spaces.visibleSpaces.contains(window.spaceId) /*)&&*/
+                    /*!(Preferences.spacesToShow[App.app.shortcutIndex] == .visible && !*/inVisibleSpace /*)&&*/
 //                    (Preferences.showTabsAsWindows || !window.isTabbed))
                 && window.isMinimized
             ) {winCount += 1}

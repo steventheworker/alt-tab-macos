@@ -52,9 +52,8 @@ class ControlsTab {
         let tab = NSSegmentedControl(labels: [
             NSLocalizedString("Shortcut 1", comment: ""),
             NSLocalizedString("Shortcut 2", comment: ""),
-            NSLocalizedString("Shortcut 3", comment: ""),
+            NSLocalizedString("DockAltTab", comment: ""),
             NSLocalizedString("Gesture", comment: ""),
-            // NSLocalizedString("DockAltTab", comment: ""),
         ], trackingMode: .selectOne, target: self, action: #selector(switchTab(_:)))
         tab.selectedSegment = 0
         tab.segmentStyle = .automatic

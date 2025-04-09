@@ -31,39 +31,25 @@ class ATShortcut {
             let shortcutIndex = id
             let shortcutId = KeyboardEventsTestable.globalShortcutsIds.first { $0.value == shortcutIndex }!.key
             if shortcutId == self.id {
-                state = state == .down ? .up : .down
-                if state == .up {
-                    KeyRepeatTimer.timer?.invalidate()
-                    DATKeyUp(self.shortcut);
-                }
-                if (triggerPhase == .down && shortcutState == .down) || (triggerPhase == .up && shortcutState == .up) {
-                    DATKeyDown(self.shortcut);
+                state = shortcutState
+                if (triggerPhase == .down && state == .down) || (triggerPhase == .up && state == .up) {
                     return true
                 }
             }
         }
-        if let modifiers = modifiers {
+        if let modifiers {
             let modifiersMatch_ = modifiersMatch(cocoaToCarbonFlags(modifiers))
             let newState: ShortcutState = ((shortcut.keyCode == .none || keyCode == shortcut.carbonKeyCode) && modifiersMatch_) ? .down : .up
-            let flipped = (state == .up && (shortcut.keyCode == .none || keyCode == shortcut.carbonKeyCode) && modifiersMatch_) ||
-                (state == .down && ((shortcut.keyCode != .none && keyCode != shortcut.carbonKeyCode) || !modifiersMatch_))
-            // let flipped = state != newState
-            // state = newState
-            //// state == down is unambiguous; state == up is hard to match with a particular shortcut, unless it's been flipped
-            if flipped {
-                state = state == .down ? .up : .down
-                if state == .up {
-                    KeyRepeatTimer.timer?.invalidate()
-                    DATKeyUp(self.shortcut)
-                }
-            }
-            if (flipped || isARepeat) && ((triggerPhase == .up && state == .up) || (triggerPhase == .down && state == .down)) {
-                DATKeyDown(self.shortcut);
+            let flipped = state != newState
+            state = newState
+            // state == down is unambiguous; state == up is hard to match with a particular shortcut, unless it's been flipped
+            if (triggerPhase == .down && state == .down) || (triggerPhase == .up && state == .up && flipped) {
                 return true
             }
         }
         return false
     }
+
 
     private func modifiersMatch(_ modifiers: UInt32) -> Bool {
         // holdShortcut: contains at least

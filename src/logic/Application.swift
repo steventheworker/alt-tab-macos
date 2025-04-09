@@ -137,7 +137,7 @@ class Application: NSObject {
 
     func canBeQuit() -> Bool {
         return true; //DockAltTab  --enable quit control on finder
-        return bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
+//        return bundleIdentifier != "com.apple.finder" || Preferences.finderShowsQuitMenuItem
     }
 
     func quit() {

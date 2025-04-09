@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -185,6 +185,7 @@
 		BF42BC83283552B400F5D5E7 /* showAppScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */; };
 		BF42BC84283552B400F5D5E7 /* ShowScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */; };
 		BF42BC85283552B400F5D5E7 /* TriggerScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */; };
+		BF46C2802DA37C0200C65245 /* thumbnailPreviewScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF46C27F2DA37C0200C65245 /* thumbnailPreviewScriptCommand.swift */; };
 		BF49DF3228355340004517BD /* countWindowsScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */; };
 		BF49DF3428355372004517BD /* AltTab.sdef in Resources */ = {isa = PBXBuildFile; fileRef = BF49DF3328355372004517BD /* AltTab.sdef */; };
 		BF73FE492A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */; };
@@ -522,6 +523,7 @@
 		BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = showAppScriptCommand.swift; sourceTree = "<group>"; };
 		BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowScriptCommand.swift; sourceTree = "<group>"; };
 		BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerScriptCommand.swift; sourceTree = "<group>"; };
+		BF46C27F2DA37C0200C65245 /* thumbnailPreviewScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thumbnailPreviewScriptCommand.swift; sourceTree = "<group>"; };
 		BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = countWindowsScriptCommand.swift; sourceTree = "<group>"; };
 		BF49DF3328355372004517BD /* AltTab.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AltTab.sdef; sourceTree = "<group>"; };
 		BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countWindowsCurrentSpaceScriptCommand.swift; sourceTree = "<group>"; };
@@ -1268,6 +1270,7 @@
 				BF42BC81283552B400F5D5E7 /* TriggerScriptCommand.swift */,
 				BFEEDD9B2952E4790004F56C /* appSettingScriptCommand.swift */,
 				BFB2A4DB28FDB5CB008170CC /* keyStateScriptCommand.swift */,
+				BF46C27F2DA37C0200C65245 /* thumbnailPreviewScriptCommand.swift */,
 			);
 			path = ScriptCommands;
 			sourceTree = "<group>";
@@ -1973,7 +1976,8 @@
 		D04BA59EB5ED6F005E8F4407 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1620;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1630;
 				ORGANIZATIONNAME = lwouis;
 				TargetAttributes = {
 					D04BA5E73DAF232ADE11C97A = {
@@ -2408,6 +2412,7 @@
 				D04BA8092885B40CE3527370 /* PoliciesTab.swift in Sources */,
 				D04BAD451966B43720120D2E /* Menubar.swift in Sources */,
 				D04BA2E64C59D96F6EB27D9D /* FeedbackWindow.swift in Sources */,
+				BF46C2802DA37C0200C65245 /* thumbnailPreviewScriptCommand.swift in Sources */,
 				D04BA76A74267B1346D23687 /* GridView.swift in Sources */,
 				D04BAB4EB890853B5B9B2C61 /* BoldLabel.swift in Sources */,
 				D04BAABE804F3769CE22BEB6 /* HyperlinkLabel.swift in Sources */,
@@ -3360,8 +3365,9 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lwouis.alt-tab-macos.unit-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -3459,6 +3465,7 @@
 		D04BA801581D700C583B53FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3481,6 +3488,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3488,9 +3496,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3517,6 +3527,7 @@
 		D04BA9150F87B08AB0ACE4AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3539,6 +3550,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3546,9 +3558,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -3560,7 +3574,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};

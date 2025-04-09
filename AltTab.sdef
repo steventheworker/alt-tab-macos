@@ -67,5 +67,11 @@
              </parameter>
              <result type="text" description="value of the setting"/>)
         </command>
+         <command name="thumbnailPreview" code="atssThPv" description="Show preview in PreviewPanel.">
+             <cocoa class="AltTab.thumbnailPreviewScriptCommand"/>
+<!--             <parameter name="no" code="arg1" type="text" optional="no" description="Show preview in PreviewPanel no. x">-->
+<!--                 <cocoa key="no"/>-->
+<!--             </parameter>-->
+        </command>
      </suite>
  </dictionary>

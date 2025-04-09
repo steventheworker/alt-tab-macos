@@ -180,7 +180,7 @@ class Windows {
             index = hoveredWindowIndex
             lastWindowActivityType = .hover
         }
-        if (!fromMouse || Preferences.mouseHoverEnabled)
+        if (!fromMouse || (Preferences.mouseHoverEnabled || DockAltTabMode))
                && (newIndex != focusedWindowIndex || lastWindowActivityType == .hover) {
             let oldIndex = focusedWindowIndex
             focusedWindowIndex = newIndex

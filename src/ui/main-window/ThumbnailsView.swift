@@ -182,8 +182,8 @@ class ThumbnailsView: NSVisualEffectView {
         let heightMax = ThumbnailsPanel.maxThumbnailsHeight()
         ThumbnailsView.thumbnailsWidth = min(maxX, widthMax)
         ThumbnailsView.thumbnailsHeight = min(maxY, heightMax)
-        let frameWidth = ThumbnailsView.thumbnailsWidth + Appearance.windowPadding * 2
-        var frameHeight = ThumbnailsView.thumbnailsHeight + Appearance.windowPadding * 2
+        let frameWidth = ThumbnailsView.thumbnailsWidth + (DockAltTabMode ? 0 : Appearance.windowPadding * 2)
+        var frameHeight = ThumbnailsView.thumbnailsHeight + (DockAltTabMode ? 0 : Appearance.windowPadding * 2)
         let originX = Appearance.windowPadding
         var originY = Appearance.windowPadding
         if Preferences.appearanceStyle == .appIcons {

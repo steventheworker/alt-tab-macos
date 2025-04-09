@@ -5,31 +5,33 @@ Made for use with [DockAltTab](https://dockalttab.netlify.app) (adds window prev
 
 # [AppleScript Dictionary / Docs](https://github.com/steventheworker/alt-tab-macos/blob/scriptable/AltTab.sdef)
 #### <u>basic commands</u>
-- **hide**: Hide Overlay/UI.
-- **show**: Show all app windows. (Regular AltTab shortcut)
-- **showApp**: Show specific app's windows. (ignores blacklist)
+- **hide:** Hide Overlay/UI.
+- **show:** Show all app windows. (Regular AltTab shortcut)
+- **showApp:** Show specific app's windows. (ignores blacklist)
     - appBID: The bundle identifier of the app whose windows you want to show.
     - x: X-coordinate (optional)
     - y: Y-coordinate (optional)
     - dockPos: (optional) Helps AltTab know where previews will be positioned / clip, (especially for docks on the right (preview 'panel' width is relevant))
-- **trigger**: Goes to the next window, without showing Overlay/UI.
+- **trigger:** Goes to the next window, without showing Overlay/UI.
 
 <details>
   <summary><u>Miscellaneous / DockAltTab commands</u></summary>
 
 #### <u>Miscellaneous / DockAltTab commands</u>
-- **appSetting**: Read settings applied on showApp previews.
+- **appSetting:** Read settings applied on showApp previews.
     - named: Name of the setting. (appsToShow, showHiddenWindows, showFullscreenWindows, showMinimizedWindows, spacesToShow, screensToShow, showTabsAsWindows)
-- **countMinimizedWindowsCurrentSpace**: The number of (minimized) windows for an app (FROM the current space, especially useful for keeping minimized windows contained in the space they were originally minimized in).
+- **countMinimizedWindowsCurrentSpace:** The number of (minimized) windows for an app (FROM the current space, especially useful for keeping minimized windows contained in the space they were originally minimized in).
     - appBID
-- **countWindows**: The number of windows for an app (in all spaces).
+- **countWindows:** The number of windows for an app (in all spaces).
     - appBID
-- **countWindowsCurrentSpace**: The number of windows for an app (in the current space, especially useful for counting hidden windows (otherwise especially hard to do for the current space)).
+- **countWindowsCurrentSpace:** The number of windows for an app (in the current space, especially useful for counting hidden windows (otherwise especially hard to do for the current space)).
     - appBID
-- **deminimizeFirstMinimizedWindowFromCurrentSpace**: Deminimize app's first minimized window originally minimized on the current space.
+- **deminimizeFirstMinimizedWindowFromCurrentSpace:** Deminimize app's first minimized window originally minimized on the current space.
     - appBID
-- **keyState**: Whether a certain key is being pressed (see if AltTab overlay is absorbing modifier keys)
+- **keyState:** Whether a certain key is being pressed (see if AltTab overlay is absorbing modifier keys)
     - key: Name of the key you want to check the state of.
+- **thumbnailPreview:** show focuspreview/targetpreview
+    - ...
 </details>
 
 ### example usages:

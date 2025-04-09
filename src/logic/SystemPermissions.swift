@@ -151,6 +151,5 @@ class SystemPermissions {
             queue: .global(),
             handler: { _, _, _, _ in }
         ) != nil
-    } else {return false}
     }
 }

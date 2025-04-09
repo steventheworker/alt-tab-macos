@@ -28,7 +28,7 @@ class ThumbnailView: FlippedView {
     var dragAndDropTimer: Timer?
     var indexInRecycledViews: Int!
     var isShowingWindowControls = false
-    var frameInset = (DockAltTabMode ? 0 : Appearance.intraCellPadding)
+
     var isFirstInRow = false
     var isLastInRow = false
     var indexInRow = 0
@@ -113,21 +113,6 @@ class ThumbnailView: FlippedView {
         let isFocused = indexInRecycledViews == Windows.focusedWindowIndex
         let isHovered = indexInRecycledViews == Windows.hoveredWindowIndex
         setBackground(isFocused: isFocused, isHovered: isHovered)
-        
-        // start DAT block
-        // vStackView.layer!.backgroundColor = (Preferences.theme == .macOs && isFocused) || (Preferences.theme == .windows10 && isHovered)
-        // ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
-        // if (DockAltTabMode && Preferences.theme == .windows10) { // only flip style for DockAltTab previews (w/ Windows 10 theme)
-        //     layer!.borderColor = (Preferences.theme == .windows10 && isHovered) || (Preferences.theme == .macOs && isFocused)
-        //     ? ThumbnailView.highlightBorderColor.cgColor : .clear
-        //     layer!.backgroundColor = (Preferences.theme == .windows10 && isFocused) || (Preferences.theme == .macOs && isHovered)
-        //         ? ThumbnailView.highlightBackgroundColor.cgColor : .clear
-        // } else {
-        //     layer!.borderColor = (Preferences.theme == .macOs && isHovered) || (Preferences.theme == .windows10 && isFocused)
-        //     ? ThumbnailView.highlightBorderColor.cgColor : .clear
-        }
-        //end DAT block
-
         setBorder(isFocused: isFocused, isHovered: isHovered)
         setShadow(isFocused: isFocused, isHovered: isHovered)
         if Preferences.appearanceStyle == .appIcons {
@@ -520,29 +505,27 @@ class ThumbnailView: FlippedView {
     }
 
     static func maxThumbnailWidth() -> CGFloat {
-        return ThumbnailsPanel.maxThumbnailsWidth() * Appearance.windowMaxWidthInRow - (DockAltTabMode ? 0 : Appearance.interCellPadding) * 2
+        return ThumbnailsPanel.maxThumbnailsWidth() * Appearance.windowMaxWidthInRow - Appearance.interCellPadding * 2
     }
 
     static func minThumbnailWidth() -> CGFloat {
-        return ThumbnailsPanel.maxThumbnailsWidth() * Appearance.windowMinWidthInRow - (DockAltTabMode ? 0 : Appearance.interCellPadding) * 2
+        return ThumbnailsPanel.maxThumbnailsWidth() * Appearance.windowMinWidthInRow - Appearance.interCellPadding * 2
     }
-    
 
     /// The maximum height that a thumbnail can be drawn
     /// maxThumbnailsHeight = maxThumbnailHeight * rowCount + interCellPadding * (rowCount - 1)
     /// maxThumbnailHeight = (maxThumbnailsHeight - interCellPadding * (rowCount - 1)) / rowCount
     static func maxThumbnailHeight() -> CGFloat {
-        return ((ThumbnailsPanel.maxThumbnailsHeight() - (DockAltTabMode ? 0 : Appearance.interCellPadding)) / Appearance.rowsCount - (DockAltTabMode ? 0 : Appearance.interCellPadding)).rounded()
+        return ((ThumbnailsPanel.maxThumbnailsHeight() - Appearance.interCellPadding) / Appearance.rowsCount - Appearance.interCellPadding).rounded()
     }
 
     static func thumbnailSize(_ image: CGImage?, _ isWindowlessApp: Bool) -> NSSize {
         guard let image else { return NSSize(width: 0, height: 0) }
         let imageWidth = CGFloat(image.width)
         let imageHeight = CGFloat(image.height)
-        
         let thumbnailHeightMax = ThumbnailView.maxThumbnailHeight()
-            - (DockAltTabMode ? 0 : Appearance.edgeInsetsSize) * 2
-            - (DockAltTabMode ? 0 : Appearance.interCellPadding)
+            - Appearance.edgeInsetsSize * 2
+            - Appearance.intraCellPadding
             - Appearance.iconSize
         let thumbnailWidthMax = ThumbnailView.maxThumbnailWidth()
             - Appearance.edgeInsetsSize * 2

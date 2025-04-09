@@ -24,12 +24,12 @@ class App: AppCenterApplication {
     var appIsBeingUsed = false
     var shortcutIndex = 0
     private var feedbackWindow: FeedbackWindow!
-    private var isFirstSummon = true
-    private var isVeryFirstSummon = true
+    /*private*/ var isFirstSummon = true
+    /*private*/ var isVeryFirstSummon = true
     // periphery:ignore
     private var appCenterDelegate: AppCenterCrash?
     // don't queue multiple delayed rebuildUi() calls
-    private var delayedDisplayScheduled = 0
+    /*private*/ var delayedDisplayScheduled = 0
 
     override init() {
         super.init()
@@ -227,7 +227,7 @@ class App: AppCenterApplication {
     }
 
     func showUiOrCycleSelection(_ shortcutIndex: Int) {
-        DockAltTabReset() // guarantee AltTab window not repositioned
+        DockAltTabReset() // guarantee AltTab window not repositioned + reset forced preview
         Logger.debug(shortcutIndex, self.shortcutIndex, isFirstSummon)
         App.app.appIsBeingUsed = true
         if isFirstSummon || shortcutIndex != self.shortcutIndex {
