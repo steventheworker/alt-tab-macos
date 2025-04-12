@@ -69,7 +69,7 @@ class showAppScriptCommand: NSScriptCommand {
             App.app.isFirstSummon = false
             App.app.shortcutIndex = 2 // Shortcut 3 = index 2 = DockAltTab
             NSScreen.updatePreferred()
-            if !Windows.updatesBeforeShowing() { App.app.hideUi(); return self }
+//            if !Windows.updatesBeforeShowing() { App.app.hideUi(); return self } //commented out since active app = 0 windows = no previews for any tarApp, and modifying updatesBeforeShowing leads to keeping thumbnailsPanel open with 0 thumbnails (empty grey window)
             
 //            Windows.detectTabbedWindows()
 //            Spaces.refreshAllIdsAndIndexes()
