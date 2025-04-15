@@ -1,15 +1,17 @@
-var DockAltTabFORCEDX = 0;
-var DockAltTabFORCEDY = 0;
-var DockAltTabMode = false;
-var DockAltTabDockPos = "";
+var DockAltTabFORCEDX = 0
+var DockAltTabFORCEDY = 0
+var DockAltTabMode = false
+var DockAltTabDockPos = ""
+var DockAltTabApp: NSRunningApplication? = nil
 
 func DockAltTabRadiusFix() {
     if (Preferences.theme != .macOs) {return}
     App.app.thumbnailsPanel.thumbnailsView.updateRoundedCorners(DockAltTabMode ? 15 : Appearance.windowCornerRadius) //line found in App.resetPreferencesDependentComponents
 }
-func startDockAltTabMode() {
+func startDockAltTabMode(app: NSRunningApplication) {
     DockAltTabMode = true
     DockAltTabRadiusFix()
+    DockAltTabApp = app
 }
 func DockAltTabResetCachedThumbnailPreviewSetting() {
     if (DockAltTabThumbnailPreview != nil) {
@@ -43,7 +45,7 @@ class showAppScriptCommand: NSScriptCommand {
             return self
         }
         if (self.evaluatedArguments!["x"] != nil || self.evaluatedArguments!["y"] != nil) {
-            startDockAltTabMode()
+            startDockAltTabMode(app: appInstances.first!)
         } else {DockAltTabReset()/*DockAltTabMode = false*/}
         var x = 0, y = 0
         if (self.evaluatedArguments!["x"] == nil) {
@@ -69,7 +71,9 @@ class showAppScriptCommand: NSScriptCommand {
             App.app.isFirstSummon = false
             App.app.shortcutIndex = 2 // Shortcut 3 = index 2 = DockAltTab
             NSScreen.updatePreferred()
-//            if !Windows.updatesBeforeShowing() { App.app.hideUi(); return self } //commented out since active app = 0 windows = no previews for any tarApp, and modifying updatesBeforeShowing leads to keeping thumbnailsPanel open with 0 thumbnails (empty grey window)
+            if !Windows.updatesBeforeShowing() {
+                print("ydaaaaa")
+                App.app.hideUi(); return self } //commented out since active app = 0 windows = no previews for any tarApp, and modifying updatesBeforeShowing leads to keeping thumbnailsPanel open with 0 thumbnails (empty grey window)
             
 //            Windows.detectTabbedWindows()
 //            Spaces.refreshAllIdsAndIndexes()

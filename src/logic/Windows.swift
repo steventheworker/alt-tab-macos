@@ -370,7 +370,7 @@ class Windows {
                         ($0.hide == .always || (window.isWindowlessApp && $0.hide != .none))
                 }
             } ?? false) &&
-            !(Preferences.appsToShow[App.app.shortcutIndex] == .active && window.application.pid != NSWorkspace.shared.frontmostApplication?.processIdentifier) &&
+        !((Preferences.appsToShow[App.app.shortcutIndex] == .active || DockAltTabMode) && window.application.pid != (DockAltTabMode ? DockAltTabApp!.processIdentifier : NSWorkspace.shared.frontmostApplication?.processIdentifier)) &&
             !(!(Preferences.showHiddenWindows[App.app.shortcutIndex] != .hide) && window.isHidden) &&
             ((!Preferences.hideWindowlessApps && window.isWindowlessApp) ||
                 !window.isWindowlessApp &&
