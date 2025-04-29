@@ -103,9 +103,9 @@ class Windows {
            let lastFocusedWindowIndex = getLastFocusedWindowIndex() {
             updateFocusedAndHoveredWindowIndex(lastFocusedWindowIndex)
         } else {
-            if (DockAltTabMode && DockAltTabDockPos == "right") {
-                cycleFocusedWindowIndex(list.count - 1)
-                updateFocusedAndHoveredWindowIndex(list.count - 1)
+            if (DockAltTabMode) {
+                cycleFocusedWindowIndex(DockAltTabDockPos == "right" ? list.count - 1 : 0)
+                updateFocusedAndHoveredWindowIndex(DockAltTabDockPos == "right" ? list.count - 1 : 0)
             } else {
                 cycleFocusedWindowIndex(1)
                 if focusedWindowIndex == 0 {
