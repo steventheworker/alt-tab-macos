@@ -181,6 +181,8 @@
 		BF0C8F3526BC393290D5BE59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C81EC1C5F3052A75C7D7B /* InfoPlist.strings */; };
 		BF0C8F9B8014AD21E68B1349 /* HelperExtensionsTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C810FA0F6BC70E5886E11 /* HelperExtensionsTestable.swift */; };
 		BF0C8FF2A4B00D409494EA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF0C88D79FA0C773D94F351A /* InfoPlist.strings */; };
+		BF1B815D2EFE758500A175CE /* countWindowsStatsScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B815C2EFE758500A175CE /* countWindowsStatsScriptCommand.swift */; };
+		BF1B815F2EFE7D0800A175CE /* countAllWindowsStatsScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1B815E2EFE7D0800A175CE /* countAllWindowsStatsScriptCommand.swift */; };
 		BF42BC82283552B400F5D5E7 /* HideScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */; };
 		BF42BC83283552B400F5D5E7 /* showAppScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */; };
 		BF42BC84283552B400F5D5E7 /* ShowScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */; };
@@ -519,6 +521,8 @@
 		BF0C8EE17F3ABD7A6D44BFFE /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8F58B38F29B2662E6C2D /* PreferencesMigrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesMigrations.swift; sourceTree = "<group>"; };
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
+		BF1B815C2EFE758500A175CE /* countWindowsStatsScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countWindowsStatsScriptCommand.swift; sourceTree = "<group>"; };
+		BF1B815E2EFE7D0800A175CE /* countAllWindowsStatsScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countAllWindowsStatsScriptCommand.swift; sourceTree = "<group>"; };
 		BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideScriptCommand.swift; sourceTree = "<group>"; };
 		BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = showAppScriptCommand.swift; sourceTree = "<group>"; };
 		BF42BC80283552B400F5D5E7 /* ShowScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowScriptCommand.swift; sourceTree = "<group>"; };
@@ -1261,8 +1265,10 @@
 			isa = PBXGroup;
 			children = (
 				BFFEABC02ABE6F8F00399DA5 /* countMinimizedWindowsCurrentSpaceScriptCommand.swift */,
-				BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */,
 				BF49DF3128355340004517BD /* countWindowsScriptCommand.swift */,
+				BF73FE482A8EEFBC00AB9D0A /* countWindowsCurrentSpaceScriptCommand.swift */,
+				BF1B815E2EFE7D0800A175CE /* countAllWindowsStatsScriptCommand.swift */,
+				BF1B815C2EFE758500A175CE /* countWindowsStatsScriptCommand.swift */,
 				BFEA01162ABE84740000F1AE /* deminimizeFirstMinimizedWindowFromCurrentSpace.swift */,
 				BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */,
 				BF42BC7F283552B400F5D5E7 /* showAppScriptCommand.swift */,
@@ -2434,6 +2440,7 @@
 				D04BA4A11F821548EE3C5E95 /* Bash.swift in Sources */,
 				5F21C9E62C6E94920091F72F /* AnimationsSheet.swift in Sources */,
 				D04BAFB90E00AA5D662EAF24 /* PermissionsWindow.swift in Sources */,
+				BF1B815D2EFE758500A175CE /* countWindowsStatsScriptCommand.swift in Sources */,
 				D04BA7E39FA539DD8316447A /* PermissionView.swift in Sources */,
 				D04BA446D702C5E252AF2319 /* TitleLabel.swift in Sources */,
 				D04BAD43C122A1C7E88B0362 /* MouseEvents.swift in Sources */,
@@ -2462,6 +2469,7 @@
 				BF0C8249228867A3188E13F3 /* SystemAppearanceEvents.swift in Sources */,
 				BF0C827A169F0DE86C8F12AD /* SystemScrollerStyleEvents.swift in Sources */,
 				BF0C8846AFEE2FFF93FAB36F /* AppearanceTestable.swift in Sources */,
+				BF1B815F2EFE7D0800A175CE /* countAllWindowsStatsScriptCommand.swift in Sources */,
 				BF0C88449007A09F1D175029 /* KeyboardEventsTestable.swift in Sources */,
 				BF0C85DA2D285400801C514A /* Logger.swift in Sources */,
 				BF0C89B4B17D7843C32A102E /* Markdown.swift in Sources */,
