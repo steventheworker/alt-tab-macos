@@ -1,5 +1,4 @@
 module.exports = {
-    branches: ['scriptable'], // Specify the branch you want to use for releases
     plugins: [
         ['@semantic-release/commit-analyzer', {
             'preset': 'angular',
@@ -16,14 +15,13 @@ module.exports = {
         }],
         '@semantic-release/release-notes-generator',
         ['@semantic-release/changelog', {
+            'changelogTitle': '# Release notes',
             'changelogFile': 'docs/Changelog.md',
         }],
         ['@semantic-release/git', {
             'assets': [
                 'docs/Changelog.md',
-                'appcast.xml',
-                'README.md',
-                'docs/_layouts/default.html'
+                'appcast.xml'
             ],
         }],
     ],

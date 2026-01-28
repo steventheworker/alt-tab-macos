@@ -2096,7 +2096,6 @@
 				ORGANIZATIONNAME = lwouis;
 				TargetAttributes = {
 					D04BA5E73DAF232ADE11C97A = {
-						DevelopmentTeam = L33QBJT48B;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2383,7 +2382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  exit 0\nfi\n\nscripts/codesign/codesign_sparkle_embedded_apps.sh\n";
+			shellScript = "if [ \"$CONFIGURATION\" = \"Debug\" ]; then\n  exit 0\nfi\n\n# scripts/codesign/codesign_sparkle_embedded_apps.sh\n";
 			showEnvVarsInLog = 0;
 		};
 		5968B81A43F20B6ECD92C7F7 /* [CP] Check Pods Manifest.lock */ = {
