@@ -10,8 +10,12 @@ class DockEvents {
             AXObserverCreate(dockPid, handleEvent, &axObserver)
             // are we sure we always get a non-nil axObserver?
             for notification in MissionControlState.allCases {
-                AXUIElement.retryAxCallUntilTimeout {
-                    try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil)
+                AXUIElement.retryAxCallUntilTimeout(callType: .subscribeToDockNotification) {
+                    if try axUiElement!.subscribeToNotification(axObserver!, notification.rawValue, nil) {
+                        if notification == MissionControlState.showDesktop {
+                            Logger.debug { "Subscribed to Dock" }
+                        }
+                    }
                 }
             }
             CFRunLoopAddSource(BackgroundWork.missionControlThread.runLoop, AXObserverGetRunLoopSource(axObserver!), .commonModes)
@@ -23,9 +27,9 @@ class DockEvents {
             // when found, mission control is not active anymore
         }
     }
-}
 
-fileprivate let handleEvent: AXObserverCallback = { _, _, notificationName, _ in
-    Logger.debug(notificationName)
-    MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
+    private static let handleEvent: AXObserverCallback = { _, _, notificationName, _ in
+        Logger.debug { notificationName }
+        MissionControl.setState(MissionControlState(rawValue: notificationName as String)!)
+    }
 }

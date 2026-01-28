@@ -9,8 +9,8 @@ class thumbnailPreviewScriptCommand: NSScriptCommand {
             DockAltTabThumbnailPreview = CachedUserDefaults.cache["previewFocusedWindow"] as? Bool
             CachedUserDefaults.cache["previewFocusedWindow"] = true
         }
-        Windows.previewFocusedWindowIfNeeded()
-        //run         CachedUserDefaults.cache["previewFocusedWindow"] = UserDefaults.standard.bool(forKey: "previewFocusedWindow")     //on hideui
+        Windows.previewSelectedWindowIfNeeded()
+        //run CachedUserDefaults.cache["previewFocusedWindow"] = UserDefaults.standard.bool(forKey: "previewFocusedWindow")     //on hideui
         return self
     }
 }

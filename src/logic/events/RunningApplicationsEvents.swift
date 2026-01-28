@@ -2,12 +2,11 @@ import Cocoa
 
 class RunningApplicationsEvents {
     private static var appsObserver: NSKeyValueObservation!
-    private static var previousValueOfRunningApps: Set<NSRunningApplication>!
 
     static func observe() {
-        previousValueOfRunningApps = Set(NSWorkspace.shared.runningApplications)
-        appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: handleEvent)
-        
+        // we can't observe NSWorkspace.didLaunchApplicationNotification or NSWorkspace.didTerminateApplicationNotification
+        // these only trigger for some apps, mostly GUI app. We need to track all processes as any could spawn a window
+        appsObserver = NSWorkspace.shared.observe(\.runningApplications, options: [.old, .new], changeHandler: { (_, change) in handleEvent(change) })
 //        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
 //            for i in 0..<18 { print("") }
 //            let x = Windows.list.enumerated().map({ (i, w) in
@@ -37,18 +36,16 @@ class RunningApplicationsEvents {
 //        RunLoop.main.add(timer, forMode: .common)
     }
 
-    // TODO: handle this on a separate thread?
-    @Sendable
-    private static func handleEvent<A>(_: NSWorkspace, _ change: NSKeyValueObservedChange<A>) {
-        let workspaceApps = Set(NSWorkspace.shared.runningApplications)
-        // TODO: symmetricDifference has bad performance
-        let diff = Array(workspaceApps.symmetricDifference(previousValueOfRunningApps))
-        Logger.debug(diff.map { ($0.processIdentifier, $0.bundleIdentifier ?? "nil") })
-        if change.kind == .insertion {
-            Applications.addRunningApplications(diff)
-        } else if change.kind == .removal {
-            Applications.removeRunningApplications(diff)
+    private static func handleEvent(_ change: NSKeyValueObservedChange<[NSRunningApplication]>) {
+        let launched = change.newValue
+        let quit = change.oldValue
+        if let launched {
+            Logger.debug { "launched:\(launched.map { $0.debugId() })" }
+            Applications.addRunningApplications(launched)
         }
-        previousValueOfRunningApps = workspaceApps
+        if let quit {
+            Logger.debug { "quit:\(quit.map { $0.debugId() })" }
+            Applications.removeRunningApplications(quit)
+        }
     }
 }

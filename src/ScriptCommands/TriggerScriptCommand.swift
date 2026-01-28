@@ -4,7 +4,7 @@ import Cocoa
 
 class TriggerScriptCommand: NSScriptCommand {
 	override func performDefaultImplementation() -> Any? {
-        App.app.showUi()
+        App.app.showUi(0)
         App.app.focusTarget()
 //        App.app.previousWindowShortcutWithRepeatingKey()
         return self

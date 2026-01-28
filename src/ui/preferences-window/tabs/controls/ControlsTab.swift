@@ -1,4 +1,5 @@
 import Cocoa
+import Carbon.HIToolbox.Events
 import ShortcutRecorder
 
 class ControlsTab {
@@ -9,9 +10,9 @@ class ControlsTab {
         "holdShortcut2": { App.app.focusTarget() },
         "holdShortcut3": { App.app.focusTarget() },
         "focusWindowShortcut": { App.app.focusTarget() },
-        "nextWindowShortcut": { App.app.showUiOrCycleSelection(0) },
-        "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1) },
-        "nextWindowShortcut3": { App.app.showUiOrCycleSelection(2) },
+        "nextWindowShortcut": { App.app.showUiOrCycleSelection(0, false) },
+        "nextWindowShortcut2": { App.app.showUiOrCycleSelection(1, false) },
+        "nextWindowShortcut3": { App.app.showUiOrCycleSelection(2, false) },
         "previousWindowShortcut": { App.app.previousWindowShortcutWithRepeatingKey() },
         "→": { App.app.cycleSelection(.right) },
         "←": { App.app.cycleSelection(.left) },
@@ -81,7 +82,7 @@ class ControlsTab {
 
     private static func gestureTab(_ index: Int) -> TableGroupView {
         let label = NSLocalizedString("You may need to disable some conflicting system gestures", comment: "")
-        let button = NSButton(title: NSLocalizedString("Open Trackpad Preferences…", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
+        let button = NSButton(title: NSLocalizedString("Open Trackpad Settings…", comment: ""), target: self, action: #selector(openSystemGestures(_:)))
         let infoBtn = LabelAndControl.makeInfoButton(onMouseEntered: { event, view in
             Popover.shared.show(event: event, positioningView: view, message: label, extraView: button)
         })
@@ -104,7 +105,8 @@ class ControlsTab {
         let screensToShow = LabelAndControl.makeDropdown(Preferences.indexToName("screensToShow", index), ScreensToShowPreference.allCases)
         let showMinimizedWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showMinimizedWindows", index), ShowHowPreference.allCases)
         let showHiddenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showHiddenWindows", index), ShowHowPreference.allCases)
-        let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd })
+        let showFullscreenWindows = LabelAndControl.makeDropdown(Preferences.indexToName("showFullscreenWindows", index), ShowHowPreference.allCases.filter { $0 != .showAtTheEnd }) // this filter is ok for serialization because the filtered value is last in the enum
+        let showWindowlessApps = LabelAndControl.makeDropdown(Preferences.indexToName("showWindowlessApps", index), ShowHowPreference.allCases)
         let windowOrder = LabelAndControl.makeDropdown(Preferences.indexToName("windowOrder", index), WindowOrderPreference.allCases)
         let shortcutStyle = LabelAndControl.makeDropdown(Preferences.indexToName("shortcutStyle", index), ShortcutStylePreference.allCases)
         let table = TableGroupView(width: PreferencesWindow.width)
@@ -117,6 +119,7 @@ class ControlsTab {
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show minimized windows", comment: ""), rightViews: [showMinimizedWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show hidden windows", comment: ""), rightViews: [showHiddenWindows]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show fullscreen windows", comment: ""), rightViews: [showFullscreenWindows]))
+        table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Show apps with no open window", comment: ""), rightViews: [showWindowlessApps]))
         table.addRow(TableGroupView.Row(leftTitle: NSLocalizedString("Order windows by", comment: ""), rightViews: [windowOrder]))
         table.fit()
         return table
@@ -151,25 +154,14 @@ class ControlsTab {
         shortcuts[controlId] = atShortcut
         if scope == .global {
             KeyboardEvents.addGlobalShortcut(controlId, atShortcut.shortcut)
-        }
-        toggleNativeCommandTabIfNeeded()
-    }
-
-    /// commandTab and commandKeyAboveTab are self-contained in the "nextWindowShortcut" shortcuts
-    /// but the keys of commandShiftTab can be spread between holdShortcut and a local shortcut
-    static func combinedModifiersMatch(_ modifiers1: UInt32, _ modifiers2: UInt32) -> Bool {
-        return (0..<Preferences.holdShortcut.count).contains {
-            if let holdShortcut = shortcuts[Preferences.indexToName("holdShortcut", $0)] {
-                return (holdShortcut.shortcut.carbonModifierFlags | modifiers1) == (holdShortcut.shortcut.carbonModifierFlags | modifiers2)
-            }
-            return false
+            ControlsTab.toggleNativeCommandTabIfNeeded()
         }
     }
 
-    private static func toggleNativeCommandTabIfNeeded() {
+    static func toggleNativeCommandTabIfNeeded() {
         let nativeHotkeys: [CGSSymbolicHotKey: (Shortcut) -> Bool] = [
-            .commandTab: { (shortcut) in shortcut.carbonKeyCode == kVK_Tab && shortcut.carbonModifierFlags == cmdKey },
-            .commandShiftTab: { (shortcut) in shortcut.carbonKeyCode == kVK_Tab && combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) },
+            .commandTab: { (shortcut) in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_Tab },
+            .commandShiftTab: { (shortcut) in CustomRecorderControlTestable.combinedModifiersMatch(shortcut.carbonModifierFlags, UInt32(cmdKey | shiftKey)) && shortcut.carbonKeyCode == kVK_Tab },
             .commandKeyAboveTab: { (shortcut) in shortcut.carbonModifierFlags == cmdKey && shortcut.carbonKeyCode == kVK_ANSI_Grave },
         ]
         var overlappingHotkeys = shortcuts.values.compactMap { (atShortcut) in nativeHotkeys.first { $1(atShortcut.shortcut) }?.key }
@@ -302,6 +294,9 @@ class ControlsTab {
                 KeyboardEvents.removeGlobalShortcut(controlId, atShortcut.shortcut)
             }
             shortcuts.removeValue(forKey: controlId)
+            if atShortcut.scope == .global {
+                ControlsTab.toggleNativeCommandTabIfNeeded()
+            }
         }
     }
 

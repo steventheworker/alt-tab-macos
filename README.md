@@ -4,9 +4,10 @@
 
 Made for use with [DockAltTab](https://dockalttab.netlify.app) (adds window previews to the MacOS dock)... it does so by sending AppleScript commands to AltTab.
 
-
 # [AppleScript Dictionary / Docs](https://github.com/steventheworker/alt-tab-macos/blob/scriptable/AltTab.sdef)
+
 #### <u>basic commands</u>
+
 - **hide:** Hide Overlay/UI.
 - **show:** Show all app windows. (Regular AltTab shortcut)
 - **showApp:** Show specific app's windows. (ignores blacklist)
@@ -20,6 +21,7 @@ Made for use with [DockAltTab](https://dockalttab.netlify.app) (adds window prev
   <summary><u>Miscellaneous / DockAltTab commands</u></summary>
 
 #### <u>Miscellaneous / DockAltTab commands</u>
+
 - **appSetting:** Read settings applied on showApp previews.
     - named: Name of the setting. (appsToShow, showHiddenWindows, showFullscreenWindows, showMinimizedWindows, spacesToShow, screensToShow, showTabsAsWindows)
 - **countMinimizedWindowsCurrentSpace:** The number of (minimized) windows for an app (FROM the current space, especially useful for keeping minimized windows contained in the space they were originally minimized in).
@@ -32,19 +34,21 @@ Made for use with [DockAltTab](https://dockalttab.netlify.app) (adds window prev
     - appBID
 - **keyState:** Whether a certain key is being pressed (see if AltTab overlay is absorbing modifier keys)
     - key: Name of the key you want to check the state of.
-- **thumbnailPreview:** show focuspreview/targetpreview
-    - ...
-</details>
+- **thumbnailPreview:** show focuspreview/targetpreview - ...
+  </details>
 
 ### example usages:
-```tell application "AltTab" to showApp appBID "com.apple.Safari"```
 
-```tell application "AltTab" to showApp appBID "com.apple.Safari" x 0 y 0```
+`tell application "AltTab" to showApp appBID "com.apple.Safari"`
 
-```tell application "AltTab" to hide```
+`tell application "AltTab" to showApp appBID "com.apple.Safari" x 0 y 0`
+
+`tell application "AltTab" to hide`
 
 # Other Differences
+
 Some other changes I made out of personal preference / hesitation to submit a pull request:
+
 - ignore some app's windows
     - [BetterTouchTool]() "pinned"/floating windows
     - [Screenhint]() floating windows
@@ -53,4 +57,5 @@ Some other changes I made out of personal preference / hesitation to submit a pu
 - auto reopen controls after closing window (allows click spam to repeat close window quickly)
 
 # Contributing
+
 [How to build AltTab on Xcode](https://www.youtube.com/watch?v=iitm_r0BBck) --this youtube video shows how to build the official AltTab from lwouis (but this branch has been normalized to be able to build on m-series/apple silicon, so this may not be necessary)

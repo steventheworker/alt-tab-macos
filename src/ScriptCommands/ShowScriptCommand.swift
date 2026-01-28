@@ -6,7 +6,7 @@ class ShowScriptCommand: NSScriptCommand {
     override func performDefaultImplementation() -> Any? {
 //        App.app.showUi()
         App.app.appIsBeingUsed = true
-        App.app.showUiOrCycleSelection(0)
+        App.app.showUiOrCycleSelection(0, true)
         App.app.previousWindowShortcutWithRepeatingKey()
         return self
     }

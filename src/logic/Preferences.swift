@@ -23,7 +23,7 @@ class Preferences {
         "arrowKeysEnabled": "true",
         "vimKeysEnabled": "false",
         "mouseHoverEnabled": "false",
-        "cursorFollowFocusEnabled": "false",
+        "cursorFollowFocus": CursorFollowFocus.never.indexAsString,
         "showMinimizedWindows": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows2": ShowHowPreference.show.indexAsString,
         "showMinimizedWindows3": ShowHowPreference.show.indexAsString,
@@ -36,6 +36,10 @@ class Preferences {
         "showFullscreenWindows2": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows3": ShowHowPreference.show.indexAsString,
         "showFullscreenWindows4": ShowHowPreference.show.indexAsString,
+        "showWindowlessApps": ShowHowPreference.showAtTheEnd.indexAsString,
+        "showWindowlessApps2": ShowHowPreference.showAtTheEnd.indexAsString,
+        "showWindowlessApps3": ShowHowPreference.showAtTheEnd.indexAsString,
+        "showWindowlessApps4": ShowHowPreference.showAtTheEnd.indexAsString,
         "windowOrder": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder2": WindowOrderPreference.recentlyFocused.indexAsString,
         "windowOrder3": WindowOrderPreference.recentlyFocused.indexAsString,
@@ -46,7 +50,6 @@ class Preferences {
         "appearanceStyle": AppearanceStylePreference.thumbnails.indexAsString,
         "appearanceSize": AppearanceSizePreference.medium.indexAsString,
         "appearanceTheme": AppearanceThemePreference.system.indexAsString,
-        "appearanceVisibility": AppearanceVisibilityPreference.normal.indexAsString,
         "theme": ThemePreference.macOs.indexAsString,
         "showOnScreen": ShowOnScreenPreference.active.indexAsString,
         "titleTruncation": TitleTruncationPreference.end.indexAsString,
@@ -55,7 +58,7 @@ class Preferences {
         "showTitles": ShowTitlesPreference.windowTitle.indexAsString,
         "appsToShow": AppsToShowPreference.all.indexAsString,
         "appsToShow2": AppsToShowPreference.active.indexAsString,
-        "appsToShow3": AppsToShowPreference.all.indexAsString,
+        "appsToShow3": AppsToShowPreference.nonActive.indexAsString,
         "appsToShow4": AppsToShowPreference.all.indexAsString,
         "spacesToShow": SpacesToShowPreference.all.indexAsString,
         "spacesToShow2": SpacesToShowPreference.all.indexAsString,
@@ -81,10 +84,10 @@ class Preferences {
         "shortcutStyle3": ShortcutStylePreference.focusOnRelease.indexAsString,
         "shortcutStyle4": ShortcutStylePreference.focusOnRelease.indexAsString,
         "hideAppBadges": "false",
-        "hideWindowlessApps": "false",
         "hideThumbnails": "false",
         "previewFocusedWindow": "false",
         "screenRecordingPermissionSkipped": "false",
+        "trackpadHapticFeedbackEnabled": "true",
     ]
 
     // system preferences
@@ -107,7 +110,8 @@ class Preferences {
     // periphery:ignore
     static var vimKeysEnabled: Bool { CachedUserDefaults.bool("vimKeysEnabled") }
     static var mouseHoverEnabled: Bool { CachedUserDefaults.bool("mouseHoverEnabled") }
-    static var cursorFollowFocusEnabled: Bool { CachedUserDefaults.bool("cursorFollowFocusEnabled") }
+    static var cursorFollowFocus: CursorFollowFocus { CachedUserDefaults.macroPref("cursorFollowFocus", CursorFollowFocus.allCases) }
+    static var trackpadHapticFeedbackEnabled: Bool { CachedUserDefaults.bool("trackpadHapticFeedbackEnabled") }
     static var showTabsAsWindows: Bool { CachedUserDefaults.bool("showTabsAsWindows") }
     static var hideColoredCircles: Bool { CachedUserDefaults.bool("hideColoredCircles") }
     static var windowDisplayDelay: DispatchTimeInterval { DispatchTimeInterval.milliseconds(CachedUserDefaults.int("windowDisplayDelay")) }
@@ -116,18 +120,16 @@ class Preferences {
     static var hideSpaceNumberLabels: Bool { CachedUserDefaults.bool("hideSpaceNumberLabels") }
     static var hideStatusIcons: Bool { CachedUserDefaults.bool("hideStatusIcons") }
     static var hideAppBadges: Bool { CachedUserDefaults.bool("hideAppBadges") }
-    static var hideWindowlessApps: Bool { CachedUserDefaults.bool("hideWindowlessApps") }
     // periphery:ignore
     static var startAtLogin: Bool { CachedUserDefaults.bool("startAtLogin") }
     static var blacklist: [BlacklistEntry] { CachedUserDefaults.json("blacklist", [BlacklistEntry].self) }
-    static var previewFocusedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
+    static var previewSelectedWindow: Bool { CachedUserDefaults.bool("previewFocusedWindow") }
     static var screenRecordingPermissionSkipped: Bool { CachedUserDefaults.bool("screenRecordingPermissionSkipped") }
 
     // macro values
     static var appearanceStyle: AppearanceStylePreference { CachedUserDefaults.macroPref("appearanceStyle", AppearanceStylePreference.allCases) }
     static var appearanceSize: AppearanceSizePreference { CachedUserDefaults.macroPref("appearanceSize", AppearanceSizePreference.allCases) }
     static var appearanceTheme: AppearanceThemePreference { CachedUserDefaults.macroPref("appearanceTheme", AppearanceThemePreference.allCases) }
-    static var appearanceVisibility: AppearanceVisibilityPreference { CachedUserDefaults.macroPref("appearanceVisibility", AppearanceVisibilityPreference.allCases) }
     // periphery:ignore
     static var theme: ThemePreference { ThemePreference.macOs/*CachedUserDefaults.macroPref("theme", ThemePreference.allCases)*/ }
     static var showOnScreen: ShowOnScreenPreference { CachedUserDefaults.macroPref("showOnScreen", ShowOnScreenPreference.allCases) }
@@ -143,6 +145,7 @@ class Preferences {
     static var showMinimizedWindows: [ShowHowPreference] { ["showMinimizedWindows", "showMinimizedWindows2", "showMinimizedWindows3", "showMinimizedWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showHiddenWindows: [ShowHowPreference] { ["showHiddenWindows", "showHiddenWindows2", "showHiddenWindows3", "showHiddenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var showFullscreenWindows: [ShowHowPreference] { ["showFullscreenWindows", "showFullscreenWindows2", "showFullscreenWindows3", "showFullscreenWindows4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
+    static var showWindowlessApps: [ShowHowPreference] { ["showWindowlessApps", "showWindowlessApps2", "showWindowlessApps3", "showWindowlessApps4"].map { CachedUserDefaults.macroPref($0, ShowHowPreference.allCases) } }
     static var windowOrder: [WindowOrderPreference] { ["windowOrder", "windowOrder2", "windowOrder3", "windowOrder4"].map { CachedUserDefaults.macroPref($0, WindowOrderPreference.allCases) } }
     static var shortcutStyle: [ShortcutStylePreference] { ["shortcutStyle", "shortcutStyle2", "shortcutStyle3", "shortcutStyle4"].map { CachedUserDefaults.macroPref($0, ShortcutStylePreference.allCases) } }
     static var menubarIcon: MenubarIconPreference { CachedUserDefaults.macroPref("menubarIcon", MenubarIconPreference.allCases) }

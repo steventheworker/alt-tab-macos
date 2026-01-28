@@ -34,7 +34,7 @@ CHECKOUT OPTIONS:
     :commit: 7abf4daed1a25218f2b52f2dfd190aee5a50071c
     :git: https://github.com/lwouis/LetsMove.git
   ShortcutRecorder:
-    :commit: 5bb32febdab48038ce1762bf14f5ce8024b11fe7
+    :commit: 594b360e07a8a368ffec2567f77e465477b9994f
     :git: https://github.com/lwouis/ShortcutRecorder.git
 
 SPEC CHECKSUMS:
@@ -44,6 +44,6 @@ SPEC CHECKSUMS:
   Sparkle: 1fa490bb4ab2a9b37cfb9ea4feec19dd33b81cd2
   SwiftyBeaver: d39e7c376bf15e9fffca8263b8fd1f42ea56aa2d
 
-PODFILE CHECKSUM: 63498db413ab0bc0c22e313f2e1c653f4a799e7c
+PODFILE CHECKSUM: c20cb0e8753361ba1c1daea73624f879862271ed
 
 COCOAPODS: 1.16.2
