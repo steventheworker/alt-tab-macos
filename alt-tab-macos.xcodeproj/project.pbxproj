@@ -568,6 +568,7 @@
 		BF0C8FAF34022E23582797F3 /* ScrollwheelEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollwheelEvents.swift; sourceTree = "<group>"; };
 		BF0C8FB9777EE9BE74EF542B /* zh-hk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-hk"; path = Localizable.strings; sourceTree = "<group>"; };
 		BF0C8FC083A2443F3EAF5DB7 /* preferences-blacklist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "preferences-blacklist.jpg"; sourceTree = "<group>"; };
+		BF0C8FEE46E9A73F617EF679 /* gu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = gu; path = Localizable.strings; sourceTree = "<group>"; };
 		BF1B815C2EFE758500A175CE /* countWindowsStatsScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countWindowsStatsScriptCommand.swift; sourceTree = "<group>"; };
 		BF1B815E2EFE7D0800A175CE /* countAllWindowsStatsScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countAllWindowsStatsScriptCommand.swift; sourceTree = "<group>"; };
 		BF42BC7E283552B400F5D5E7 /* HideScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideScriptCommand.swift; sourceTree = "<group>"; };
@@ -583,7 +584,6 @@
 		BFEA09D32AEB529F009450BF /* travis-steventheworker-keys.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "travis-steventheworker-keys.sh"; sourceTree = "<group>"; };
 		BFEEDD9B2952E4790004F56C /* appSettingScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = appSettingScriptCommand.swift; sourceTree = "<group>"; };
 		BFFEABC02ABE6F8F00399DA5 /* countMinimizedWindowsCurrentSpaceScriptCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = countMinimizedWindowsCurrentSpaceScriptCommand.swift; sourceTree = "<group>"; };
-		BF0C8FEE46E9A73F617EF679 /* gu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = gu; path = Localizable.strings; sourceTree = "<group>"; };
 		C0712B3BEA2B3780398C0999 /* Pods_alt_tab_macos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alt_tab_macos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E6F409CA442F83B7BE71AD /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04BA015A45DE7AFDC9794FE /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -2509,7 +2509,6 @@
 				D04BA8480A8FF466CA89DA5B /* main.swift in Sources */,
 				D04BAFB973C3D28718FAEB87 /* Windows.swift in Sources */,
 				D04BAC011A71E0418154F8CD /* Preferences.swift in Sources */,
-				D04BA775CF3F8D9394A1E256 /* NSScreen.swift in Sources */,
 				BFEA01172ABE84740000F1AE /* deminimizeFirstMinimizedWindowFromCurrentSpace.swift in Sources */,
 				D04BADCDA9F9A6C3D6499877 /* SystemPermissions.swift in Sources */,
 				D04BABEECBC6D922298BC93A /* Spaces.swift in Sources */,

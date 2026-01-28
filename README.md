@@ -1,6 +1,6 @@
 ## "scriptable" branch of [lwouis/alt-tab-macos](https://alt-tab-macos.netlify.app/)
 
-**Download:** [AltTab-scriptable-1.94.0.zip](https://github.com/steventheworker/alt-tab-macos/releases/download/1.94.0/AltTab-scriptable-1.94.0.zip)
+**Download:** [AltTab-scriptable-1.94.3.zip](https://github.com/steventheworker/alt-tab-macos/releases/download/1.94.3/AltTab-scriptable-1.94.3.zip)
 
 Made for use with [DockAltTab](https://dockalttab.netlify.app) (adds window previews to the MacOS dock)... it does so by sending AppleScript commands to AltTab.
 
