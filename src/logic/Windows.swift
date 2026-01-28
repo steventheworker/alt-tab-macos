@@ -47,10 +47,8 @@ class Windows {
            let thumbnail = window.thumbnail,
            let position = window.position,
            let size = window.size {
-            print("tuna burger")
             App.app.previewPanel.show(id, thumbnail, position, size)
         } else {
-            print("tina burner")
             App.app.previewPanel.orderOut(nil)
         }
     }
