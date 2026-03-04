@@ -40,7 +40,7 @@ class Windows {
 
     static func previewSelectedWindowIfNeeded() {
         if App.app.appIsBeingUsed && ScreenRecordingPermission.status == .granted
-               && Preferences.previewSelectedWindow && !Preferences.onlyShowApplications()
+               && (Preferences.previewSelectedWindow || DockAltTabWaitForWindow != 0) && !Preferences.onlyShowApplications()
                && App.app.thumbnailsPanel.isKeyWindow,
            let window = selectedWindow(),
            let id = window.cgWindowId,
@@ -95,7 +95,7 @@ class Windows {
     static func refreshThumbnailsAsync(_ windows: [Window], _ source: RefreshCausedBy, windowRemoved: Bool = false) {
         guard (!windows.isEmpty || windowRemoved) && ScreenRecordingPermission.status == .granted
                && !Preferences.onlyShowApplications()
-               && (!Appearance.hideThumbnails || Preferences.previewSelectedWindow) else { return }
+                && (!Appearance.hideThumbnails || (Preferences.previewSelectedWindow || DockAltTabWaitForWindow == windows[0].cgWindowId)) else { return }
         var eligibleWindows = [Window]()
         for window in windows {
             if !window.isWindowlessApp, let cgWindowId = window.cgWindowId, cgWindowId != CGWindowID(bitPattern: -1) {
@@ -191,20 +191,19 @@ class Windows {
             hoveredWindowIndex = nil
             ThumbnailsView.highlight(oldIndex)
         }
+        if DockAltTabMode {
+            updateSelectedAndHoveredWindowIndex(DockAltTabDockPos == "right" ? list.lastIndex(where: { $0.shouldShowTheUser })! : list.firstIndex(where: { $0.shouldShowTheUser })!)
+            return
+        }
         if let frontmostPid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
            let frontmostApp = Applications.findOrCreate(frontmostPid),
            (frontmostApp.focusedWindow == nil || Preferences.windowOrder[App.app.shortcutIndex] != .recentlyFocused),
            let lastFocusedOrderWindowIndex = getLastFocusedOrderWindowIndex() {
             updateSelectedAndHoveredWindowIndex(lastFocusedOrderWindowIndex)
         } else {
-            if (DockAltTabMode) {
-                cycleSelectedWindowIndex(DockAltTabDockPos == "right" ? list.count - 1 : 0)
-                updateSelectedAndHoveredWindowIndex(DockAltTabDockPos == "right" ? list.count - 1 : 0)
-            } else {
-                cycleSelectedWindowIndex(1)
-                if selectedWindowIndex == 0 {
-                    updateSelectedAndHoveredWindowIndex(0)
-                }
+            cycleSelectedWindowIndex(1)
+            if selectedWindowIndex == 0 {
+                updateSelectedAndHoveredWindowIndex(0)
             }
         }
     }
@@ -218,6 +217,7 @@ class Windows {
     }
 
     static func updateSelectedAndHoveredWindowIndex(_ newIndex: Int, _ fromMouse: Bool = false) {
+        if (DockAltTabWaitForWindow != 0 && DockAltTabWaitForWindow != list[newIndex].cgWindowId) { DockAltTabThumbnailPreviewRequestHD(window: list[newIndex]) }
         var index: Int?
         if fromMouse && (newIndex != hoveredWindowIndex || lastWindowActivityType == .focus) {
             let oldIndex = hoveredWindowIndex

@@ -104,7 +104,9 @@ class Window {
 
     func refreshThumbnail(_ screenshot: CALayerContents) {
         thumbnail = screenshot
-        if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
+        if cgWindowId == DockAltTabWaitForWindow {} else {
+            if !App.app.appIsBeingUsed || !shouldShowTheUser { return }
+        }
         if let position, let size,
            let view = (ThumbnailsView.recycledViews.first { $0.window_?.cgWindowId == cgWindowId }) {
             if !view.thumbnail.isHidden {
@@ -112,7 +114,7 @@ class Window {
                 let newSize = thumbnailSize.width != view.thumbnail.frame.width || thumbnailSize.height != view.thumbnail.frame.height
                 view.thumbnail.updateContents(screenshot, thumbnailSize)
                 // if the thumbnail size has changed, we need to refresh the open UI
-                if newSize {
+                if newSize || DockAltTabWaitForWindow != 0 {
                     App.app.refreshOpenUi([], .refreshOnlyThumbnailsAfterShowUi)
                 }
             }

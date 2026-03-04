@@ -258,7 +258,8 @@ extension SCStreamConfiguration {
         // window.size shows logical size. It doesn't change when the scaleFactor changes. We need to correct for this as we need to capture more and less pixels depending on DPI
         let originalSize = NSSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
         guard originalSize.width > 0, originalSize.height > 0 else { return }
-        if Preferences.previewSelectedWindow || DockAltTabMode {
+        if Preferences.previewSelectedWindow || DockAltTabWaitForWindow == window.cgWindowId {
+//            print("HD SCREENSHOT: " + window.title)
             width = Int(originalSize.width)
             height = Int(originalSize.height)
         } else {

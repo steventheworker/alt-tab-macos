@@ -43,6 +43,9 @@ class ATShortcut {
             let flipped = state != newState
             state = newState
             // state == down is unambiguous; state == up is hard to match with a particular shortcut, unless it's been flipped
+            if self.id == "focusWindowShortcut" && DockAltTabMode && keyCode == 31 { // enter (keycode=36) suddenly sends o key (keycode=31) (but only during DockAltTabMode) ???? #todo: ?
+                return true
+            }
             if (triggerPhase == .down && state == .down) || (triggerPhase == .up && state == .up && flipped) {
                 return true
             }

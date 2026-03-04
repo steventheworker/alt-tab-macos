@@ -84,5 +84,9 @@
 <!--                 <cocoa key="no"/>-->
 <!--             </parameter>-->
         </command>
+         <command name="repositionThumbnails" code="atssRpTh" description="Reposition the main view. {x, y} being the center of the dock icon (that caused the preview)">
+             <cocoa class="AltTab.repositionThumbnailsScriptCommand"/>
+             <direct-parameter type="list of number" name="position"/>
+         </command>
      </suite>
  </dictionary>

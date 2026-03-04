@@ -3,7 +3,7 @@ import Cocoa
 class PreviewPanel: NSPanel {
     private let previewView = LightImageView()
     private let borderView = BorderView()
-    private var currentId: CGWindowID?
+    public var currentId: CGWindowID?
 
     /// this allows the window to be above the menubar when its origin.y is set to 0
     override func constrainFrameRect(_ frameRect: NSRect, to screen: NSScreen?) -> NSRect {

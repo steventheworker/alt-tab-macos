@@ -35,7 +35,7 @@ func handleKeyboardEvent(_ globalId: Int?, _ shortcutState: ShortcutState?, _ ke
                 someShortcutTriggered = true
             }
         }
-        shortcut.redundantSafetyMeasures()
+        if (!DockAltTabMode) { shortcut.redundantSafetyMeasures() } // if DAT shortcut action is not 'Do Nothing' it hides UI instead of using KB shortcuts
     }
     // TODO if we manage to move all keyboard listening to the background thread, we'll have issues returning this boolean
     // this function uses many objects that are also used on the main-thread. It also executes the actions

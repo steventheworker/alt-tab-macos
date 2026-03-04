@@ -3,6 +3,7 @@ var DockAltTabFORCEDY = 0
 var DockAltTabMode = false
 var DockAltTabDockPos = ""
 var DockAltTabApp: NSRunningApplication? = nil
+var DockAltTabRepositionTimer: Timer? = nil
 
 func DockAltTabRadiusFix() {
     if (Preferences.theme != .macOs) {return}
@@ -17,10 +18,7 @@ func startDockAltTabMode(app: NSRunningApplication) {
     DockAltTabApp = app
 }
 func DockAltTabResetCachedThumbnailPreviewSetting() {
-    if (DockAltTabThumbnailPreview != nil) {
-        CachedUserDefaults.cache["previewFocusedWindow"] = DockAltTabThumbnailPreview
-        DockAltTabThumbnailPreview = nil
-    }
+    DockAltTabWaitForWindow = 0
 }
 func DockAltTabReset() { //called on HideScriptCommand.swift, App.showUiOrCycleSelection (key shortcut)
     DockAltTabMode = false
@@ -63,10 +61,7 @@ class showAppScriptCommand: NSScriptCommand {
         let tarApp = appInstances[0]
         App.app.appIsBeingUsed = true /* actually line 1 of showUI() */
         
-        /*
-         begin follow/modify showUIOrCycleSelection
-         */
-        if App.app.isFirstSummon {
+//        if App.app.isFirstSummon {        /* begin follow/modify showUIOrCycleSelection */
             NSScreen.updatePreferred()
             if App.app.isVeryFirstSummon {
                 Windows.sortByLevel()
@@ -114,10 +109,12 @@ class showAppScriptCommand: NSScriptCommand {
                     App.app.delayedDisplayScheduled -= 1
                 }
             }
-        } else {
-            App.app.cycleSelection(.leading)
-            KeyRepeatTimer.startRepeatingKeyNextWindow()
-        } // stop following showUIOrCycleSelection
+//        } else {
+//            App.app.cycleSelection(.leading)
+//            KeyRepeatTimer.startRepeatingKeyNextWindow()
+            
+//        }
+        // stop following showUIOrCycleSelection
         
         // make sure focus is on 1st window
 //        if (DockAltTabMode && DockAltTabDockPos == "right") {App.app.previousWindowShortcutWithRepeatingKey()}
