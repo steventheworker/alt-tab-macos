@@ -257,7 +257,7 @@ class App: AppCenterApplication {
         guard appIsBeingUsed else { return }
         thumbnailsPanel.show()
         KeyRepeatTimer.startRepeatingKeyNextWindow()
-        Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi)
+        if !DockAltTabMode { Windows.refreshThumbnailsAsync(Windows.list, .refreshOnlyThumbnailsAfterShowUi) }
     }
 
     func checkIfShortcutsShouldBeDisabled(_ activeWindow: Window?, _ activeApp: Application?) {
