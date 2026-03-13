@@ -59,6 +59,7 @@ class countWindowStatsScriptCommand: NSScriptCommand {
 
         for window in Windows.list {
             guard window.application.runningApplication.processIdentifier == pid else { continue }
+            guard !window.isWindowlessApp else { continue }
 
             all += 1
 
