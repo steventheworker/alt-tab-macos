@@ -76,7 +76,7 @@
              <parameter name="named" code="arg1" type="text" optional="no" description="Name of the setting. (appsToShow, showHiddenWindows, showFullscreenWindows, showMinimizedWindows, spacesToShow, screensToShow, showTabsAsWindows)">
                  <cocoa key="named"/>
              </parameter>
-             <result type="text" description="value of the setting"/>)
+             <result type="text" description="value of the setting"/>
         </command>
          <command name="thumbnailPreview" code="atssThPv" description="Show preview in PreviewPanel.">
              <cocoa class="AltTab.thumbnailPreviewScriptCommand"/>
